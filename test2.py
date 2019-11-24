@@ -25,12 +25,28 @@ def upload_action(channel, uploader_obj, commands, input_root, output_file):
 
     return action_digest
 
-def run_command(channel, command):
-    return None
+def run_command(channel, uploader_obj, commands, input_root, output_file):
+    stub = remote_execution_pb2_grpc.ExecutionStub(channel)
+
+    action_digest = upload_action(channel, uploader_obj, commands, input_root, output_file)
+
+    request = remote_execution_pb2.ExecuteRequest(instance_name="",
+            action_digest=action_digest,
+            skip_cache_lookup=True)
+
+    response = stub.Execute(request)
+
+    stream = None
+
+    for stream in response:
+        print(stream)
+
+    execute_response = remote_execution_pb2.ExecuteResponse()
+    stream.response.Unpack(execute_response)
 
 if __name__ == '__main__':
     channel = grpc.insecure_channel('localhost:50051')
     upme = Uploader(channel)
-    upload_action(channel, upme, ['gcc'], sys.argv[1], [])
+    run_command(channel, upme, ['./test.sh'], sys.argv[1], [])
     upme.flush()
     upme.close()
