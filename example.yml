@@ -1,0 +1,16 @@
+all:
+  desc: Build all targets
+  deps:
+    - hello_world
+    - doc
+  exec: ./a.out > output.txt
+  output: output.txt
+
+hello_world:
+  input:
+    - hello.c
+  exec: gcc hello.c
+  output: a.out
+
+doc:
+  exec: echo "This is doc" > doc.txt
