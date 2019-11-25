@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import grpc, sys
+import grpc, sys, yaml, os
 from buildgrid.client.cas import Uploader, Downloader
 from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
 
@@ -28,7 +28,7 @@ class RAC:
                 input_root_digest = input_root_digest,
                 do_not_cache=not cache)
 
-        action_digest = self.uploader.put_message(action, queue=True)
+        action_digest = self.uploader.put_message(action, queue=False)
 
         return action_digest
 
@@ -56,13 +56,37 @@ class RAC:
         self.uploader.flush()
         return self.run_command(action_digest)
 
+class BuildRunner:
+    def __init__(self, yaml_path, reapi):
+        self.config = yaml.safe_load(open(yaml_path))
+        self.reapi = reapi
+
+    def run(self, target):
+        print("Building target {}".format(target))
+
+        if 'deps' in self.config[target]:
+            for dependent in self.config[target]['deps']:
+                self.run(dependent)
+
+        cmd = self.config[target]['exec'].split(' ')
+
+        if 'output' in self.config[target]:
+            out = (self.config[target]['output'],)
+        else:
+            out = []
+
+        ofiles = self.reapi.action_run(cmd,
+                os.getcwd(),
+                out)
+
+        for blob in ofiles:
+            self.reapi.downloader.download_file(blob.digest, blob.path, is_executable=blob.is_executable)
+
+
+
 if __name__ == '__main__':
     test = RAC('localhost:50051')
-    ofiles = test.action_run(['./test.sh'], sys.argv[1], ('hello',))
-    print(ofiles)
-
-    for blob in ofiles:
-        test.downloader.download_file(blob.digest, blob.path, is_executable=blob.is_executable)
-
+    b = BuildRunner(sys.argv[1], test)
+    b.run(sys.argv[2])
     test.uploader.close()
     test.downloader.close()
