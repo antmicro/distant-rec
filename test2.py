@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import grpc, sys
-from buildgrid.client.cas import Uploader
+from buildgrid.client.cas import Uploader, Downloader
 from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
 
 def upload_action(channel, uploader_obj, commands, input_root, output_file):
@@ -20,7 +20,7 @@ def upload_action(channel, uploader_obj, commands, input_root, output_file):
 
     action = remote_execution_pb2.Action(command_digest=command_digest,
             input_root_digest = input_root_digest,
-            do_not_cache=True)
+            do_not_cache=False)
 
     action_digest = uploader_obj.put_message(action, queue=True)
 
@@ -31,7 +31,7 @@ def run_command(channel, ac):
 
     request = remote_execution_pb2.ExecuteRequest(instance_name="",
             action_digest=ac,
-            skip_cache_lookup=True)
+            skip_cache_lookup=False)
 
     response = stub.Execute(request)
 
@@ -43,13 +43,19 @@ def run_command(channel, ac):
     execute_response = remote_execution_pb2.ExecuteResponse()
     stream.response.Unpack(execute_response)
 
-    #print(execute_response.result.output_files)
+    return execute_response.result.output_files
 
 if __name__ == '__main__':
     channel = grpc.insecure_channel('localhost:50051')
     upme = Uploader(channel)
-    ad = upload_action(channel, upme, ['./test.sh'], sys.argv[1], [])
+    down = Downloader(channel)
+    ad = upload_action(channel, upme, ['./test.sh'], sys.argv[1], ('hello',))
     upme.flush()
-    run_command(channel, ad)
-    upme.flush()
+    ofiles = run_command(channel, ad)
+    print(ofiles)
+    
+    for blob in ofiles:
+        down.download_file(blob.digest, blob.path, is_executable=blob.is_executable)
+
     upme.close()
+    down.close()
