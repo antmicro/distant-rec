@@ -51,11 +51,14 @@ class RAC:
 
         return execute_response.result.output_files
 
+    def action_run(self, cmd, input_dir, output_files):
+        action_digest = self.upload_action(cmd, input_dir, output_files)
+        self.uploader.flush()
+        return self.run_command(action_digest)
+
 if __name__ == '__main__':
     test = RAC('localhost:50051')
-    ad = test.upload_action(['./test.sh'], sys.argv[1], ('hello',))
-    test.uploader.flush()
-    ofiles = test.run_command(ad)
+    ofiles = test.action_run(['./test.sh'], sys.argv[1], ('hello',))
     print(ofiles)
 
     for blob in ofiles:
