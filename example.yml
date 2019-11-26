@@ -3,8 +3,7 @@ all:
   deps:
     - hello_world
     - doc
-  exec: ./a.out > output.txt
-  output: output.txt
+  exec: ./a.out
 
 hello_world:
   input:

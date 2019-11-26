@@ -1,0 +1,19 @@
+all:
+  deps:
+    - hello_world
+    - bye
+    - another
+  exec: gcc -o out hello.o bye.o another.o
+  output: out
+
+hello_world:
+  exec: gcc -c hello.c
+  output: hello.o
+
+bye:
+  exec: gcc -c bye.c
+  output: bye.o
+
+another:
+  exec: gcc -c another.c
+  output: another.o
