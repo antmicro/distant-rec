@@ -58,7 +58,7 @@ class RAC:
 
         command_digest = self.uploader.put_message(command_handler, queue=True)
 
-        input_root_digest = self.uploader.upload_directory(input_root)
+        input_root_digest = self.uploader.upload_directory(input_root+"/build")
 
         action = remote_execution_pb2.Action(command_digest=command_digest,
                 input_root_digest = input_root_digest,
