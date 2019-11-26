@@ -1,8 +1,21 @@
 #!/usr/bin/env python3
 
-import grpc, sys, yaml, os
+import grpc, sys, yaml, os, configparser
 from buildgrid.client.cas import Uploader, Downloader
 from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
+
+
+def get_option(csection, coption):
+    config = configparser.ConfigParser()
+
+    exists = os.path.isfile('config.ini')
+    if not exists:
+        copyfile('config.ini.example','config.ini')
+    config.read('config.ini')
+    if config.has_option(csection, coption):
+        return config.get(csection, coption)
+
+
 
 class RAC:
     def __init__(self, uri):
@@ -85,7 +98,7 @@ class BuildRunner:
 
 
 if __name__ == '__main__':
-    test = RAC('localhost:50051')
+    test = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'))
     b = BuildRunner(sys.argv[1], test)
     b.run(sys.argv[2])
     test.uploader.close()
