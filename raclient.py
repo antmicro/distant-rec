@@ -99,6 +99,10 @@ class BuildRunner:
         if 'deps' in self.config[target]:
             for dependent in self.config[target]['deps']:
                 self.run(dependent)
+        if 'input' in self.config[target]:
+            for dependent in self.config[target]['input']:
+                if dependent in self.config:
+                   self.run(dependent)
 
         cmd = self.config[target]['exec'].split(' ')
 
