@@ -1,12 +1,22 @@
 #!/usr/bin/env python3
 
-import grpc, sys, yaml, os, configparser
-from buildgrid.client.cas import Uploader, Downloader
-from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
+import sys
 
-from google import auth as google_auth
-from google.auth.transport import grpc as google_auth_transport_grpc
-from google.auth.transport import requests as google_auth_transport_requests
+NO_SERVER = 0
+if len(sys.argv) > 3:
+    if sys.argv[3] == "--no-server":
+        NO_SERVER = 1
+
+if NO_SERVER == 0:
+   import grpc
+   from buildgrid.client.cas import Uploader, Downloader
+   from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
+
+   from google import auth as google_auth
+   from google.auth.transport import grpc as google_auth_transport_grpc
+   from google.auth.transport import requests as google_auth_transport_requests
+
+import yaml, os, configparser
 
 def get_option(csection, coption):
     config = configparser.ConfigParser()
@@ -97,19 +107,26 @@ class BuildRunner:
         else:
             out = []
 
-        ofiles = self.reapi.action_run(cmd,
+        if self.reapi != None:
+              ofiles = self.reapi.action_run(cmd,
                 os.getcwd(),
                 out)
 
-        for blob in ofiles:
-            downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
-            downloader.download_file(blob.digest, blob.path, is_executable=blob.is_executable)
-            downloader.close()
+              for blob in ofiles:
+               downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
+               downloader.download_file(blob.digest, blob.path, is_executable=blob.is_executable)
+               downloader.close()
+        else:
+           print("[DUMMY] " + " ".join(cmd))
 
 
 
 if __name__ == '__main__':
-    test = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'))
+    if NO_SERVER == 0:
+       test = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'), get_option('SETUP', 'INSTANCE'))
+    else:
+       test = None
     b = BuildRunner(sys.argv[1], test)
     b.run(sys.argv[2])
-    test.uploader.close()
+    if test != None:
+       test.uploader.close()
