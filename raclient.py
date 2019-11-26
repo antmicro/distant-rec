@@ -30,7 +30,6 @@ class RAC:
             self.channel = grpc.insecure_channel(uri)
         self.instname = instance
         self.uploader = Uploader(self.channel, instance=self.instname)
-        self.downloader = Downloader(self.channel, instance=self.instname)
         print("Running on instance {}".format(self.instname))
 
     def upload_action(self, commands, input_root, output_file, cache=True):
@@ -103,7 +102,9 @@ class BuildRunner:
                 out)
 
         for blob in ofiles:
-            self.reapi.downloader.download_file(blob.digest, blob.path, is_executable=blob.is_executable)
+            downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
+            downloader.download_file(blob.digest, blob.path, is_executable=blob.is_executable)
+            downloader.close()
 
 
 
@@ -112,4 +113,3 @@ if __name__ == '__main__':
     b = BuildRunner(sys.argv[1], test)
     b.run(sys.argv[2])
     test.uploader.close()
-    test.downloader.close()
