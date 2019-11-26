@@ -3,6 +3,7 @@ all:
     - hello_world
     - bye
     - another
+    - ls
   exec: gcc -o out hello.o bye.o another.o
   output: out
 
@@ -17,3 +18,6 @@ bye:
 another:
   exec: gcc -c another.c
   output: another.o
+
+ls:
+  exec: ls
