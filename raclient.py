@@ -40,7 +40,11 @@ class RAC:
             self.channel = grpc.insecure_channel(uri)
         self.instname = instance
         self.uploader = Uploader(self.channel, instance=self.instname)
-        print("Running on instance {}".format(self.instname))
+        if instance == None:
+           nm = "unknown--"+uri
+        else:
+           nm = instance
+        print("Running on instance {}".format(nm))
 
     def upload_action(self, commands, input_root, output_file, cache=True):
         command_handler = remote_execution_pb2.Command()
@@ -95,6 +99,9 @@ class BuildRunner:
         self.counter = 0
 
     def run(self, target):
+        if not target in self.config:
+            print("Target {} not found".format(target));
+            return
         print("Building target {}".format(target))
 
         if 'deps' in self.config[target]:
