@@ -1,3 +1,10 @@
 [SETUP]
+#build server address - used only when custom API implementation
 SERVER=192.168.12.12
+#server port - used only when custom API implementation
 PORT=50051
+#use Google Remote Build Execution - if "yes" server address and port are omitted
+USERBE=no
+
+INSTANCE=antmicro
+

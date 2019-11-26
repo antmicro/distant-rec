@@ -4,6 +4,9 @@ import grpc, sys, yaml, os, configparser
 from buildgrid.client.cas import Uploader, Downloader
 from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
 
+from google import auth as google_auth
+from google.auth.transport import grpc as google_auth_transport_grpc
+from google.auth.transport import requests as google_auth_transport_requests
 
 def get_option(csection, coption):
     config = configparser.ConfigParser()
@@ -18,10 +21,17 @@ def get_option(csection, coption):
 
 
 class RAC:
-    def __init__(self, uri):
-        self.channel = grpc.insecure_channel(uri)
-        self.uploader = Uploader(self.channel)
-        self.downloader = Downloader(self.channel)
+    def __init__(self, uri, instance):
+        if(get_option('SETUP','USERBE') == 'yes'):
+            credentials, _ = google_auth.default()
+            request = google_auth_transport_requests.Request()
+            self.channel = google_auth_transport_grpc.secure_authorized_channel(credentials, request, 'remotebuildexecution.googleapis.com:443')
+        else:
+            self.channel = grpc.insecure_channel(uri)
+        self.instname = instance
+        self.uploader = Uploader(self.channel, instance=self.instname)
+        self.downloader = Downloader(self.channel, instance=self.instname)
+        print("Running on instance {}".format(self.instname))
 
     def upload_action(self, commands, input_root, output_file, cache=True):
         command_handler = remote_execution_pb2.Command()

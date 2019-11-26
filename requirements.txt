@@ -1,3 +1,4 @@
 grpcio
 pyyaml
 -e git+https://gitlab.com/BuildGrid/buildgrid.git#egg=buildgrid
+google-auth
