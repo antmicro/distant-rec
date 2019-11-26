@@ -92,6 +92,7 @@ class BuildRunner:
     def __init__(self, yaml_path, reapi):
         self.config = yaml.safe_load(open(yaml_path))
         self.reapi = reapi
+        self.counter = 0
 
     def run(self, target):
         print("Building target {}".format(target))
@@ -121,7 +122,8 @@ class BuildRunner:
                downloader.download_file(blob.digest, blob.path, is_executable=blob.is_executable)
                downloader.close()
         else:
-           print("[DUMMY] " + " ".join(cmd))
+           self.counter += 1
+           print("[DUMMY %d] " % (self.counter) + " ".join(cmd))
 
 
 
