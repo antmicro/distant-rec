@@ -1,7 +1,7 @@
 config.ini
 src/*
 env/**
-#a.out
+a.out
 .envrc
 build/**
 examples/*.o
