@@ -84,7 +84,7 @@ class RAC:
         COUNT = 0
         for stream in response:
             COUNT += 1
-            print(str(stream.response.value,  encoding='utf-8', errors='ignore'))
+            #print(str(stream.response.value,  encoding='utf-8', errors='ignore'))
         if COUNT != 1:
            print("WARNING: response returns more streams!")
         execute_response = remote_execution_pb2.ExecuteResponse()
