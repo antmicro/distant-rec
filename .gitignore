@@ -2,3 +2,4 @@ config.ini
 src/*
 env/**
 a.out
+.envrc
