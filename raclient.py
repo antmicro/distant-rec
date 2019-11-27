@@ -8,6 +8,7 @@ if len(sys.argv) > 3:
         NO_SERVER = 1
 
 if NO_SERVER == 0:
+   sys.path.insert(0, "tools/buildgrid")
    import grpc
    from buildgrid.client.cas import Uploader, Downloader
    from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
@@ -58,7 +59,7 @@ class RAC:
 
         command_digest = self.uploader.put_message(command_handler, queue=True)
 
-        input_root_digest = self.uploader.upload_directory(input_root)
+        input_root_digest = self.uploader.upload_directory(input_root + "/build")
 
         action = remote_execution_pb2.Action(command_digest=command_digest,
                 input_root_digest = input_root_digest,
@@ -79,13 +80,16 @@ class RAC:
 
         stream = None
 
+        print(response)
+        COUNT = 0
         for stream in response:
-            pass
+            COUNT += 1
             #print(str(stream.response.value,  encoding='utf-8', errors='ignore'))
-
+        if COUNT != 1:
+           print("WARNING: response returns more streams!")
         execute_response = remote_execution_pb2.ExecuteResponse()
         stream.response.Unpack(execute_response)
-        print(execute_response.result.stderr_raw)
+        print(str(execute_response.result.stderr_raw, errors='ignore'))
         if execute_response.result.exit_code != 0:
             print("Compilation failed.")
             fail = 1
@@ -126,7 +130,7 @@ class BuildRunner:
             out = []
             # TODO: hack
             out = [target]
-            if (os.path.exists(target)): return
+            if (os.path.exists("build/"+target)): return
 
         if self.reapi != None:
               ofiles = self.reapi.action_run(cmd,
@@ -136,7 +140,7 @@ class BuildRunner:
                   return -1
               for blob in ofiles:
                downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
-               downloader.download_file(blob.digest, blob.path, is_executable=blob.is_executable)
+               downloader.download_file(blob.digest, "build/" + blob.path, is_executable=blob.is_executable)
                downloader.close()
         else:
            self.counter += 1
