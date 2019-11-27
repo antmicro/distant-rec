@@ -109,6 +109,7 @@ class BuildRunner:
         self.counter = 0
 
     def run(self, target):
+        stub = remote_execution_pb2_grpc.ExecutionStub(self.reapi.channel)
         if not target in self.config:
             print("Target {} not found".format(target));
             return
@@ -140,6 +141,12 @@ class BuildRunner:
                   return -1
               for blob in ofiles:
                downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
+               request = remote_execution_pb2.FindMissingBlobsRequest(instance_name=self.reapi.instname, blob_digests=[blob.digest])
+               fmb_response = stub.Execute(request)
+
+               for resp in fmb_response:
+                   print(resp)
+
                downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
                downloader.close()
         else:
