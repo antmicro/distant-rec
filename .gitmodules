@@ -1,0 +1,6 @@
+[submodule "tools/cmake"]
+	path = tools/cmake
+	url = git@dev.antmicro.com:cmake-remote-generator.git
+[submodule "tools/buildgrid"]
+	path = tools/buildgrid
+	url = git@dev.antmicro.com:buildgrid.git
