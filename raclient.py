@@ -54,7 +54,6 @@ class RAC:
             command_handler.arguments.extend([arg])
 
         for ofile in output_file:
-            print("output_file: " + ofile)
             command_handler.output_files.extend([ofile])
 
         command_digest = self.uploader.put_message(command_handler, queue=True)
@@ -80,16 +79,13 @@ class RAC:
 
         stream = None
 
-        print(response)
-        COUNT = 0
         for stream in response:
-            COUNT += 1
-            #print(str(stream.response.value,  encoding='utf-8', errors='ignore'))
-        if COUNT != 1:
-           print("WARNING: response returns more streams!")
+            continue
+
         execute_response = remote_execution_pb2.ExecuteResponse()
         stream.response.Unpack(execute_response)
-        print(str(execute_response.result.stderr_raw, errors='ignore'))
+        if execute_response.result.stderr_raw != "":
+             print(str(execute_response.result.stderr_raw, errors='ignore'))
         if execute_response.result.exit_code != 0:
             print("Compilation failed.")
             fail = 1
@@ -108,21 +104,30 @@ class BuildRunner:
         self.reapi = reapi
         self.counter = 0
 
-    def run(self, target):
-        stub = remote_execution_pb2_grpc.ExecutionStub(self.reapi.channel)
+    def run(self, target, mock = False, max_count = 0):
+        count = 1
         if not target in self.config:
             print("Target {} not found".format(target));
-            return
-        print("Building target {}".format(target))
+            return -1
 
         if 'deps' in self.config[target]:
             for dependent in self.config[target]['deps']:
-                self.run(dependent)
+                result = self.run(dependent, mock=mock, max_count = max_count)
+                if (result == -1): return -1
+                count += result
         if 'input' in self.config[target]:
             for dependent in self.config[target]['input']:
                 if dependent in self.config:
-                   if (self.run(dependent) == -1): return -1
+                   result = self.run(dependent, mock=mock, max_count = max_count)
+                   if (result == -1): return -1
+                   count += result
 
+        if mock:
+            return count
+        else:
+            print("Building target {}".format(target))
+        self.counter += 1
+        print("[%d / %d] Executing '%s'" % (self.counter, max_count, self.config[target]['exec']))
         cmd = self.config[target]['exec'].split(' ')
 
         if 'output' in self.config[target]:
@@ -131,7 +136,7 @@ class BuildRunner:
             out = []
             # TODO: hack
             out = [target]
-            if (os.path.exists(get_option('SETUP','BUILDDIR')+"/"+target)): return
+            if (os.path.exists(get_option('SETUP','BUILDDIR')+"/"+target)): return count
 
         if self.reapi != None:
               ofiles = self.reapi.action_run(cmd,
@@ -141,18 +146,10 @@ class BuildRunner:
                   return -1
               for blob in ofiles:
                downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
-               #request = remote_execution_pb2.FindMissingBlobsRequest(instance_name=self.reapi.instname, blob_digests=[blob.digest])
-               #fmb_response = stub.Execute(request)
-
-               #for resp in fmb_response:
-               #    print(resp)
-
+               print("Downloading %s" % blob.path);
                downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
                downloader.close()
-        else:
-           self.counter += 1
-           print("[DUMMY %d] " % (self.counter) + " ".join(cmd))
-        return 0
+        return count
 
 
 
@@ -162,6 +159,7 @@ if __name__ == '__main__':
     else:
        test = None
     b = BuildRunner(sys.argv[1], test)
-    b.run(sys.argv[2])
+    count = b.run(sys.argv[2], mock=True)
+    b.run(sys.argv[2], max_count = count)
     if test != None:
        test.uploader.close()
