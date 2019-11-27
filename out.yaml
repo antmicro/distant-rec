@@ -1,0 +1,2293 @@
+CMakeFiles/rebuild_cache.util:
+  deps: []
+  exec: cd remote-execution-client/tools/dep2yaml && cmake-remote-generator/build/bin/cmake
+    -Sdevilutionx -Bremote-execution-client/tools/dep2yaml
+
+rebuild_cache:
+  deps: []
+  exec: phony
+  input:
+  - CMakeFiles/rebuild_cache.util
+
+CMakeFiles/edit_cache.util:
+  deps: []
+  exec: cd remote-execution-client/tools/dep2yaml && cmake-remote-generator/build/bin/cmake
+    -E echo No\ interactive\ CMake\ dialog\ available.
+
+edit_cache:
+  deps: []
+  exec: phony
+  input:
+  - CMakeFiles/edit_cache.util
+
+cmake_object_order_depends_target_devilutionx:
+  deps: []
+  exec: phony
+
+CMakeFiles/devilutionx.dir/SourceX/dx.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/dx.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/dx.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/dx.cpp.o
+    -c devilutionx/SourceX/dx.cpp
+  input:
+  - devilutionx/SourceX/dx.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/controls/devices/game_controller.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/controls/devices/game_controller.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/controls/devices/game_controller.cpp.o.d
+    -o CMakeFiles/devilutionx.dir/SourceX/controls/devices/game_controller.cpp.o -c
+    devilutionx/SourceX/controls/devices/game_controller.cpp
+  input:
+  - devilutionx/SourceX/controls/devices/game_controller.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/controls/devices/joystick.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/controls/devices/joystick.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/controls/devices/joystick.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/controls/devices/joystick.cpp.o
+    -c devilutionx/SourceX/controls/devices/joystick.cpp
+  input:
+  - devilutionx/SourceX/controls/devices/joystick.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/controls/devices/kbcontroller.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/controls/devices/kbcontroller.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/controls/devices/kbcontroller.cpp.o.d -o
+    CMakeFiles/devilutionx.dir/SourceX/controls/devices/kbcontroller.cpp.o -c devilutionx/SourceX/controls/devices/kbcontroller.cpp
+  input:
+  - devilutionx/SourceX/controls/devices/kbcontroller.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/controls/controller.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/controls/controller.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/controls/controller.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/controls/controller.cpp.o
+    -c devilutionx/SourceX/controls/controller.cpp
+  input:
+  - devilutionx/SourceX/controls/controller.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/controls/controller_motion.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/controls/controller_motion.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/controls/controller_motion.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/controls/controller_motion.cpp.o
+    -c devilutionx/SourceX/controls/controller_motion.cpp
+  input:
+  - devilutionx/SourceX/controls/controller_motion.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/controls/game_controls.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/controls/game_controls.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/controls/game_controls.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/controls/game_controls.cpp.o
+    -c devilutionx/SourceX/controls/game_controls.cpp
+  input:
+  - devilutionx/SourceX/controls/game_controls.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/controls/menu_controls.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/controls/menu_controls.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/controls/menu_controls.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/controls/menu_controls.cpp.o
+    -c devilutionx/SourceX/controls/menu_controls.cpp
+  input:
+  - devilutionx/SourceX/controls/menu_controls.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/controls/plrctrls.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/controls/plrctrls.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/controls/plrctrls.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/controls/plrctrls.cpp.o
+    -c devilutionx/SourceX/controls/plrctrls.cpp
+  input:
+  - devilutionx/SourceX/controls/plrctrls.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/controls/touch.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/controls/touch.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/controls/touch.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/controls/touch.cpp.o
+    -c devilutionx/SourceX/controls/touch.cpp
+  input:
+  - devilutionx/SourceX/controls/touch.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/miniwin/ddraw.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/miniwin/ddraw.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/miniwin/ddraw.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/miniwin/ddraw.cpp.o
+    -c devilutionx/SourceX/miniwin/ddraw.cpp
+  input:
+  - devilutionx/SourceX/miniwin/ddraw.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/miniwin/misc.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/miniwin/misc.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/miniwin/misc.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/miniwin/misc.cpp.o
+    -c devilutionx/SourceX/miniwin/misc.cpp
+  input:
+  - devilutionx/SourceX/miniwin/misc.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/miniwin/misc_io.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/miniwin/misc_io.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/miniwin/misc_io.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/miniwin/misc_io.cpp.o
+    -c devilutionx/SourceX/miniwin/misc_io.cpp
+  input:
+  - devilutionx/SourceX/miniwin/misc_io.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/miniwin/misc_msg.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/miniwin/misc_msg.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/miniwin/misc_msg.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/miniwin/misc_msg.cpp.o
+    -c devilutionx/SourceX/miniwin/misc_msg.cpp
+  input:
+  - devilutionx/SourceX/miniwin/misc_msg.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/miniwin/rand.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/miniwin/rand.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/miniwin/rand.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/miniwin/rand.cpp.o
+    -c devilutionx/SourceX/miniwin/rand.cpp
+  input:
+  - devilutionx/SourceX/miniwin/rand.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/miniwin/thread.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/miniwin/thread.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/miniwin/thread.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/miniwin/thread.cpp.o
+    -c devilutionx/SourceX/miniwin/thread.cpp
+  input:
+  - devilutionx/SourceX/miniwin/thread.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/miniwin/dsound.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/miniwin/dsound.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/miniwin/dsound.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/miniwin/dsound.cpp.o
+    -c devilutionx/SourceX/miniwin/dsound.cpp
+  input:
+  - devilutionx/SourceX/miniwin/dsound.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/sound.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/sound.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/sound.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/sound.cpp.o
+    -c devilutionx/SourceX/sound.cpp
+  input:
+  - devilutionx/SourceX/sound.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/storm/storm.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/storm/storm.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/storm/storm.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/storm/storm.cpp.o
+    -c devilutionx/SourceX/storm/storm.cpp
+  input:
+  - devilutionx/SourceX/storm/storm.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/storm/storm_net.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/storm/storm_net.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/storm/storm_net.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/storm/storm_net.cpp.o
+    -c devilutionx/SourceX/storm/storm_net.cpp
+  input:
+  - devilutionx/SourceX/storm/storm_net.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/storm/storm_dx.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/storm/storm_dx.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/storm/storm_dx.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/storm/storm_dx.cpp.o
+    -c devilutionx/SourceX/storm/storm_dx.cpp
+  input:
+  - devilutionx/SourceX/storm/storm_dx.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/dvlnet/abstract_net.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/dvlnet/abstract_net.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/dvlnet/abstract_net.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/dvlnet/abstract_net.cpp.o
+    -c devilutionx/SourceX/dvlnet/abstract_net.cpp
+  input:
+  - devilutionx/SourceX/dvlnet/abstract_net.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/dvlnet/loopback.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/dvlnet/loopback.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/dvlnet/loopback.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/dvlnet/loopback.cpp.o
+    -c devilutionx/SourceX/dvlnet/loopback.cpp
+  input:
+  - devilutionx/SourceX/dvlnet/loopback.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/dvlnet/packet.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/dvlnet/packet.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/dvlnet/packet.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/dvlnet/packet.cpp.o
+    -c devilutionx/SourceX/dvlnet/packet.cpp
+  input:
+  - devilutionx/SourceX/dvlnet/packet.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/dvlnet/base.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/dvlnet/base.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/dvlnet/base.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/dvlnet/base.cpp.o
+    -c devilutionx/SourceX/dvlnet/base.cpp
+  input:
+  - devilutionx/SourceX/dvlnet/base.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/dvlnet/frame_queue.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/dvlnet/frame_queue.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/dvlnet/frame_queue.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/dvlnet/frame_queue.cpp.o
+    -c devilutionx/SourceX/dvlnet/frame_queue.cpp
+  input:
+  - devilutionx/SourceX/dvlnet/frame_queue.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/dvlnet/cdwrap.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/dvlnet/cdwrap.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/dvlnet/cdwrap.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/dvlnet/cdwrap.cpp.o
+    -c devilutionx/SourceX/dvlnet/cdwrap.cpp
+  input:
+  - devilutionx/SourceX/dvlnet/cdwrap.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/art_draw.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/art_draw.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/art_draw.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/art_draw.cpp.o
+    -c devilutionx/SourceX/DiabloUI/art_draw.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/art_draw.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/errorart.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/errorart.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/errorart.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/errorart.cpp.o
+    -c devilutionx/SourceX/DiabloUI/errorart.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/errorart.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/art.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/art.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/art.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/art.cpp.o
+    -c devilutionx/SourceX/DiabloUI/art.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/art.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/button.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/button.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/button.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/button.cpp.o
+    -c devilutionx/SourceX/DiabloUI/button.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/button.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/credits.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/credits.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/credits.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/credits.cpp.o
+    -c devilutionx/SourceX/DiabloUI/credits.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/credits.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/credits_lines.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/credits_lines.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/credits_lines.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/credits_lines.cpp.o
+    -c devilutionx/SourceX/DiabloUI/credits_lines.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/credits_lines.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/diabloui.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/diabloui.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/diabloui.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/diabloui.cpp.o
+    -c devilutionx/SourceX/DiabloUI/diabloui.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/diabloui.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/dialogs.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/dialogs.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/dialogs.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/dialogs.cpp.o
+    -c devilutionx/SourceX/DiabloUI/dialogs.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/dialogs.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/fonts.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/fonts.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/fonts.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/fonts.cpp.o
+    -c devilutionx/SourceX/DiabloUI/fonts.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/fonts.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/mainmenu.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/mainmenu.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/mainmenu.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/mainmenu.cpp.o
+    -c devilutionx/SourceX/DiabloUI/mainmenu.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/mainmenu.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/progress.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/progress.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/progress.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/progress.cpp.o
+    -c devilutionx/SourceX/DiabloUI/progress.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/progress.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/scrollbar.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/scrollbar.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/scrollbar.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/scrollbar.cpp.o
+    -c devilutionx/SourceX/DiabloUI/scrollbar.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/scrollbar.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selconn.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selconn.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selconn.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selconn.cpp.o
+    -c devilutionx/SourceX/DiabloUI/selconn.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/selconn.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selgame.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selgame.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selgame.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selgame.cpp.o
+    -c devilutionx/SourceX/DiabloUI/selgame.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/selgame.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selhero.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selhero.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selhero.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selhero.cpp.o
+    -c devilutionx/SourceX/DiabloUI/selhero.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/selhero.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selyesno.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selyesno.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selyesno.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selyesno.cpp.o
+    -c devilutionx/SourceX/DiabloUI/selyesno.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/selyesno.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/text_draw.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/text_draw.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/text_draw.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/text_draw.cpp.o
+    -c devilutionx/SourceX/DiabloUI/text_draw.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/text_draw.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/text.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/text.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/text.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/text.cpp.o
+    -c devilutionx/SourceX/DiabloUI/text.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/text.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/title.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/title.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/title.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/title.cpp.o
+    -c devilutionx/SourceX/DiabloUI/title.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/title.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/DiabloUI/ttf_render_wrapped.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/DiabloUI/ttf_render_wrapped.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/DiabloUI/ttf_render_wrapped.cpp.o.d -o
+    CMakeFiles/devilutionx.dir/SourceX/DiabloUI/ttf_render_wrapped.cpp.o -c devilutionx/SourceX/DiabloUI/ttf_render_wrapped.cpp
+  input:
+  - devilutionx/SourceX/DiabloUI/ttf_render_wrapped.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/main.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/main.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/main.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/main.cpp.o
+    -c devilutionx/SourceX/main.cpp
+  input:
+  - devilutionx/SourceX/main.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/dvlnet/tcp_client.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/dvlnet/tcp_client.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/dvlnet/tcp_client.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/dvlnet/tcp_client.cpp.o
+    -c devilutionx/SourceX/dvlnet/tcp_client.cpp
+  input:
+  - devilutionx/SourceX/dvlnet/tcp_client.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/dvlnet/tcp_server.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/dvlnet/tcp_server.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/dvlnet/tcp_server.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/dvlnet/tcp_server.cpp.o
+    -c devilutionx/SourceX/dvlnet/tcp_server.cpp
+  input:
+  - devilutionx/SourceX/dvlnet/tcp_server.cpp
+
+CMakeFiles/devilutionx.dir/SourceX/dvlnet/udp_p2p.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DASIO_STANDALONE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/SourceX -Idevilutionx/3rdParty/asio/include
+    -Idevilutionx/3rdParty/Radon/Radon/include -Idevilutionx/3rdParty/libsmacker
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -Wall -Wextra -Wno-write-strings
+    -Wno-unused-parameter -Wno-missing-field-initializers -Wno-format-security -fsigned-char
+    -fno-omit-frame-pointer -pthread -std=c++11 -MD -MT CMakeFiles/devilutionx.dir/SourceX/dvlnet/udp_p2p.cpp.o
+    -MF CMakeFiles/devilutionx.dir/SourceX/dvlnet/udp_p2p.cpp.o.d -o CMakeFiles/devilutionx.dir/SourceX/dvlnet/udp_p2p.cpp.o
+    -c devilutionx/SourceX/dvlnet/udp_p2p.cpp
+  input:
+  - devilutionx/SourceX/dvlnet/udp_p2p.cpp
+
+devilutionx:
+  deps:
+  - libdevilution.a
+  - libPKWare.a
+  - libStormLib.a
+  - libsmacker.a
+  - libRadon.a
+  - /usr/lib/libsodium.so
+  - /usr/lib/libSDL2main.a
+  - /usr/lib/libSDL2_ttf.so
+  - /usr/lib/libSDL2_mixer.so
+  - /usr/lib/libSDL2-2.0.so.0.10.0
+  exec: ': && /usr/bin/c++ -Wno-builtin-macro-redefined -D__FILE__="$(subst $(realpath
+    devilutionx)/,,$(abspath $<))" -g CMakeFiles/devilutionx.dir/SourceX/dx.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/controls/devices/game_controller.cpp.o CMakeFiles/devilutionx.dir/SourceX/controls/devices/joystick.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/controls/devices/kbcontroller.cpp.o CMakeFiles/devilutionx.dir/SourceX/controls/controller.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/controls/controller_motion.cpp.o CMakeFiles/devilutionx.dir/SourceX/controls/game_controls.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/controls/menu_controls.cpp.o CMakeFiles/devilutionx.dir/SourceX/controls/plrctrls.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/controls/touch.cpp.o CMakeFiles/devilutionx.dir/SourceX/miniwin/ddraw.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/miniwin/misc.cpp.o CMakeFiles/devilutionx.dir/SourceX/miniwin/misc_io.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/miniwin/misc_msg.cpp.o CMakeFiles/devilutionx.dir/SourceX/miniwin/rand.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/miniwin/thread.cpp.o CMakeFiles/devilutionx.dir/SourceX/miniwin/dsound.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/sound.cpp.o CMakeFiles/devilutionx.dir/SourceX/storm/storm.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/storm/storm_net.cpp.o CMakeFiles/devilutionx.dir/SourceX/storm/storm_dx.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/dvlnet/abstract_net.cpp.o CMakeFiles/devilutionx.dir/SourceX/dvlnet/loopback.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/dvlnet/packet.cpp.o CMakeFiles/devilutionx.dir/SourceX/dvlnet/base.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/dvlnet/frame_queue.cpp.o CMakeFiles/devilutionx.dir/SourceX/dvlnet/cdwrap.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/DiabloUI/art_draw.cpp.o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/errorart.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/DiabloUI/art.cpp.o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/button.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/DiabloUI/credits.cpp.o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/credits_lines.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/DiabloUI/diabloui.cpp.o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/dialogs.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/DiabloUI/fonts.cpp.o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/mainmenu.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/DiabloUI/progress.cpp.o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/scrollbar.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selconn.cpp.o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selgame.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selhero.cpp.o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selyesno.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/DiabloUI/text_draw.cpp.o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/text.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/DiabloUI/title.cpp.o CMakeFiles/devilutionx.dir/SourceX/DiabloUI/ttf_render_wrapped.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/main.cpp.o CMakeFiles/devilutionx.dir/SourceX/dvlnet/tcp_client.cpp.o
+    CMakeFiles/devilutionx.dir/SourceX/dvlnet/tcp_server.cpp.o CMakeFiles/devilutionx.dir/SourceX/dvlnet/udp_p2p.cpp.o
+    -o devilutionx libdevilution.a libPKWare.a libStormLib.a libsmacker.a libRadon.a
+    /usr/lib/libsodium.so /usr/lib/libSDL2main.a /usr/lib/libSDL2_ttf.so /usr/lib/libSDL2_mixer.so
+    -fsanitize=address -fsanitize-recover=address -fsanitize=undefined /usr/lib/libSDL2-2.0.so.0.10.0
+    -pthread && :'
+  input:
+  - CMakeFiles/devilutionx.dir/SourceX/dx.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/controls/devices/game_controller.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/controls/devices/joystick.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/controls/devices/kbcontroller.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/controls/controller.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/controls/controller_motion.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/controls/game_controls.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/controls/menu_controls.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/controls/plrctrls.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/controls/touch.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/miniwin/ddraw.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/miniwin/misc.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/miniwin/misc_io.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/miniwin/misc_msg.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/miniwin/rand.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/miniwin/thread.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/miniwin/dsound.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/sound.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/storm/storm.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/storm/storm_net.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/storm/storm_dx.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/dvlnet/abstract_net.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/dvlnet/loopback.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/dvlnet/packet.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/dvlnet/base.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/dvlnet/frame_queue.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/dvlnet/cdwrap.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/art_draw.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/errorart.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/art.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/button.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/credits.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/credits_lines.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/diabloui.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/dialogs.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/fonts.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/mainmenu.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/progress.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/scrollbar.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selconn.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selgame.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selhero.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/selyesno.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/text_draw.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/text.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/title.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/DiabloUI/ttf_render_wrapped.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/main.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/dvlnet/tcp_client.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/dvlnet/tcp_server.cpp.o
+  - CMakeFiles/devilutionx.dir/SourceX/dvlnet/udp_p2p.cpp.o
+
+cmake_object_order_depends_target_Radon:
+  deps: []
+  exec: phony
+
+CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/File.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/File.cpp.o -MF CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/File.cpp.o.d
+    -o CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/File.cpp.o -c devilutionx/3rdParty/Radon/Radon/source/File.cpp
+  input:
+  - devilutionx/3rdParty/Radon/Radon/source/File.cpp
+
+CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Key.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Key.cpp.o -MF CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Key.cpp.o.d
+    -o CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Key.cpp.o -c devilutionx/3rdParty/Radon/Radon/source/Key.cpp
+  input:
+  - devilutionx/3rdParty/Radon/Radon/source/Key.cpp
+
+CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Named.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Named.cpp.o -MF CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Named.cpp.o.d
+    -o CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Named.cpp.o -c devilutionx/3rdParty/Radon/Radon/source/Named.cpp
+  input:
+  - devilutionx/3rdParty/Radon/Radon/source/Named.cpp
+
+CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Section.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Section.cpp.o -MF CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Section.cpp.o.d
+    -o CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Section.cpp.o -c devilutionx/3rdParty/Radon/Radon/source/Section.cpp
+  input:
+  - devilutionx/3rdParty/Radon/Radon/source/Section.cpp
+
+libRadon.a:
+  deps: []
+  exec: ': && cmake-remote-generator/build/bin/cmake -E rm
+    -f libRadon.a && /usr/bin/ar qc libRadon.a CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/File.cpp.o
+    CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Key.cpp.o CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Named.cpp.o
+    CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Section.cpp.o && /usr/bin/ranlib
+    libRadon.a && :'
+  input:
+  - CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/File.cpp.o
+  - CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Key.cpp.o
+  - CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Named.cpp.o
+  - CMakeFiles/Radon.dir/3rdParty/Radon/Radon/source/Section.cpp.o
+
+cmake_object_order_depends_target_devilution:
+  deps: []
+  exec: phony
+
+CMakeFiles/devilution.dir/Source/appfat.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/appfat.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/appfat.cpp.o.d -o CMakeFiles/devilution.dir/Source/appfat.cpp.o
+    -c devilutionx/Source/appfat.cpp
+  input:
+  - devilutionx/Source/appfat.cpp
+
+CMakeFiles/devilution.dir/Source/automap.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/automap.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/automap.cpp.o.d -o CMakeFiles/devilution.dir/Source/automap.cpp.o
+    -c devilutionx/Source/automap.cpp
+  input:
+  - devilutionx/Source/automap.cpp
+
+CMakeFiles/devilution.dir/Source/capture.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/capture.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/capture.cpp.o.d -o CMakeFiles/devilution.dir/Source/capture.cpp.o
+    -c devilutionx/Source/capture.cpp
+  input:
+  - devilutionx/Source/capture.cpp
+
+CMakeFiles/devilution.dir/Source/codec.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/codec.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/codec.cpp.o.d -o CMakeFiles/devilution.dir/Source/codec.cpp.o
+    -c devilutionx/Source/codec.cpp
+  input:
+  - devilutionx/Source/codec.cpp
+
+CMakeFiles/devilution.dir/Source/control.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/control.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/control.cpp.o.d -o CMakeFiles/devilution.dir/Source/control.cpp.o
+    -c devilutionx/Source/control.cpp
+  input:
+  - devilutionx/Source/control.cpp
+
+CMakeFiles/devilution.dir/Source/cursor.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/cursor.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/cursor.cpp.o.d -o CMakeFiles/devilution.dir/Source/cursor.cpp.o
+    -c devilutionx/Source/cursor.cpp
+  input:
+  - devilutionx/Source/cursor.cpp
+
+CMakeFiles/devilution.dir/Source/dead.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/dead.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/dead.cpp.o.d -o CMakeFiles/devilution.dir/Source/dead.cpp.o
+    -c devilutionx/Source/dead.cpp
+  input:
+  - devilutionx/Source/dead.cpp
+
+CMakeFiles/devilution.dir/Source/debug.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/debug.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/debug.cpp.o.d -o CMakeFiles/devilution.dir/Source/debug.cpp.o
+    -c devilutionx/Source/debug.cpp
+  input:
+  - devilutionx/Source/debug.cpp
+
+CMakeFiles/devilution.dir/Source/diablo.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/diablo.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/diablo.cpp.o.d -o CMakeFiles/devilution.dir/Source/diablo.cpp.o
+    -c devilutionx/Source/diablo.cpp
+  input:
+  - devilutionx/Source/diablo.cpp
+
+CMakeFiles/devilution.dir/Source/doom.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/doom.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/doom.cpp.o.d -o CMakeFiles/devilution.dir/Source/doom.cpp.o
+    -c devilutionx/Source/doom.cpp
+  input:
+  - devilutionx/Source/doom.cpp
+
+CMakeFiles/devilution.dir/Source/drlg_l1.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/drlg_l1.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/drlg_l1.cpp.o.d -o CMakeFiles/devilution.dir/Source/drlg_l1.cpp.o
+    -c devilutionx/Source/drlg_l1.cpp
+  input:
+  - devilutionx/Source/drlg_l1.cpp
+
+CMakeFiles/devilution.dir/Source/drlg_l2.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/drlg_l2.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/drlg_l2.cpp.o.d -o CMakeFiles/devilution.dir/Source/drlg_l2.cpp.o
+    -c devilutionx/Source/drlg_l2.cpp
+  input:
+  - devilutionx/Source/drlg_l2.cpp
+
+CMakeFiles/devilution.dir/Source/drlg_l3.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/drlg_l3.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/drlg_l3.cpp.o.d -o CMakeFiles/devilution.dir/Source/drlg_l3.cpp.o
+    -c devilutionx/Source/drlg_l3.cpp
+  input:
+  - devilutionx/Source/drlg_l3.cpp
+
+CMakeFiles/devilution.dir/Source/drlg_l4.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/drlg_l4.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/drlg_l4.cpp.o.d -o CMakeFiles/devilution.dir/Source/drlg_l4.cpp.o
+    -c devilutionx/Source/drlg_l4.cpp
+  input:
+  - devilutionx/Source/drlg_l4.cpp
+
+CMakeFiles/devilution.dir/Source/dthread.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/dthread.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/dthread.cpp.o.d -o CMakeFiles/devilution.dir/Source/dthread.cpp.o
+    -c devilutionx/Source/dthread.cpp
+  input:
+  - devilutionx/Source/dthread.cpp
+
+CMakeFiles/devilution.dir/Source/effects.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/effects.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/effects.cpp.o.d -o CMakeFiles/devilution.dir/Source/effects.cpp.o
+    -c devilutionx/Source/effects.cpp
+  input:
+  - devilutionx/Source/effects.cpp
+
+CMakeFiles/devilution.dir/Source/encrypt.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/encrypt.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/encrypt.cpp.o.d -o CMakeFiles/devilution.dir/Source/encrypt.cpp.o
+    -c devilutionx/Source/encrypt.cpp
+  input:
+  - devilutionx/Source/encrypt.cpp
+
+CMakeFiles/devilution.dir/Source/engine.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/engine.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/engine.cpp.o.d -o CMakeFiles/devilution.dir/Source/engine.cpp.o
+    -c devilutionx/Source/engine.cpp
+  input:
+  - devilutionx/Source/engine.cpp
+
+CMakeFiles/devilution.dir/Source/error.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/error.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/error.cpp.o.d -o CMakeFiles/devilution.dir/Source/error.cpp.o
+    -c devilutionx/Source/error.cpp
+  input:
+  - devilutionx/Source/error.cpp
+
+CMakeFiles/devilution.dir/Source/gamemenu.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/gamemenu.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/gamemenu.cpp.o.d -o CMakeFiles/devilution.dir/Source/gamemenu.cpp.o
+    -c devilutionx/Source/gamemenu.cpp
+  input:
+  - devilutionx/Source/gamemenu.cpp
+
+CMakeFiles/devilution.dir/Source/gendung.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/gendung.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/gendung.cpp.o.d -o CMakeFiles/devilution.dir/Source/gendung.cpp.o
+    -c devilutionx/Source/gendung.cpp
+  input:
+  - devilutionx/Source/gendung.cpp
+
+CMakeFiles/devilution.dir/Source/gmenu.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/gmenu.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/gmenu.cpp.o.d -o CMakeFiles/devilution.dir/Source/gmenu.cpp.o
+    -c devilutionx/Source/gmenu.cpp
+  input:
+  - devilutionx/Source/gmenu.cpp
+
+CMakeFiles/devilution.dir/Source/help.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/help.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/help.cpp.o.d -o CMakeFiles/devilution.dir/Source/help.cpp.o
+    -c devilutionx/Source/help.cpp
+  input:
+  - devilutionx/Source/help.cpp
+
+CMakeFiles/devilution.dir/Source/init.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/init.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/init.cpp.o.d -o CMakeFiles/devilution.dir/Source/init.cpp.o
+    -c devilutionx/Source/init.cpp
+  input:
+  - devilutionx/Source/init.cpp
+
+CMakeFiles/devilution.dir/Source/interfac.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/interfac.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/interfac.cpp.o.d -o CMakeFiles/devilution.dir/Source/interfac.cpp.o
+    -c devilutionx/Source/interfac.cpp
+  input:
+  - devilutionx/Source/interfac.cpp
+
+CMakeFiles/devilution.dir/Source/inv.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/inv.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/inv.cpp.o.d -o CMakeFiles/devilution.dir/Source/inv.cpp.o
+    -c devilutionx/Source/inv.cpp
+  input:
+  - devilutionx/Source/inv.cpp
+
+CMakeFiles/devilution.dir/Source/itemdat.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/itemdat.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/itemdat.cpp.o.d -o CMakeFiles/devilution.dir/Source/itemdat.cpp.o
+    -c devilutionx/Source/itemdat.cpp
+  input:
+  - devilutionx/Source/itemdat.cpp
+
+CMakeFiles/devilution.dir/Source/items.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/items.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/items.cpp.o.d -o CMakeFiles/devilution.dir/Source/items.cpp.o
+    -c devilutionx/Source/items.cpp
+  input:
+  - devilutionx/Source/items.cpp
+
+CMakeFiles/devilution.dir/Source/lighting.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/lighting.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/lighting.cpp.o.d -o CMakeFiles/devilution.dir/Source/lighting.cpp.o
+    -c devilutionx/Source/lighting.cpp
+  input:
+  - devilutionx/Source/lighting.cpp
+
+CMakeFiles/devilution.dir/Source/loadsave.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/loadsave.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/loadsave.cpp.o.d -o CMakeFiles/devilution.dir/Source/loadsave.cpp.o
+    -c devilutionx/Source/loadsave.cpp
+  input:
+  - devilutionx/Source/loadsave.cpp
+
+CMakeFiles/devilution.dir/Source/mainmenu.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/mainmenu.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/mainmenu.cpp.o.d -o CMakeFiles/devilution.dir/Source/mainmenu.cpp.o
+    -c devilutionx/Source/mainmenu.cpp
+  input:
+  - devilutionx/Source/mainmenu.cpp
+
+CMakeFiles/devilution.dir/Source/minitext.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/minitext.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/minitext.cpp.o.d -o CMakeFiles/devilution.dir/Source/minitext.cpp.o
+    -c devilutionx/Source/minitext.cpp
+  input:
+  - devilutionx/Source/minitext.cpp
+
+CMakeFiles/devilution.dir/Source/misdat.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/misdat.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/misdat.cpp.o.d -o CMakeFiles/devilution.dir/Source/misdat.cpp.o
+    -c devilutionx/Source/misdat.cpp
+  input:
+  - devilutionx/Source/misdat.cpp
+
+CMakeFiles/devilution.dir/Source/missiles.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/missiles.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/missiles.cpp.o.d -o CMakeFiles/devilution.dir/Source/missiles.cpp.o
+    -c devilutionx/Source/missiles.cpp
+  input:
+  - devilutionx/Source/missiles.cpp
+
+CMakeFiles/devilution.dir/Source/monstdat.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/monstdat.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/monstdat.cpp.o.d -o CMakeFiles/devilution.dir/Source/monstdat.cpp.o
+    -c devilutionx/Source/monstdat.cpp
+  input:
+  - devilutionx/Source/monstdat.cpp
+
+CMakeFiles/devilution.dir/Source/monster.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/monster.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/monster.cpp.o.d -o CMakeFiles/devilution.dir/Source/monster.cpp.o
+    -c devilutionx/Source/monster.cpp
+  input:
+  - devilutionx/Source/monster.cpp
+
+CMakeFiles/devilution.dir/Source/movie.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/movie.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/movie.cpp.o.d -o CMakeFiles/devilution.dir/Source/movie.cpp.o
+    -c devilutionx/Source/movie.cpp
+  input:
+  - devilutionx/Source/movie.cpp
+
+CMakeFiles/devilution.dir/Source/mpqapi.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/mpqapi.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/mpqapi.cpp.o.d -o CMakeFiles/devilution.dir/Source/mpqapi.cpp.o
+    -c devilutionx/Source/mpqapi.cpp
+  input:
+  - devilutionx/Source/mpqapi.cpp
+
+CMakeFiles/devilution.dir/Source/msg.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/msg.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/msg.cpp.o.d -o CMakeFiles/devilution.dir/Source/msg.cpp.o
+    -c devilutionx/Source/msg.cpp
+  input:
+  - devilutionx/Source/msg.cpp
+
+CMakeFiles/devilution.dir/Source/multi.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/multi.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/multi.cpp.o.d -o CMakeFiles/devilution.dir/Source/multi.cpp.o
+    -c devilutionx/Source/multi.cpp
+  input:
+  - devilutionx/Source/multi.cpp
+
+CMakeFiles/devilution.dir/Source/nthread.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/nthread.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/nthread.cpp.o.d -o CMakeFiles/devilution.dir/Source/nthread.cpp.o
+    -c devilutionx/Source/nthread.cpp
+  input:
+  - devilutionx/Source/nthread.cpp
+
+CMakeFiles/devilution.dir/Source/objdat.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/objdat.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/objdat.cpp.o.d -o CMakeFiles/devilution.dir/Source/objdat.cpp.o
+    -c devilutionx/Source/objdat.cpp
+  input:
+  - devilutionx/Source/objdat.cpp
+
+CMakeFiles/devilution.dir/Source/objects.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/objects.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/objects.cpp.o.d -o CMakeFiles/devilution.dir/Source/objects.cpp.o
+    -c devilutionx/Source/objects.cpp
+  input:
+  - devilutionx/Source/objects.cpp
+
+CMakeFiles/devilution.dir/Source/pack.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/pack.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/pack.cpp.o.d -o CMakeFiles/devilution.dir/Source/pack.cpp.o
+    -c devilutionx/Source/pack.cpp
+  input:
+  - devilutionx/Source/pack.cpp
+
+CMakeFiles/devilution.dir/Source/palette.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/palette.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/palette.cpp.o.d -o CMakeFiles/devilution.dir/Source/palette.cpp.o
+    -c devilutionx/Source/palette.cpp
+  input:
+  - devilutionx/Source/palette.cpp
+
+CMakeFiles/devilution.dir/Source/path.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/path.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/path.cpp.o.d -o CMakeFiles/devilution.dir/Source/path.cpp.o
+    -c devilutionx/Source/path.cpp
+  input:
+  - devilutionx/Source/path.cpp
+
+CMakeFiles/devilution.dir/Source/pfile.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/pfile.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/pfile.cpp.o.d -o CMakeFiles/devilution.dir/Source/pfile.cpp.o
+    -c devilutionx/Source/pfile.cpp
+  input:
+  - devilutionx/Source/pfile.cpp
+
+CMakeFiles/devilution.dir/Source/player.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/player.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/player.cpp.o.d -o CMakeFiles/devilution.dir/Source/player.cpp.o
+    -c devilutionx/Source/player.cpp
+  input:
+  - devilutionx/Source/player.cpp
+
+CMakeFiles/devilution.dir/Source/plrmsg.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/plrmsg.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/plrmsg.cpp.o.d -o CMakeFiles/devilution.dir/Source/plrmsg.cpp.o
+    -c devilutionx/Source/plrmsg.cpp
+  input:
+  - devilutionx/Source/plrmsg.cpp
+
+CMakeFiles/devilution.dir/Source/portal.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/portal.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/portal.cpp.o.d -o CMakeFiles/devilution.dir/Source/portal.cpp.o
+    -c devilutionx/Source/portal.cpp
+  input:
+  - devilutionx/Source/portal.cpp
+
+CMakeFiles/devilution.dir/Source/spelldat.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/spelldat.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/spelldat.cpp.o.d -o CMakeFiles/devilution.dir/Source/spelldat.cpp.o
+    -c devilutionx/Source/spelldat.cpp
+  input:
+  - devilutionx/Source/spelldat.cpp
+
+CMakeFiles/devilution.dir/Source/quests.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/quests.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/quests.cpp.o.d -o CMakeFiles/devilution.dir/Source/quests.cpp.o
+    -c devilutionx/Source/quests.cpp
+  input:
+  - devilutionx/Source/quests.cpp
+
+CMakeFiles/devilution.dir/Source/render.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/render.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/render.cpp.o.d -o CMakeFiles/devilution.dir/Source/render.cpp.o
+    -c devilutionx/Source/render.cpp
+  input:
+  - devilutionx/Source/render.cpp
+
+CMakeFiles/devilution.dir/Source/restrict.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/restrict.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/restrict.cpp.o.d -o CMakeFiles/devilution.dir/Source/restrict.cpp.o
+    -c devilutionx/Source/restrict.cpp
+  input:
+  - devilutionx/Source/restrict.cpp
+
+CMakeFiles/devilution.dir/Source/scrollrt.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/scrollrt.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/scrollrt.cpp.o.d -o CMakeFiles/devilution.dir/Source/scrollrt.cpp.o
+    -c devilutionx/Source/scrollrt.cpp
+  input:
+  - devilutionx/Source/scrollrt.cpp
+
+CMakeFiles/devilution.dir/Source/setmaps.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/setmaps.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/setmaps.cpp.o.d -o CMakeFiles/devilution.dir/Source/setmaps.cpp.o
+    -c devilutionx/Source/setmaps.cpp
+  input:
+  - devilutionx/Source/setmaps.cpp
+
+CMakeFiles/devilution.dir/Source/sha.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/sha.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/sha.cpp.o.d -o CMakeFiles/devilution.dir/Source/sha.cpp.o
+    -c devilutionx/Source/sha.cpp
+  input:
+  - devilutionx/Source/sha.cpp
+
+CMakeFiles/devilution.dir/Source/spells.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/spells.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/spells.cpp.o.d -o CMakeFiles/devilution.dir/Source/spells.cpp.o
+    -c devilutionx/Source/spells.cpp
+  input:
+  - devilutionx/Source/spells.cpp
+
+CMakeFiles/devilution.dir/Source/stores.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/stores.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/stores.cpp.o.d -o CMakeFiles/devilution.dir/Source/stores.cpp.o
+    -c devilutionx/Source/stores.cpp
+  input:
+  - devilutionx/Source/stores.cpp
+
+CMakeFiles/devilution.dir/Source/sync.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/sync.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/sync.cpp.o.d -o CMakeFiles/devilution.dir/Source/sync.cpp.o
+    -c devilutionx/Source/sync.cpp
+  input:
+  - devilutionx/Source/sync.cpp
+
+CMakeFiles/devilution.dir/Source/textdat.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/textdat.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/textdat.cpp.o.d -o CMakeFiles/devilution.dir/Source/textdat.cpp.o
+    -c devilutionx/Source/textdat.cpp
+  input:
+  - devilutionx/Source/textdat.cpp
+
+CMakeFiles/devilution.dir/Source/themes.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/themes.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/themes.cpp.o.d -o CMakeFiles/devilution.dir/Source/themes.cpp.o
+    -c devilutionx/Source/themes.cpp
+  input:
+  - devilutionx/Source/themes.cpp
+
+CMakeFiles/devilution.dir/Source/tmsg.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/tmsg.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/tmsg.cpp.o.d -o CMakeFiles/devilution.dir/Source/tmsg.cpp.o
+    -c devilutionx/Source/tmsg.cpp
+  input:
+  - devilutionx/Source/tmsg.cpp
+
+CMakeFiles/devilution.dir/Source/town.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/town.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/town.cpp.o.d -o CMakeFiles/devilution.dir/Source/town.cpp.o
+    -c devilutionx/Source/town.cpp
+  input:
+  - devilutionx/Source/town.cpp
+
+CMakeFiles/devilution.dir/Source/towners.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/towners.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/towners.cpp.o.d -o CMakeFiles/devilution.dir/Source/towners.cpp.o
+    -c devilutionx/Source/towners.cpp
+  input:
+  - devilutionx/Source/towners.cpp
+
+CMakeFiles/devilution.dir/Source/track.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/track.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/track.cpp.o.d -o CMakeFiles/devilution.dir/Source/track.cpp.o
+    -c devilutionx/Source/track.cpp
+  input:
+  - devilutionx/Source/track.cpp
+
+CMakeFiles/devilution.dir/Source/trigs.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/trigs.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/trigs.cpp.o.d -o CMakeFiles/devilution.dir/Source/trigs.cpp.o
+    -c devilutionx/Source/trigs.cpp
+  input:
+  - devilutionx/Source/trigs.cpp
+
+CMakeFiles/devilution.dir/Source/wave.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -DDEVILUTION_ENGINE -DFASTER -D_DEBUG -D_POSIX_C_SOURCE=200809L
+    -Idevilutionx/Source -Idevilutionx/SourceS
+    -I. -isystem /usr/include/SDL2 -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -fsanitize=address
+    -fsanitize-recover=address -fsanitize=undefined -fno-omit-frame-pointer -fpermissive
+    -w -fsigned-char -pthread -std=c++11 -MD -MT CMakeFiles/devilution.dir/Source/wave.cpp.o
+    -MF CMakeFiles/devilution.dir/Source/wave.cpp.o.d -o CMakeFiles/devilution.dir/Source/wave.cpp.o
+    -c devilutionx/Source/wave.cpp
+  input:
+  - devilutionx/Source/wave.cpp
+
+libdevilution.a:
+  deps: []
+  exec: ': && cmake-remote-generator/build/bin/cmake -E rm
+    -f libdevilution.a && /usr/bin/ar qc libdevilution.a CMakeFiles/devilution.dir/Source/appfat.cpp.o
+    CMakeFiles/devilution.dir/Source/automap.cpp.o CMakeFiles/devilution.dir/Source/capture.cpp.o
+    CMakeFiles/devilution.dir/Source/codec.cpp.o CMakeFiles/devilution.dir/Source/control.cpp.o
+    CMakeFiles/devilution.dir/Source/cursor.cpp.o CMakeFiles/devilution.dir/Source/dead.cpp.o
+    CMakeFiles/devilution.dir/Source/debug.cpp.o CMakeFiles/devilution.dir/Source/diablo.cpp.o
+    CMakeFiles/devilution.dir/Source/doom.cpp.o CMakeFiles/devilution.dir/Source/drlg_l1.cpp.o
+    CMakeFiles/devilution.dir/Source/drlg_l2.cpp.o CMakeFiles/devilution.dir/Source/drlg_l3.cpp.o
+    CMakeFiles/devilution.dir/Source/drlg_l4.cpp.o CMakeFiles/devilution.dir/Source/dthread.cpp.o
+    CMakeFiles/devilution.dir/Source/effects.cpp.o CMakeFiles/devilution.dir/Source/encrypt.cpp.o
+    CMakeFiles/devilution.dir/Source/engine.cpp.o CMakeFiles/devilution.dir/Source/error.cpp.o
+    CMakeFiles/devilution.dir/Source/gamemenu.cpp.o CMakeFiles/devilution.dir/Source/gendung.cpp.o
+    CMakeFiles/devilution.dir/Source/gmenu.cpp.o CMakeFiles/devilution.dir/Source/help.cpp.o
+    CMakeFiles/devilution.dir/Source/init.cpp.o CMakeFiles/devilution.dir/Source/interfac.cpp.o
+    CMakeFiles/devilution.dir/Source/inv.cpp.o CMakeFiles/devilution.dir/Source/itemdat.cpp.o
+    CMakeFiles/devilution.dir/Source/items.cpp.o CMakeFiles/devilution.dir/Source/lighting.cpp.o
+    CMakeFiles/devilution.dir/Source/loadsave.cpp.o CMakeFiles/devilution.dir/Source/mainmenu.cpp.o
+    CMakeFiles/devilution.dir/Source/minitext.cpp.o CMakeFiles/devilution.dir/Source/misdat.cpp.o
+    CMakeFiles/devilution.dir/Source/missiles.cpp.o CMakeFiles/devilution.dir/Source/monstdat.cpp.o
+    CMakeFiles/devilution.dir/Source/monster.cpp.o CMakeFiles/devilution.dir/Source/movie.cpp.o
+    CMakeFiles/devilution.dir/Source/mpqapi.cpp.o CMakeFiles/devilution.dir/Source/msg.cpp.o
+    CMakeFiles/devilution.dir/Source/multi.cpp.o CMakeFiles/devilution.dir/Source/nthread.cpp.o
+    CMakeFiles/devilution.dir/Source/objdat.cpp.o CMakeFiles/devilution.dir/Source/objects.cpp.o
+    CMakeFiles/devilution.dir/Source/pack.cpp.o CMakeFiles/devilution.dir/Source/palette.cpp.o
+    CMakeFiles/devilution.dir/Source/path.cpp.o CMakeFiles/devilution.dir/Source/pfile.cpp.o
+    CMakeFiles/devilution.dir/Source/player.cpp.o CMakeFiles/devilution.dir/Source/plrmsg.cpp.o
+    CMakeFiles/devilution.dir/Source/portal.cpp.o CMakeFiles/devilution.dir/Source/spelldat.cpp.o
+    CMakeFiles/devilution.dir/Source/quests.cpp.o CMakeFiles/devilution.dir/Source/render.cpp.o
+    CMakeFiles/devilution.dir/Source/restrict.cpp.o CMakeFiles/devilution.dir/Source/scrollrt.cpp.o
+    CMakeFiles/devilution.dir/Source/setmaps.cpp.o CMakeFiles/devilution.dir/Source/sha.cpp.o
+    CMakeFiles/devilution.dir/Source/spells.cpp.o CMakeFiles/devilution.dir/Source/stores.cpp.o
+    CMakeFiles/devilution.dir/Source/sync.cpp.o CMakeFiles/devilution.dir/Source/textdat.cpp.o
+    CMakeFiles/devilution.dir/Source/themes.cpp.o CMakeFiles/devilution.dir/Source/tmsg.cpp.o
+    CMakeFiles/devilution.dir/Source/town.cpp.o CMakeFiles/devilution.dir/Source/towners.cpp.o
+    CMakeFiles/devilution.dir/Source/track.cpp.o CMakeFiles/devilution.dir/Source/trigs.cpp.o
+    CMakeFiles/devilution.dir/Source/wave.cpp.o && /usr/bin/ranlib libdevilution.a
+    && :'
+  input:
+  - CMakeFiles/devilution.dir/Source/appfat.cpp.o
+  - CMakeFiles/devilution.dir/Source/automap.cpp.o
+  - CMakeFiles/devilution.dir/Source/capture.cpp.o
+  - CMakeFiles/devilution.dir/Source/codec.cpp.o
+  - CMakeFiles/devilution.dir/Source/control.cpp.o
+  - CMakeFiles/devilution.dir/Source/cursor.cpp.o
+  - CMakeFiles/devilution.dir/Source/dead.cpp.o
+  - CMakeFiles/devilution.dir/Source/debug.cpp.o
+  - CMakeFiles/devilution.dir/Source/diablo.cpp.o
+  - CMakeFiles/devilution.dir/Source/doom.cpp.o
+  - CMakeFiles/devilution.dir/Source/drlg_l1.cpp.o
+  - CMakeFiles/devilution.dir/Source/drlg_l2.cpp.o
+  - CMakeFiles/devilution.dir/Source/drlg_l3.cpp.o
+  - CMakeFiles/devilution.dir/Source/drlg_l4.cpp.o
+  - CMakeFiles/devilution.dir/Source/dthread.cpp.o
+  - CMakeFiles/devilution.dir/Source/effects.cpp.o
+  - CMakeFiles/devilution.dir/Source/encrypt.cpp.o
+  - CMakeFiles/devilution.dir/Source/engine.cpp.o
+  - CMakeFiles/devilution.dir/Source/error.cpp.o
+  - CMakeFiles/devilution.dir/Source/gamemenu.cpp.o
+  - CMakeFiles/devilution.dir/Source/gendung.cpp.o
+  - CMakeFiles/devilution.dir/Source/gmenu.cpp.o
+  - CMakeFiles/devilution.dir/Source/help.cpp.o
+  - CMakeFiles/devilution.dir/Source/init.cpp.o
+  - CMakeFiles/devilution.dir/Source/interfac.cpp.o
+  - CMakeFiles/devilution.dir/Source/inv.cpp.o
+  - CMakeFiles/devilution.dir/Source/itemdat.cpp.o
+  - CMakeFiles/devilution.dir/Source/items.cpp.o
+  - CMakeFiles/devilution.dir/Source/lighting.cpp.o
+  - CMakeFiles/devilution.dir/Source/loadsave.cpp.o
+  - CMakeFiles/devilution.dir/Source/mainmenu.cpp.o
+  - CMakeFiles/devilution.dir/Source/minitext.cpp.o
+  - CMakeFiles/devilution.dir/Source/misdat.cpp.o
+  - CMakeFiles/devilution.dir/Source/missiles.cpp.o
+  - CMakeFiles/devilution.dir/Source/monstdat.cpp.o
+  - CMakeFiles/devilution.dir/Source/monster.cpp.o
+  - CMakeFiles/devilution.dir/Source/movie.cpp.o
+  - CMakeFiles/devilution.dir/Source/mpqapi.cpp.o
+  - CMakeFiles/devilution.dir/Source/msg.cpp.o
+  - CMakeFiles/devilution.dir/Source/multi.cpp.o
+  - CMakeFiles/devilution.dir/Source/nthread.cpp.o
+  - CMakeFiles/devilution.dir/Source/objdat.cpp.o
+  - CMakeFiles/devilution.dir/Source/objects.cpp.o
+  - CMakeFiles/devilution.dir/Source/pack.cpp.o
+  - CMakeFiles/devilution.dir/Source/palette.cpp.o
+  - CMakeFiles/devilution.dir/Source/path.cpp.o
+  - CMakeFiles/devilution.dir/Source/pfile.cpp.o
+  - CMakeFiles/devilution.dir/Source/player.cpp.o
+  - CMakeFiles/devilution.dir/Source/plrmsg.cpp.o
+  - CMakeFiles/devilution.dir/Source/portal.cpp.o
+  - CMakeFiles/devilution.dir/Source/spelldat.cpp.o
+  - CMakeFiles/devilution.dir/Source/quests.cpp.o
+  - CMakeFiles/devilution.dir/Source/render.cpp.o
+  - CMakeFiles/devilution.dir/Source/restrict.cpp.o
+  - CMakeFiles/devilution.dir/Source/scrollrt.cpp.o
+  - CMakeFiles/devilution.dir/Source/setmaps.cpp.o
+  - CMakeFiles/devilution.dir/Source/sha.cpp.o
+  - CMakeFiles/devilution.dir/Source/spells.cpp.o
+  - CMakeFiles/devilution.dir/Source/stores.cpp.o
+  - CMakeFiles/devilution.dir/Source/sync.cpp.o
+  - CMakeFiles/devilution.dir/Source/textdat.cpp.o
+  - CMakeFiles/devilution.dir/Source/themes.cpp.o
+  - CMakeFiles/devilution.dir/Source/tmsg.cpp.o
+  - CMakeFiles/devilution.dir/Source/town.cpp.o
+  - CMakeFiles/devilution.dir/Source/towners.cpp.o
+  - CMakeFiles/devilution.dir/Source/track.cpp.o
+  - CMakeFiles/devilution.dir/Source/trigs.cpp.o
+  - CMakeFiles/devilution.dir/Source/wave.cpp.o
+
+cmake_object_order_depends_target_smacker:
+  deps: []
+  exec: phony
+
+CMakeFiles/smacker.dir/3rdParty/libsmacker/smk_bitstream.c.o:
+  deps: []
+  exec: /usr/bin/cc -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -MD -MT CMakeFiles/smacker.dir/3rdParty/libsmacker/smk_bitstream.c.o
+    -MF CMakeFiles/smacker.dir/3rdParty/libsmacker/smk_bitstream.c.o.d -o CMakeFiles/smacker.dir/3rdParty/libsmacker/smk_bitstream.c.o
+    -c devilutionx/3rdParty/libsmacker/smk_bitstream.c
+  input:
+  - devilutionx/3rdParty/libsmacker/smk_bitstream.c
+
+CMakeFiles/smacker.dir/3rdParty/libsmacker/smk_hufftree.c.o:
+  deps: []
+  exec: /usr/bin/cc -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -MD -MT CMakeFiles/smacker.dir/3rdParty/libsmacker/smk_hufftree.c.o
+    -MF CMakeFiles/smacker.dir/3rdParty/libsmacker/smk_hufftree.c.o.d -o CMakeFiles/smacker.dir/3rdParty/libsmacker/smk_hufftree.c.o
+    -c devilutionx/3rdParty/libsmacker/smk_hufftree.c
+  input:
+  - devilutionx/3rdParty/libsmacker/smk_hufftree.c
+
+CMakeFiles/smacker.dir/3rdParty/libsmacker/smacker.c.o:
+  deps: []
+  exec: /usr/bin/cc -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -MD -MT CMakeFiles/smacker.dir/3rdParty/libsmacker/smacker.c.o
+    -MF CMakeFiles/smacker.dir/3rdParty/libsmacker/smacker.c.o.d -o CMakeFiles/smacker.dir/3rdParty/libsmacker/smacker.c.o
+    -c devilutionx/3rdParty/libsmacker/smacker.c
+  input:
+  - devilutionx/3rdParty/libsmacker/smacker.c
+
+libsmacker.a:
+  deps: []
+  exec: ': && cmake-remote-generator/build/bin/cmake -E rm
+    -f libsmacker.a && /usr/bin/ar qc libsmacker.a CMakeFiles/smacker.dir/3rdParty/libsmacker/smk_bitstream.c.o
+    CMakeFiles/smacker.dir/3rdParty/libsmacker/smk_hufftree.c.o CMakeFiles/smacker.dir/3rdParty/libsmacker/smacker.c.o
+    && /usr/bin/ranlib libsmacker.a && :'
+  input:
+  - CMakeFiles/smacker.dir/3rdParty/libsmacker/smk_bitstream.c.o
+  - CMakeFiles/smacker.dir/3rdParty/libsmacker/smk_hufftree.c.o
+  - CMakeFiles/smacker.dir/3rdParty/libsmacker/smacker.c.o
+
+cmake_object_order_depends_target_StormLib:
+  deps: []
+  exec: phony
+
+CMakeFiles/StormLib.dir/3rdParty/StormLib/src/FileStream.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/StormLib.dir/3rdParty/StormLib/src/FileStream.cpp.o -MF CMakeFiles/StormLib.dir/3rdParty/StormLib/src/FileStream.cpp.o.d
+    -o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/FileStream.cpp.o -c devilutionx/3rdParty/StormLib/src/FileStream.cpp
+  input:
+  - devilutionx/3rdParty/StormLib/src/FileStream.cpp
+
+CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseCommon.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseCommon.cpp.o -MF CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseCommon.cpp.o.d
+    -o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseCommon.cpp.o -c devilutionx/3rdParty/StormLib/src/SBaseCommon.cpp
+  input:
+  - devilutionx/3rdParty/StormLib/src/SBaseCommon.cpp
+
+CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseFileTable.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseFileTable.cpp.o -MF
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseFileTable.cpp.o.d -o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseFileTable.cpp.o
+    -c devilutionx/3rdParty/StormLib/src/SBaseFileTable.cpp
+  input:
+  - devilutionx/3rdParty/StormLib/src/SBaseFileTable.cpp
+
+CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseSubTypes.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseSubTypes.cpp.o -MF
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseSubTypes.cpp.o.d -o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseSubTypes.cpp.o
+    -c devilutionx/3rdParty/StormLib/src/SBaseSubTypes.cpp
+  input:
+  - devilutionx/3rdParty/StormLib/src/SBaseSubTypes.cpp
+
+CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SCompression.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SCompression.cpp.o -MF CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SCompression.cpp.o.d
+    -o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SCompression.cpp.o -c devilutionx/3rdParty/StormLib/src/SCompression.cpp
+  input:
+  - devilutionx/3rdParty/StormLib/src/SCompression.cpp
+
+CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileExtractFile.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileExtractFile.cpp.o -MF
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileExtractFile.cpp.o.d -o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileExtractFile.cpp.o
+    -c devilutionx/3rdParty/StormLib/src/SFileExtractFile.cpp
+  input:
+  - devilutionx/3rdParty/StormLib/src/SFileExtractFile.cpp
+
+CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileFindFile.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileFindFile.cpp.o -MF
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileFindFile.cpp.o.d -o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileFindFile.cpp.o
+    -c devilutionx/3rdParty/StormLib/src/SFileFindFile.cpp
+  input:
+  - devilutionx/3rdParty/StormLib/src/SFileFindFile.cpp
+
+CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileGetFileInfo.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileGetFileInfo.cpp.o -MF
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileGetFileInfo.cpp.o.d -o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileGetFileInfo.cpp.o
+    -c devilutionx/3rdParty/StormLib/src/SFileGetFileInfo.cpp
+  input:
+  - devilutionx/3rdParty/StormLib/src/SFileGetFileInfo.cpp
+
+CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileOpenArchive.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileOpenArchive.cpp.o -MF
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileOpenArchive.cpp.o.d -o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileOpenArchive.cpp.o
+    -c devilutionx/3rdParty/StormLib/src/SFileOpenArchive.cpp
+  input:
+  - devilutionx/3rdParty/StormLib/src/SFileOpenArchive.cpp
+
+CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileOpenFileEx.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileOpenFileEx.cpp.o -MF
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileOpenFileEx.cpp.o.d -o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileOpenFileEx.cpp.o
+    -c devilutionx/3rdParty/StormLib/src/SFileOpenFileEx.cpp
+  input:
+  - devilutionx/3rdParty/StormLib/src/SFileOpenFileEx.cpp
+
+CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileReadFile.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileReadFile.cpp.o -MF
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileReadFile.cpp.o.d -o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileReadFile.cpp.o
+    -c devilutionx/3rdParty/StormLib/src/SFileReadFile.cpp
+  input:
+  - devilutionx/3rdParty/StormLib/src/SFileReadFile.cpp
+
+libStormLib.a:
+  deps: []
+  exec: ': && cmake-remote-generator/build/bin/cmake -E rm
+    -f libStormLib.a && /usr/bin/ar qc libStormLib.a CMakeFiles/StormLib.dir/3rdParty/StormLib/src/FileStream.cpp.o
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseCommon.cpp.o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseFileTable.cpp.o
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseSubTypes.cpp.o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SCompression.cpp.o
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileExtractFile.cpp.o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileFindFile.cpp.o
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileGetFileInfo.cpp.o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileOpenArchive.cpp.o
+    CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileOpenFileEx.cpp.o CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileReadFile.cpp.o
+    && /usr/bin/ranlib libStormLib.a && :'
+  input:
+  - CMakeFiles/StormLib.dir/3rdParty/StormLib/src/FileStream.cpp.o
+  - CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseCommon.cpp.o
+  - CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseFileTable.cpp.o
+  - CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SBaseSubTypes.cpp.o
+  - CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SCompression.cpp.o
+  - CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileExtractFile.cpp.o
+  - CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileFindFile.cpp.o
+  - CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileGetFileInfo.cpp.o
+  - CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileOpenArchive.cpp.o
+  - CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileOpenFileEx.cpp.o
+  - CMakeFiles/StormLib.dir/3rdParty/StormLib/src/SFileReadFile.cpp.o
+
+cmake_object_order_depends_target_PKWare:
+  deps: []
+  exec: phony
+
+CMakeFiles/PKWare.dir/3rdParty/PKWare/explode.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/PKWare.dir/3rdParty/PKWare/explode.cpp.o -MF CMakeFiles/PKWare.dir/3rdParty/PKWare/explode.cpp.o.d
+    -o CMakeFiles/PKWare.dir/3rdParty/PKWare/explode.cpp.o -c devilutionx/3rdParty/PKWare/explode.cpp
+  input:
+  - devilutionx/3rdParty/PKWare/explode.cpp
+
+CMakeFiles/PKWare.dir/3rdParty/PKWare/implode.cpp.o:
+  deps: []
+  exec: /usr/bin/c++ -D_POSIX_C_SOURCE=200809L -Wno-builtin-macro-redefined -D__FILE__="$(subst
+    $(realpath devilutionx)/,,$(abspath $<))" -g -std=c++11
+    -MD -MT CMakeFiles/PKWare.dir/3rdParty/PKWare/implode.cpp.o -MF CMakeFiles/PKWare.dir/3rdParty/PKWare/implode.cpp.o.d
+    -o CMakeFiles/PKWare.dir/3rdParty/PKWare/implode.cpp.o -c devilutionx/3rdParty/PKWare/implode.cpp
+  input:
+  - devilutionx/3rdParty/PKWare/implode.cpp
+
+libPKWare.a:
+  deps: []
+  exec: ': && cmake-remote-generator/build/bin/cmake -E rm
+    -f libPKWare.a && /usr/bin/ar qc libPKWare.a CMakeFiles/PKWare.dir/3rdParty/PKWare/explode.cpp.o
+    CMakeFiles/PKWare.dir/3rdParty/PKWare/implode.cpp.o && /usr/bin/ranlib libPKWare.a
+    && :'
+  input:
+  - CMakeFiles/PKWare.dir/3rdParty/PKWare/explode.cpp.o
+  - CMakeFiles/PKWare.dir/3rdParty/PKWare/implode.cpp.o
+
+PKWare:
+  deps: []
+  exec: phony
+  input:
+  - libPKWare.a
+
+Radon:
+  deps: []
+  exec: phony
+  input:
+  - libRadon.a
+
+StormLib:
+  deps: []
+  exec: phony
+  input:
+  - libStormLib.a
+
+devilution:
+  deps: []
+  exec: phony
+  input:
+  - libdevilution.a
+
+smacker:
+  deps: []
+  exec: phony
+  input:
+  - libsmacker.a
+
+all:
+  deps: []
+  exec: phony
+  input:
+  - devilutionx
+  - libRadon.a
+  - libdevilution.a
+  - libsmacker.a
+  - libStormLib.a
+  - libPKWare.a
+
+build.ninja:
+  deps:
+  - cmake-remote-generator/Modules/CMakeCInformation.cmake
+  - cmake-remote-generator/Modules/CMakeCXXInformation.cmake
+  - cmake-remote-generator/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake
+  - cmake-remote-generator/Modules/CMakeCommonLanguageInclude.cmake
+  - cmake-remote-generator/Modules/CMakeGenericSystem.cmake
+  - cmake-remote-generator/Modules/CMakeInitializeConfigs.cmake
+  - cmake-remote-generator/Modules/CMakeLanguageInformation.cmake
+  - cmake-remote-generator/Modules/CMakeSystemSpecificInformation.cmake
+  - cmake-remote-generator/Modules/CMakeSystemSpecificInitialize.cmake
+  - cmake-remote-generator/Modules/CheckCSourceCompiles.cmake
+  - cmake-remote-generator/Modules/CheckIncludeFile.cmake
+  - cmake-remote-generator/Modules/CheckLibraryExists.cmake
+  - cmake-remote-generator/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+  - cmake-remote-generator/Modules/Compiler/GNU-C.cmake
+  - cmake-remote-generator/Modules/Compiler/GNU-CXX.cmake
+  - cmake-remote-generator/Modules/Compiler/GNU.cmake
+  - cmake-remote-generator/Modules/FindPackageHandleStandardArgs.cmake
+  - cmake-remote-generator/Modules/FindPackageMessage.cmake
+  - cmake-remote-generator/Modules/FindPkgConfig.cmake
+  - cmake-remote-generator/Modules/FindThreads.cmake
+  - cmake-remote-generator/Modules/Internal/CMakeCheckCompilerFlag.cmake
+  - cmake-remote-generator/Modules/Platform/Linux-GNU-C.cmake
+  - cmake-remote-generator/Modules/Platform/Linux-GNU-CXX.cmake
+  - cmake-remote-generator/Modules/Platform/Linux-GNU.cmake
+  - cmake-remote-generator/Modules/Platform/Linux.cmake
+  - cmake-remote-generator/Modules/Platform/UnixPaths.cmake
+  - devilutionx/CMake/FindSDL2.cmake
+  - devilutionx/CMake/FindSDL2_mixer.cmake
+  - devilutionx/CMake/FindSDL2_ttf.cmake
+  - devilutionx/CMake/Findsodium.cmake
+  - devilutionx/CMake/git.cmake
+  - devilutionx/CMake/out_of_tree.cmake
+  - devilutionx/CMakeLists.txt
+  - devilutionx/SourceS/config.h.in
+  - /usr/lib64/cmake/SDL2/SDL2Config.cmake
+  - /usr/lib64/cmake/SDL2/SDL2ConfigVersion.cmake
+  - /usr/lib64/cmake/SDL2/SDL2Targets-noconfig.cmake
+  - /usr/lib64/cmake/SDL2/SDL2Targets.cmake
+  - CMakeCache.txt
+  - CMakeFiles/3.16.20191126-g82bd4c5/CMakeCCompiler.cmake
+  - CMakeFiles/3.16.20191126-g82bd4c5/CMakeCXXCompiler.cmake
+  - CMakeFiles/3.16.20191126-g82bd4c5/CMakeSystem.cmake
+  exec: cmake-remote-generator/build/bin/cmake -Sdevilutionx
+    -Bremote-execution-client/tools/dep2yaml
+
+clean:
+  deps: []
+  exec: /usr/bin/ninja -t clean
+
+help:
+  deps: []
+  exec: /usr/bin/ninja -t targets
+

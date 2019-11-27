@@ -59,7 +59,7 @@ class RAC:
 
         command_digest = self.uploader.put_message(command_handler, queue=True)
 
-        input_root_digest = self.uploader.upload_directory(input_root + "/build")
+        input_root_digest = self.uploader.upload_directory(input_root + "/build",queue=False)
 
         action = remote_execution_pb2.Action(command_digest=command_digest,
                 input_root_digest = input_root_digest,
@@ -84,7 +84,7 @@ class RAC:
         COUNT = 0
         for stream in response:
             COUNT += 1
-            #print(str(stream.response.value,  encoding='utf-8', errors='ignore'))
+            print(str(stream.response.value,  encoding='utf-8', errors='ignore'))
         if COUNT != 1:
            print("WARNING: response returns more streams!")
         execute_response = remote_execution_pb2.ExecuteResponse()
