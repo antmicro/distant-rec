@@ -2,9 +2,9 @@
 
 This is the client for the Remote Execution API. It interacts with CAS and ActionCache to seamlessly build targets.
 
-The REAPI Client uses project dependencies described in a YAML file to distribute builds to build systems that implement `https://github.com/bazelbuild/remote-apis`. Please inspect the `example.yml` file to get familiar with its schema.
+The REAPI Client uses project dependencies described in a YAML file to distribute builds to build systems that implement https://github.com/bazelbuild/remote-apis. Please inspect the `example.yml` file to get familiar with its schema.
 
-During the development process, we use the Buildgrid implementation `https://gitlab.com/BuildGrid/buildgrid` of the REAPI server. There is installation guide here: `https://buildgrid.gitlab.io/buildgrid/installation.html` however please be advised that you should use our modified version of Buildgrid from `tools/buildgrid`.
+During the development process, we use the [Buildgrid implementation](https://gitlab.com/BuildGrid/buildgrid) of the REAPI server. An installation guide can be found [on the Buildgrid website](https://buildgrid.gitlab.io/buildgrid/installation.html), however please be advised that you should use the modified version of Buildgrid from `tools/buildgrid` in this repo.
 
 ## Setup
 
@@ -12,15 +12,15 @@ Install python3 libraries from the `requirements.txt` file by running `pip insta
 
 This project uses additional submodules. Be sure to initialize and clone them before you proceed.
 
-You also need to install our custom version of CMake. The sources along with the instructions are located in `tools/cmake`.
+You also need to install a custom version of CMake, the sources along with the instructions are located in `tools/cmake`.
 
 The last step is configuring the server, port and the project build folder (explained in the next section) in the `config.ini` file. An example `config.ini.example` file is in the root of the repository.
 
 
 ## Usage
 
-After ensuring that the previous steps has succeed, generate the YAML file by running `cmake <dir> -G "Ninja" | ./tools/dep2yaml/dep2yaml.py > out.yml` (where `<dir>` is the catalog containing your project).
+After ensuring that the previous steps have succeeded, generate the YAML file by running `cmake <dir> -G "Ninja" | ./tools/dep2yaml/dep2yaml.py > out.yml` (where `<dir>` is the folder containing your project).
 
 Now that the prerequisite files are ready, the execution looks as follows: `./raclient.py <dependencies yml file> target`.
 
-The client has an possibility to dry run the build (e.g. it doesn't actually perform the build — there's no communication with server whatsoever). To perform such a build, modify the command above by appending `--no-server`.
+The client has a possibility to dry run the build (e.g. it doesn't actually perform the build — there's no communication with the server whatsoever). To perform such a build, modify the command above by appending `--no-server`.
