@@ -53,12 +53,12 @@ class RAC:
             command_handler.arguments.extend([arg])
 
         for ofile in output_file:
-            print([ofile])
+            print("output_file: " + ofile)
             command_handler.output_files.extend([ofile])
 
         command_digest = self.uploader.put_message(command_handler, queue=True)
 
-        input_root_digest = self.uploader.upload_directory(input_root+"/build")
+        input_root_digest = self.uploader.upload_directory(input_root)
 
         action = remote_execution_pb2.Action(command_digest=command_digest,
                 input_root_digest = input_root_digest,
@@ -80,10 +80,16 @@ class RAC:
         stream = None
 
         for stream in response:
-            print(stream)
+            pass
+            #print(str(stream.response.value,  encoding='utf-8', errors='ignore'))
 
         execute_response = remote_execution_pb2.ExecuteResponse()
         stream.response.Unpack(execute_response)
+        print(execute_response.result.stderr_raw)
+        if execute_response.result.exit_code != 0:
+            print("Compilation failed.")
+            fail = 1
+            return None
 
         return execute_response.result.output_files
 
@@ -110,7 +116,7 @@ class BuildRunner:
         if 'input' in self.config[target]:
             for dependent in self.config[target]['input']:
                 if dependent in self.config:
-                   self.run(dependent)
+                   if (self.run(dependent) == -1): return -1
 
         cmd = self.config[target]['exec'].split(' ')
 
@@ -118,12 +124,16 @@ class BuildRunner:
             out = (self.config[target]['output'],)
         else:
             out = []
+            # TODO: hack
+            out = [target]
+            if (os.path.exists(target)): return
 
         if self.reapi != None:
               ofiles = self.reapi.action_run(cmd,
                 os.getcwd(),
                 out)
-
+              if ofiles is None:
+                  return -1
               for blob in ofiles:
                downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
                downloader.download_file(blob.digest, blob.path, is_executable=blob.is_executable)
@@ -131,6 +141,7 @@ class BuildRunner:
         else:
            self.counter += 1
            print("[DUMMY %d] " % (self.counter) + " ".join(cmd))
+        return 0
 
 
 
