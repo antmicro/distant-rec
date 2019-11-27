@@ -1,15 +1,23 @@
 all:
-  desc: Build all targets
   deps:
     - hello_world
-    - doc
-  exec: ./a.out
+    - bye
+    - another
+    - ls
+  exec: gcc -o out hello.o bye.o another.o
+  output: out
 
 hello_world:
-  input:
-    - hello.c
-  exec: gcc hello.c
-  output: a.out
+  exec: gcc -c hello.c
+  output: hello.o
 
-doc:
-  exec: echo "This is doc" > doc.txt
+bye:
+  exec: gcc -c bye.c
+  output: bye.o
+
+another:
+  exec: gcc -c another.c
+  output: another.o
+
+ls:
+  exec: ls

@@ -4,3 +4,5 @@ env/**
 a.out
 .envrc
 build/**
+examples/*.o
+examples/out

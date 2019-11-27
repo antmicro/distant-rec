@@ -5,6 +5,6 @@ SERVER=192.168.12.12
 PORT=50051
 #use Google Remote Build Execution - if "yes" server address and port are omitted
 USERBE=no
-
+BUILDDIR=examples
 INSTANCE=antmicro
 

@@ -59,7 +59,7 @@ class RAC:
 
         command_digest = self.uploader.put_message(command_handler, queue=True)
 
-        input_root_digest = self.uploader.upload_directory(input_root + "/build",queue=False)
+        input_root_digest = self.uploader.upload_directory(input_root + "/" + get_option('SETUP','BUILDDIR'),queue=False)
 
         action = remote_execution_pb2.Action(command_digest=command_digest,
                 input_root_digest = input_root_digest,
@@ -130,7 +130,7 @@ class BuildRunner:
             out = []
             # TODO: hack
             out = [target]
-            if (os.path.exists("build/"+target)): return
+            if (os.path.exists(get_option('SETUP','BUILDDIR')+"/"+target)): return
 
         if self.reapi != None:
               ofiles = self.reapi.action_run(cmd,
@@ -140,7 +140,7 @@ class BuildRunner:
                   return -1
               for blob in ofiles:
                downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
-               downloader.download_file(blob.digest, "build/" + blob.path, is_executable=blob.is_executable)
+               downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
                downloader.close()
         else:
            self.counter += 1
