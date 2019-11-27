@@ -4,3 +4,4 @@
 [submodule "tools/buildgrid"]
 	path = tools/buildgrid
 	url = git@dev.antmicro.com:buildgrid.git
+	branch = add/print-dep
