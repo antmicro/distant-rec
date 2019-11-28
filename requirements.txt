@@ -2,3 +2,4 @@ grpcio
 pyyaml
 google-auth
 requests
+parse

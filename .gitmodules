@@ -1,8 +1,8 @@
 [submodule "tools/cmake"]
 	path = tools/cmake
-    url = https://dev.antmicro.com/git/cmake-remote-generator
+    url = ../cmake-remote-generator
     branch = add/print-dep
 [submodule "tools/buildgrid"]
 	path = tools/buildgrid
-	url = https://dev.antmicro.com/git/buildgrid
+	url = ../buildgrid
 	branch = fmb
