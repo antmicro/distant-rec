@@ -36,6 +36,7 @@ build:
       - cmake .. -G "Ninja" | ../../../tools/dep2yaml/dep2yaml.py > ../../../build.yml
       - popd
       - popd
+      - cp config.ini.example config.ini
       - ./raclient.py build.yml devilutionx --no-server
       - ./sargraph.py chart stop
 
