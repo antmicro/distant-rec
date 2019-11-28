@@ -56,6 +56,11 @@ class RAC:
         for ofile in output_file:
             command_handler.output_files.extend([ofile])
 
+        if get_option('SETUP', 'PROPNAME') and get_option('SETUP', 'PROPVALUE'):
+            new_property = command_handler.platform.properties.add()
+            new_property.name = get_option('SETUP', 'PROPNAME')
+            new_property.value = get_option('SETUP', 'PROPVALUE')
+
         command_digest = self.uploader.put_message(command_handler, queue=True)
 
         input_root_digest = self.uploader.upload_directory(input_root + "/" + get_option('SETUP','BUILDDIR'),queue=False)
