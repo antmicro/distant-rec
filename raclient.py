@@ -92,7 +92,7 @@ class RAC:
 
         execute_response = remote_execution_pb2.ExecuteResponse()
         stream.response.Unpack(execute_response)
-        if execute_response.result.stdout_digest:
+        if execute_response.result.stdout_digest.hash:
             downloader = Downloader(self.channel, instance=self.instname)
             blob = downloader.get_blob(execute_response.result.stdout_digest)
             print(blob)
