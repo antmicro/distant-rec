@@ -17,7 +17,7 @@ if NO_SERVER == 0:
    from google.auth.transport import grpc as google_auth_transport_grpc
    from google.auth.transport import requests as google_auth_transport_requests
 
-import yaml, os, configparser
+import yaml, os, configparser, hashlib
 
 config = configparser.ConfigParser()
 
@@ -29,6 +29,26 @@ def get_option(csection, coption):
     if config.has_option(csection, coption):
         return config.get(csection, coption)
     else: return None
+
+def is_problematic(cmd):
+    forbidden_chars = ['&&', '>', '>>']
+
+    for forbidden in forbidden_chars:
+        if forbidden in cmd:
+            return True
+
+    return False
+
+def wrap_cmd(cmd):
+    filename = hashlib.md5(cmd.encode())
+    filename = filename.hexdigest()+".sh"
+
+    script = open(get_option('SETUP','BUILDDIR')+"/"+filename, "w+")
+    os.chmod(get_option('SETUP','BUILDDIR')+"/"+filename, 0o755)
+    script.write("#!/bin/sh" + '\n')
+    script.write(cmd)
+
+    return "./"+filename
 
 class RAC:
     def __init__(self, uri, instance):
@@ -144,7 +164,11 @@ class BuildRunner:
             print("Building target {}".format(target))
         self.counter += 1
         print("[%d / %d] Executing '%s'" % (self.counter, max_count, self.config[target]['exec']))
-        cmd = self.config[target]['exec'].split(' ')
+
+        if get_option('SETUP','USERBE') == 'yes' and is_problematic(self.config[target]['exec']):
+            cmd = [wrap_cmd(self.config[target]['exec'])]
+        else:
+            cmd = self.config[target]['exec'].split(' ')
 
         if 'output' in self.config[target]:
             out = (self.config[target]['output'],)
