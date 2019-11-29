@@ -1,10 +1,10 @@
-# Remote Execution API Client
+# Distant Remote Execution Client
 
 This is the client for the Remote Execution API. It interacts with CAS and ActionCache to seamlessly build targets.
 
 The REAPI Client uses project dependencies described in a YAML file to distribute builds to build systems that implement https://github.com/bazelbuild/remote-apis. Please inspect the `example.yml` file to get familiar with its schema.
 
-During the development process, we use the [Buildgrid implementation](https://gitlab.com/BuildGrid/buildgrid) of the REAPI server. An installation guide can be found [on the Buildgrid website](https://buildgrid.gitlab.io/buildgrid/installation.html), however please be advised that you should use the modified version of Buildgrid from `tools/buildgrid` in this repo.
+The REAPI Client has been tested with [Google Remote Build Execution platform](https://cloud.google.com/sdk/gcloud/reference/alpha/remote-build-execution). This platform is currently in alpha stage, not available to general public, but there are many open source REAPI implementations like [Buildgrid implementation](https://gitlab.com/BuildGrid/buildgrid). This REAPI implementation can be easily installed on the local environment or virtual machines provided by many cloud service vendors. An installation guide can be found [on the Buildgrid website](https://buildgrid.gitlab.io/buildgrid/installation.html), however please be advised that you should use the modified version of Buildgrid from `tools/buildgrid` in this repo.
 
 ## Setup
 
