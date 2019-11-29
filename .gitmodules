@@ -1,6 +1,6 @@
 [submodule "tools/cmake"]
 	path = tools/cmake
-    url = ../cmake-remote-generator
+    url = ../cmake
     branch = add/print-dep
 [submodule "tools/buildgrid"]
 	path = tools/buildgrid
