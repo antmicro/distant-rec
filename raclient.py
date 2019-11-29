@@ -107,7 +107,6 @@ class RAC:
         for stream in response:
             continue
 
-        print(stream)
 
         execute_response = remote_execution_pb2.ExecuteResponse()
         stream.response.Unpack(execute_response)
@@ -183,7 +182,7 @@ class BuildRunner:
             out = []
             # TODO: hack
             out = [target]
-            if (os.path.exists(get_option('SETUP','BUILDDIR')+"/"+target)): return count
+            if get_option('SETUP','LOCALCACHE') == 'yes' and os.path.exists(get_option('SETUP','BUILDDIR')+"/"+target): return count
 
         if self.reapi != None:
             if phony == True:
