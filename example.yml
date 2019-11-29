@@ -8,6 +8,7 @@ out:
     - hello.o
     - bye.o
     - another.o
+    - command.out
   exec: gcc -o out hello.o bye.o another.o
   output: out
 
@@ -23,3 +24,5 @@ another.o:
   exec: gcc -c another.c
   input: another.c
 
+command.out:
+  exec: ls && echo "gnikroW" | rev > command.out

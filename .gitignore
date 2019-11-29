@@ -5,6 +5,8 @@ a.out
 .envrc
 build/**
 examples/*.o
+examples/*.sh
+examples/command.out
 examples/out
 build.yaml
 build2.yaml
