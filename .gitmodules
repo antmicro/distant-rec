@@ -5,4 +5,3 @@
 [submodule "tools/buildgrid"]
 	path = tools/buildgrid
 	url = ../buildgrid
-	branch = fmb
