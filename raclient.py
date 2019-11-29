@@ -56,7 +56,7 @@ class RAC:
         for ofile in output_file:
             command_handler.output_files.extend([ofile])
 
-        if get_option('SETUP', 'PROPNAME') and get_option('SETUP', 'PROPVALUE'):
+        if get_option('SETUP', 'PROPNAME') and get_option('SETUP', 'PROPVALUE') and get_option('SETUP','USERBE') == 'yes':
             new_property = command_handler.platform.properties.add()
             new_property.name = get_option('SETUP', 'PROPNAME')
             new_property.value = get_option('SETUP', 'PROPVALUE')
@@ -76,7 +76,7 @@ class RAC:
     def run_command(self, action_digest, cache=True):
         stub = remote_execution_pb2_grpc.ExecutionStub(self.channel)
 
-        request = remote_execution_pb2.ExecuteRequest(instance_name="",
+        request = remote_execution_pb2.ExecuteRequest(instance_name=get_option('SETUP','INSTANCE'),
                 action_digest=action_digest,
                 skip_cache_lookup=not cache)
 
