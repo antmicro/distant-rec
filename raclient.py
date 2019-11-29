@@ -19,17 +19,16 @@ if NO_SERVER == 0:
 
 import yaml, os, configparser
 
-def get_option(csection, coption):
-    config = configparser.ConfigParser()
+config = configparser.ConfigParser()
 
-    exists = os.path.isfile('config.ini')
-    if not exists:
-        copyfile('config.ini.example','config.ini')
-    config.read('config.ini')
+if not config.read('config.ini'):
+    print("No config.ini found!")
+    sys.exit(1)
+
+def get_option(csection, coption):
     if config.has_option(csection, coption):
         return config.get(csection, coption)
-
-
+    else: return None
 
 class RAC:
     def __init__(self, uri, instance):
