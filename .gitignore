@@ -6,3 +6,5 @@ a.out
 build/**
 examples/*.o
 examples/out
+build.yaml
+build2.yaml
