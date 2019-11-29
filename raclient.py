@@ -170,6 +170,13 @@ class BuildRunner:
         else:
             cmd = self.config[target]['exec'].split(' ')
 
+
+        if self.config[target]['exec'] == 'phony':
+            phony = True
+        else:
+            phony = False
+
+
         if 'output' in self.config[target]:
             out = (self.config[target]['output'],)
         else:
@@ -179,16 +186,19 @@ class BuildRunner:
             if (os.path.exists(get_option('SETUP','BUILDDIR')+"/"+target)): return count
 
         if self.reapi != None:
-              ofiles = self.reapi.action_run(cmd,
+            if phony == True:
+                print("Phony target, no execution.")
+            else:
+                ofiles = self.reapi.action_run(cmd,
                 os.getcwd(),
                 out)
-              if ofiles is None:
-                  return -1
-              for blob in ofiles:
-               downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
-               print("Downloading %s" % blob.path);
-               downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
-               downloader.close()
+                if ofiles is None:
+                    return -1
+                for blob in ofiles:
+                    downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
+                    print("Downloading %s" % blob.path);
+                    downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
+                    downloader.close()
         return count
 
 

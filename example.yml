@@ -1,3 +1,8 @@
+all:
+  deps:
+    - out
+  exec: phony
+
 out:
   deps:
     - hello.o
