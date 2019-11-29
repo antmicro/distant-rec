@@ -84,17 +84,29 @@ class RAC:
 
         stream = None
 
+
         for stream in response:
             continue
 
+        print(stream)
+
         execute_response = remote_execution_pb2.ExecuteResponse()
         stream.response.Unpack(execute_response)
+        if execute_response.result.stdout_digest:
+            downloader = Downloader(self.channel, instance=self.instname)
+            blob = downloader.get_blob(execute_response.result.stdout_digest)
+            print(blob)
+            downloader.close()
+
         if execute_response.result.stderr_raw != "":
-             print(str(execute_response.result.stderr_raw, errors='ignore'))
+            print(str(execute_response.result.stderr_raw, errors='ignore'))
         if execute_response.result.exit_code != 0:
             print("Compilation failed.")
             fail = 1
             return None
+
+        if execute_response.cached_result:
+            print("Served from cache!")
 
         return execute_response.result.output_files
 
