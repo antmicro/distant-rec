@@ -1,5 +1,6 @@
 grpcio
 pyyaml
 google-auth
+protobuf
 requests
 parse
