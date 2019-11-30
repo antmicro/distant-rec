@@ -20,12 +20,9 @@ class Dep2YAML:
 
     ### INITIALIZATION ###
 
-    def __init__(self, prj_dir, serv_build_dir, dep_file):
+    def __init__(self, dep_file):
 
         self.root_dir = os.getcwd()
-        self.prj_dir = os.path.abspath(prj_dir)
-        self.srv_build_dir = os.path.abspath(serv_build_dir)
-
         self.defined_rules = {}
 
         self._dep_file = dep_file
@@ -91,7 +88,6 @@ class Dep2YAML:
 
         #print("RULE: " + str(rule))
     def _bellongs_to_project(self, path):
-        dir_path = os.path.relpath(self.root_dir, self.prj_dir)
         if os.path.exists(path):
             abs_path = os.path.abspath(path)
             common = os.path.commonpath([abs_path, self.root_dir])
@@ -105,7 +101,6 @@ class Dep2YAML:
         #print("ROOT: " + str(self.root_dir))
         #print("PRJ: " + str(self.prj_dir))
         #print("PATH: " + str(path))
-        dir_path = os.path.relpath(self.root_dir, self.prj_dir)
         if os.path.exists(path):
             abs_path = os.path.abspath(path)
             common = os.path.commonpath([abs_path, self.root_dir])
@@ -113,7 +108,7 @@ class Dep2YAML:
 
             assert common != "/"
 
-            result = os.path.join(dir_path, os.path.relpath(abs_path, self.root_dir))
+            result = os.path.relpath(abs_path, self.root_dir)
             #print("RESULT: " + str(result))
         #print("RESULT:" + str(result))
         #print("PATH: " + str(path))
@@ -334,17 +329,13 @@ class Dep2YAML:
 def main():
     parser = argparse.ArgumentParser(
         description='Convert cmake output to dependencies')
-    parser.add_argument('--prj-dir', required=True, help='Path to project directory')
-    parser.add_argument('--srv-build-dir', default=None, help="Server build dir")
     parser.add_argument('dep_file', metavar='DEP_FILE', nargs='?',
         default=None, help='an integer for the accumulator')
     args = parser.parse_args()
 
-    prj_dir = args.prj_dir
-    srv_build_dir = args.srv_build_dir if args.srv_build_dir != None else os.getcwd()
     dep_file = open(args.dep_file) if args.dep_file != None else sys.stdin
 
-    parser = Dep2YAML(prj_dir, srv_build_dir, dep_file)
+    parser = Dep2YAML(dep_file)
     parser.parse()
 
 if __name__ == "__main__":
