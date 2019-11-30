@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 import os, sys, re, yaml
-import argparse, pathlib
+import argparse
 from copy import copy
 from parse import parse
-
 
 class Dep2YAML:
 
@@ -63,6 +62,7 @@ class Dep2YAML:
             yield self.data[start:end+1]
 
     def _format_rule(self, rule):
+
         # Remove the : from begining and end
         rule = rule.strip()
         rule = re.sub('^%s' % ": &&", '', rule)
@@ -70,23 +70,21 @@ class Dep2YAML:
         rule = rule.strip()
         rule = re.sub('%s$' % "&& :", '', rule)
         rule = re.sub(' +', ' ', rule)
+
+        # Remove multiple spaces
         rule = rule.strip()
 
         return rule
 
     def _remove_wrong_cmake_calls(self, rule):
-        #print("RULE: " + str(rule))
         commands = rule.split("&&")
         for command in commands:
             result = re.findall("cmake -E rm -f", command)
             if bool(result):
                 rule = rule.replace(command, ' : ')
-        #        print("FOUND: " + str(result))
         rule = re.sub(' +', ' ', rule)
         return rule
-        #print("RULE: " + str(rule))
 
-        #print("RULE: " + str(rule))
     def _bellongs_to_project(self, path):
         if os.path.exists(path):
             abs_path = os.path.abspath(path)
@@ -98,26 +96,13 @@ class Dep2YAML:
                 return True
 
     def _convert_to_relative_path(self, path):
-        #print("ROOT: " + str(self.root_dir))
-        #print("PRJ: " + str(self.prj_dir))
-        #print("PATH: " + str(path))
         if os.path.exists(path):
             abs_path = os.path.abspath(path)
             common = os.path.commonpath([abs_path, self.root_dir])
-            #print("COMMON: " + str(common))
 
             assert common != "/"
-
             result = os.path.relpath(abs_path, self.root_dir)
-            #print("RESULT: " + str(result))
-        #print("RESULT:" + str(result))
-        #print("PATH: " + str(path))
-        #print("PRJ: " + self.prj_dir)
-        #print("PATH: " + str(path))
-        #abs_path = os.path.abspath(path)
-        #common = os.path.commonpath([abs_path, self.prj_dir]) + '/'
-        #result = abs_path.replace(common, '')
-        #print("RESULT: " + str(result))
+
         return result
 
     def _write_to_yaml(self, inputs, outputs, rule, deps):
@@ -135,25 +120,16 @@ class Dep2YAML:
 
         print(yaml.dump(deps))
 
-
     def _resolve_wb_rule(self, output_list, rule, definitions, explicit_deps_list):
-        #print(definitions)
         if rule in self.defined_rules:
-            #print("rule in defined rules!")
             rule = self.defined_rules[rule]
-            #print("NEW RULE: " + str(rule))
             rule_parts = rule.split(' ')
             for part in rule_parts:
-                #print("PART: " + str(part))
                 if "$" in part:
                     var = part.replace("$", '')
                     var = var.replace("'", "")
-                    #print("VAR: " + str(var))
                     if var in definitions:
-                        #print("VAR in definitions!")
-                        #print("BEFORE: " + str(rule))
                         rule = rule.replace(part, definitions[var])
-                        #print("AFTER: " +str(rule))
         elif rule in definitions:
             var = rule.replace("$", '')
             rule = definitions[var]
@@ -166,22 +142,9 @@ class Dep2YAML:
             in_file = " ".join(explicit_deps_list)
             rule = rule.replace("$in", in_file)
 
-
-        # Remove the : from begining and end
         rule = self._format_rule(rule)
         rule = self._remove_wrong_cmake_calls(rule)
         rule = self._format_rule(rule)
-
-        #print("RULE: " + str(rule))
-        commands = rule.split("&&")
-        for command in commands:
-            result = re.findall("cmake -E rm -f", command)
-            if bool(result):
-                rule = rule.replace(command, ' : ')
-        #        print("FOUND: " + str(result))
-        rule = re.sub(' +', ' ', rule)
-        #print("RULE: " + str(rule))
-
 
         return rule
 
@@ -248,32 +211,27 @@ class Dep2YAML:
             if (option == Dep2YAML.IMPLICIT_DEPENDENCY):
                 wb_implicit_deps_list += [self._get_dependency(line)]
 
-        #print("##################################################################")
-        #print("OUTPUTS: " + str(wb_output_list))
-        #print("WB_RULE: " + str(wb_rule))
-        #print("DEFINITIONS: " + str(wb_definitions))
-        #print("EXP DEP: " + str(wb_explicit_deps_list))
-        #print("IMP DEP: " + str(wb_implicit_deps_list))
-
+        # Convert paths from wb_explicit_deps_list to relative
         for i in range(len(wb_explicit_deps_list)):
             dep = wb_explicit_deps_list[i]
             if os.path.exists(dep) and os.path.isabs(dep):
-                #print("BEFORE: " + str(dep))
                 if self._bellongs_to_project(dep):
                     wb_explicit_deps_list[i] = self._convert_to_relative_path(dep)
-                #print("AFTER: " + str(res))
 
+        # Convert paths from wb_implicit_deps to relative
         for i in range(len(wb_implicit_deps_list)):
             dep = wb_implicit_deps_list[i]
             if os.path.exists(dep) and os.path.isabs(dep):
                 if self._bellongs_to_project(dep):
                     wb_implicit_deps_list[i] = self._convert_to_relative_path(dep)
 
+        # Resolve variables in the rule
         wb_rule = self._resolve_wb_rule(wb_output_list,
                                         wb_rule,
                                         wb_definitions,
                                         wb_explicit_deps_list)
 
+        # Convert paths in resolved rule to relative
         rule_parts = wb_rule.split(' ')
         for part in rule_parts:
             if os.path.exists(part) and os.path.isabs(part):
@@ -305,9 +263,7 @@ class Dep2YAML:
 
         definition_parts = definition.split(' ')
         for part in definition_parts:
-            #print("PART" + str(part))
             if os.path.exists(part) and os.path.isabs(part):
-                #print("############### EXISTS ####################")
                 if self._bellongs_to_project(part):
                     new_path = self._convert_to_relative_path(part)
                     definition = definition.replace(part, new_path)
