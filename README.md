@@ -19,7 +19,9 @@ The last step is configuring the server, port and the project build folder (expl
 
 ## Usage
 
-After ensuring that the previous steps have succeeded, generate the YAML file by running `cmake <dir> -G "Ninja" | ./tools/dep2yaml/dep2yaml.py > out.yml` (where `<dir>` is the folder containing your project).
+Clone a project with CMake build system to your build folder.
+
+After ensuring that the previous steps have succeeded, generate the YAML file by entering build directory described in `config.ini` file and running `cmake <dir> -G "Ninja" | ../tools/dep2yaml/dep2yaml.py > out.yml` (where `<dir>` is the folder containing your project).
 
 Now that the prerequisite files are ready, the execution looks as follows: `./raclient.py <dependencies yml file> target`.
 
