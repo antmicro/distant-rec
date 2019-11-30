@@ -5,133 +5,6 @@ import argparse, pathlib
 from copy import copy
 from parse import parse
 
-defined_rules = {}
-
-def process_write_build_section(dep_file, directory):
-    wb_output_list = []
-    wb_rule = None
-    wb_definitions = {}
-    wb_explicit_deps_list = []
-    wb_implicit_deps_list = []
-
-    something_usefull = False
-    for line in dep_file:
-        if is_write_build_section_end(line):
-            break
-
-        fline = adj_line(line)
-        option = fline.split(' ')[0]
-
-        if (option == OUTPUT):
-            output = get_output(fline);
-            wb_output_list += [output]
-
-        if (option == RULE):
-            wb_rule = get_rule(line)
-
-        if (option == VARIABLE_DEFINITION):
-            vd = get_variable_definition(line)
-            wb_definitions.update(vd)
-
-        if (option == EXPLICIT_DEPENDENCY):
-            wb_explicit_deps_list += [get_dependency(line)]
-
-        if (option == IMPLICIT_DEPENDENCY):
-            wb_implicit_deps_list += [get_dependency(line)]
-
-    #print("##################################################################")
-    #print("OUTPUTS: " + str(wb_output_list))
-    #print("WB_RULE: " + str(wb_rule))
-    #print("DEFINITIONS: " + str(wb_definitions))
-    #print("EXP DEP: " + str(wb_explicit_deps_list))
-
-    wb_rule = resolve_wb_rule(wb_output_list, wb_rule, wb_definitions, wb_explicit_deps_list)
-
-    tmp_list = []
-
-    root_dir = os.getcwd()
-    dir_abs = os.path.abspath(directory)
-    dir_path = os.path.relpath(root_dir, dir_abs)
-    print("### DIR_PATH: " + str(dir_path))
-    for i in range(len(wb_implicit_deps_list)):
-        path = wb_implicit_deps_list[i]
-        if os.path.exists(path):
-            abs_path = os.path.abspath(path)
-            common = os.path.commonpath([abs_path, root_dir])
-
-            if common == "/":
-                continue
-
-            result = os.path.join(dir_path, os.path.relpath(abs_path, root_dir))
-            #print("RESULT:" + str(result))
-            #print("PATH: " + str(abs_path))
-            #print("ROOT: " + root_dir)
-
-            wb_implicit_deps_list[i] = result
-
-    wb_rule = wb_rule.replace(directory, '')
-
-    if len(wb_output_list) == 1:
-        write_to_yaml(wb_explicit_deps_list, wb_output_list, wb_rule, wb_implicit_deps_list)
-
-def write_to_yaml(inputs, outputs, rule, deps):
-    assert len(outputs) == 1
-
-    deps_inner = {}
-    if bool(inputs):
-        deps_inner["input"] = inputs
-
-    deps_inner["exec"] = rule
-    deps_inner["deps"] = deps
-
-    deps = {}
-    deps[outputs[0]] = deps_inner
-
-    print(yaml.dump(deps))
-
-
-def resolve_wb_rule(wb_output_list, wb_rule, wb_definitions, wb_explicit_deps_list):
-
-    #print(wb_definitions)
-    if wb_rule in defined_rules:
-        #print("rule in defined rules!")
-        wb_rule = defined_rules[wb_rule]
-        #print("NEW RULE: " + str(wb_rule))
-        rule_parts = wb_rule.split(' ')
-        for part in rule_parts:
-            #print("PART: " + str(part))
-            if "$" in part:
-                var = part.replace("$", '')
-                var = var.replace("'", "")
-                #print("VAR: " + str(var))
-                if var in wb_definitions:
-                    #print("VAR in definitions!")
-                    #print("BEFORE: " + str(wb_rule))
-                    wb_rule = wb_rule.replace(part, wb_definitions[var])
-                    #print("AFTER: " +str(wb_rule))
-    elif wb_rule in wb_definitions:
-        var = wb_rule.replace("$", '')
-        wb_rule = wb_definitions[var]
-
-    if "$out" in wb_rule:
-        assert len(wb_output_list) == 1
-        wb_rule = wb_rule.replace("$out", wb_output_list[0])
-
-    if "$in" in wb_rule:
-        in_file = " ".join(wb_explicit_deps_list)
-        wb_rule = wb_rule.replace("$in", in_file)
-
-    # Remove the : from begining and end
-    #print("### BEFORE REMOVING|" + str(wb_rule))
-    wb_rule = wb_rule.strip()
-    wb_rule = re.sub('^%s' % ": &&", '', wb_rule)
-    wb_rule = wb_rule.replace(" : &&", '')
-    wb_rule = wb_rule.strip()
-    wb_rule = re.sub('%s$' % "&& :", '', wb_rule)
-    wb_rule = re.sub(' +', ' ', wb_rule)
-    wb_rule = wb_rule.strip()
-    #print("### AFTER REMOVING &&|" + str(wb_rule))
-    return wb_rule
 
 class Dep2YAML:
 
@@ -145,14 +18,13 @@ class Dep2YAML:
     EXPLICIT_DEPENDENCY = "explicit_dependency"
     IMPLICIT_DEPENDENCY = "implicit_dependency"
 
-
     ### INITIALIZATION ###
 
     def __init__(self, prj_dir, serv_build_dir, dep_file):
 
         self.root_dir = os.getcwd()
-        self.prj_dir = prj_dir
-        self.srv_build_dir = serv_build_dir
+        self.prj_dir = os.path.abspath(prj_dir)
+        self.srv_build_dir = os.path.abspath(serv_build_dir)
 
         self.defined_rules = {}
 
@@ -193,6 +65,131 @@ class Dep2YAML:
         if start < end:
             yield self.data[start:end+1]
 
+    def _format_rule(self, rule):
+        # Remove the : from begining and end
+        rule = rule.strip()
+        rule = re.sub('^%s' % ": &&", '', rule)
+        rule = rule.replace(" : &&", '')
+        rule = rule.strip()
+        rule = re.sub('%s$' % "&& :", '', rule)
+        rule = re.sub(' +', ' ', rule)
+        rule = rule.strip()
+
+        return rule
+
+    def _remove_wrong_cmake_calls(self, rule):
+        #print("RULE: " + str(rule))
+        commands = rule.split("&&")
+        for command in commands:
+            result = re.findall("cmake -E rm -f", command)
+            if bool(result):
+                rule = rule.replace(command, ' : ')
+        #        print("FOUND: " + str(result))
+        rule = re.sub(' +', ' ', rule)
+        return rule
+        #print("RULE: " + str(rule))
+
+        #print("RULE: " + str(rule))
+    def _bellongs_to_project(self, path):
+        dir_path = os.path.relpath(self.root_dir, self.prj_dir)
+        if os.path.exists(path):
+            abs_path = os.path.abspath(path)
+            common = os.path.commonpath([abs_path, self.root_dir])
+
+            if common == "/":
+                return False
+            else:
+                return True
+
+    def _convert_to_relative_path(self, path):
+        #print("ROOT: " + str(self.root_dir))
+        #print("PRJ: " + str(self.prj_dir))
+        #print("PATH: " + str(path))
+        dir_path = os.path.relpath(self.root_dir, self.prj_dir)
+        if os.path.exists(path):
+            abs_path = os.path.abspath(path)
+            common = os.path.commonpath([abs_path, self.root_dir])
+            #print("COMMON: " + str(common))
+
+            assert common != "/"
+
+            result = os.path.join(dir_path, os.path.relpath(abs_path, self.root_dir))
+            #print("RESULT: " + str(result))
+        #print("RESULT:" + str(result))
+        #print("PATH: " + str(path))
+        #print("PRJ: " + self.prj_dir)
+        #print("PATH: " + str(path))
+        #abs_path = os.path.abspath(path)
+        #common = os.path.commonpath([abs_path, self.prj_dir]) + '/'
+        #result = abs_path.replace(common, '')
+        #print("RESULT: " + str(result))
+        return result
+
+    def _write_to_yaml(self, inputs, outputs, rule, deps):
+        assert len(outputs) == 1
+
+        deps_inner = {}
+        if bool(inputs):
+            deps_inner["input"] = inputs
+
+        deps_inner["exec"] = rule
+        deps_inner["deps"] = deps
+
+        deps = {}
+        deps[outputs[0]] = deps_inner
+
+        print(yaml.dump(deps))
+
+
+    def _resolve_wb_rule(self, output_list, rule, definitions, explicit_deps_list):
+        #print(definitions)
+        if rule in self.defined_rules:
+            #print("rule in defined rules!")
+            rule = self.defined_rules[rule]
+            #print("NEW RULE: " + str(rule))
+            rule_parts = rule.split(' ')
+            for part in rule_parts:
+                #print("PART: " + str(part))
+                if "$" in part:
+                    var = part.replace("$", '')
+                    var = var.replace("'", "")
+                    #print("VAR: " + str(var))
+                    if var in definitions:
+                        #print("VAR in definitions!")
+                        #print("BEFORE: " + str(rule))
+                        rule = rule.replace(part, definitions[var])
+                        #print("AFTER: " +str(rule))
+        elif rule in definitions:
+            var = rule.replace("$", '')
+            rule = definitions[var]
+
+        if "$out" in rule:
+            assert len(output_list) == 1
+            rule = rule.replace("$out", output_list[0])
+
+        if "$in" in rule:
+            in_file = " ".join(explicit_deps_list)
+            rule = rule.replace("$in", in_file)
+
+
+        # Remove the : from begining and end
+        rule = self._format_rule(rule)
+        rule = self._remove_wrong_cmake_calls(rule)
+        rule = self._format_rule(rule)
+
+        #print("RULE: " + str(rule))
+        commands = rule.split("&&")
+        for command in commands:
+            result = re.findall("cmake -E rm -f", command)
+            if bool(result):
+                rule = rule.replace(command, ' : ')
+        #        print("FOUND: " + str(result))
+        rule = re.sub(' +', ' ', rule)
+        #print("RULE: " + str(rule))
+
+
+        return rule
+
     ### MAIN PROCESSING CALLS ###
 
     def _process_global_rule_defines(self):
@@ -221,7 +218,7 @@ class Dep2YAML:
         name = result.named["name"]
         command = result.named["command"]
 
-        if not name in defined_rules:
+        if not name in self.defined_rules:
             self.defined_rules[name] = command
 
     def _process_write_build(self, stream):
@@ -245,24 +242,52 @@ class Dep2YAML:
 
             if (option == Dep2YAML.RULE):
                 wb_rule = self._get_rule(line)
-#
-#            #if (option == Dep2YAML.VARIABLE_DEFINITION):
-#                vd = get_variable_definition(line)
-#                wb_definitions.update(vd)
-#
-#            if (option == Dep2YAML.EXPLICIT_DEPENDENCY):
-#                wb_explicit_deps_list += [get_dependency(line)]
-#
-#            if (option == Dep2YAML.IMPLICIT_DEPENDENCY):
-#                wb_implicit_deps_list += [get_dependency(line)]
-#
 
-            wb_rule = resolve_wb_rule(wb_output_list, wb_rule, wb_definitions, wb_explicit_deps_list)
-#            #print("WB_RULE: " + str(wb_rule))
+            if (option == Dep2YAML.VARIABLE_DEFINITION):
+                vd = self._get_variable_definition(line)
+                wb_definitions.update(vd)
 
-        print(wb_rule)
-#            if len(wb_output_list) == 1:
-#            write_to_yaml(wb_explicit_deps_list, wb_output_list, wb_rule, wb_implicit_deps_list)
+            if (option == Dep2YAML.EXPLICIT_DEPENDENCY):
+                wb_explicit_deps_list += [self._get_dependency(line)]
+
+            if (option == Dep2YAML.IMPLICIT_DEPENDENCY):
+                wb_implicit_deps_list += [self._get_dependency(line)]
+
+        #print("##################################################################")
+        #print("OUTPUTS: " + str(wb_output_list))
+        #print("WB_RULE: " + str(wb_rule))
+        #print("DEFINITIONS: " + str(wb_definitions))
+        #print("EXP DEP: " + str(wb_explicit_deps_list))
+        #print("IMP DEP: " + str(wb_implicit_deps_list))
+
+        for i in range(len(wb_explicit_deps_list)):
+            dep = wb_explicit_deps_list[i]
+            if os.path.exists(dep) and os.path.isabs(dep):
+                #print("BEFORE: " + str(dep))
+                if self._bellongs_to_project(dep):
+                    wb_explicit_deps_list[i] = self._convert_to_relative_path(dep)
+                #print("AFTER: " + str(res))
+
+        for i in range(len(wb_implicit_deps_list)):
+            dep = wb_implicit_deps_list[i]
+            if os.path.exists(dep) and os.path.isabs(dep):
+                if self._bellongs_to_project(dep):
+                    wb_implicit_deps_list[i] = self._convert_to_relative_path(dep)
+
+        wb_rule = self._resolve_wb_rule(wb_output_list,
+                                        wb_rule,
+                                        wb_definitions,
+                                        wb_explicit_deps_list)
+
+        rule_parts = wb_rule.split(' ')
+        for part in rule_parts:
+            if os.path.exists(part) and os.path.isabs(part):
+                if self._bellongs_to_project(part):
+                    new_path = self._convert_to_relative_path(part)
+                    wb_rule = wb_rule.replace(part, new_path)
+
+        if len(wb_output_list) == 1:
+            self._write_to_yaml(wb_explicit_deps_list, wb_output_list, wb_rule, wb_implicit_deps_list)
 
     def _get_output(self,line):
         result = parse("{option} = {output}", line)
@@ -283,6 +308,15 @@ class Dep2YAML:
         variable = result.named["variable"]
         definition = result.named["definition"].strip("'")
 
+        definition_parts = definition.split(' ')
+        for part in definition_parts:
+            #print("PART" + str(part))
+            if os.path.exists(part) and os.path.isabs(part):
+                #print("############### EXISTS ####################")
+                if self._bellongs_to_project(part):
+                    new_path = self._convert_to_relative_path(part)
+                    definition = definition.replace(part, new_path)
+
         return {variable: definition}
 
     def _get_dependency(self, line):
@@ -290,7 +324,6 @@ class Dep2YAML:
         assert result != None
 
         return result.named["dependency"]
-
 
     ### PUBLIC API ###
 
