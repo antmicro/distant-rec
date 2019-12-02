@@ -8,7 +8,6 @@ if len(sys.argv) > 3:
         NO_SERVER = 1
 
 if NO_SERVER == 0:
-   sys.path.insert(0, "tools/buildgrid")
    import grpc
    from buildgrid.client.cas import Uploader, Downloader
    from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
