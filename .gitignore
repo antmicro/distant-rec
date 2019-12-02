@@ -11,3 +11,4 @@ examples/out
 build.yaml
 build2.yaml
 out.yml
+distantrec/__pycache__
