@@ -2,6 +2,3 @@
 	path = tools/cmake
     url = ../cmake
     branch = add/print-dep
-[submodule "tools/buildgrid"]
-	path = tools/buildgrid
-	url = ../buildgrid
