@@ -200,8 +200,7 @@ class BuildRunner:
         return count
 
 
-
-if __name__ == '__main__':
+def main():
     if NO_SERVER == 0:
        test = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'), get_option('SETUP', 'INSTANCE'))
     else:
@@ -211,3 +210,7 @@ if __name__ == '__main__':
     b.run(sys.argv[2], max_count = count)
     if test != None:
        test.uploader.close()
+
+
+if __name__ == '__main__':
+    main()
