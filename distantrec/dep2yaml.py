@@ -5,6 +5,9 @@ import argparse
 from copy import copy
 from parse import parse
 
+
+lineno = 0
+
 class Dep2YAML:
 
     PRELUDE = "## DISTANT ##"
@@ -19,6 +22,7 @@ class Dep2YAML:
 
     ### INITIALIZATION ###
 
+
     def __init__(self, dep_file):
 
         self.root_dir = os.getcwd()
@@ -32,11 +36,8 @@ class Dep2YAML:
         self._close_input_stream()
 
     def _load_data(self):
-        self.data = ""
-        for line in self._dep_file:
-            if (not self._is_with_prelude(line)):
-                continue
-            self.data = self.data + line
+        self.data = list(filter(lambda x: Dep2YAML.PRELUDE in x,self._dep_file.readlines()))
+        self.data = "".join(self.data)
 
     def _close_input_stream(self):
         if self._dep_file is not sys.stdin:
