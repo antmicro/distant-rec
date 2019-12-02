@@ -12,7 +12,7 @@ Install python3 libraries from the `requirements.txt` file by running `pip insta
 
 This project uses additional submodules. Be sure to initialize and clone them before you proceed.
 
-You also need to install a custom version of CMake, the sources along with the instructions are located in `tools/cmake`.
+You also need to install a custom version of CMake, which is included as a submodule `tools/cmake` (it contains its own build instructions).
 
 The last step is configuring the server, port and the project build folder (explained in the next section) in the `config.ini` file. An example `config.ini.example` file is in the root of the repository.
 
