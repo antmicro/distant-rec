@@ -42,7 +42,3 @@ def main():
     b.run(sys.argv[2], max_count = count)
     if test != None:
        test.uploader.close()
-
-
-if __name__ == '__main__':
-    main()
