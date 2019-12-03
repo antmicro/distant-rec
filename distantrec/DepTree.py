@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import yaml, anytree
-from pprint import pprint
 from threading import Lock, Condition
 
 class DepNode(anytree.NodeMixin):
@@ -44,7 +43,6 @@ class DepTree:
         self._leaves_ready = Condition()
         self._leaves_list = []
         self._build_list = []
-        #self._ready_list = []
 
         with open(yaml_path) as fd:
             self._depyaml = yaml.safe_load(fd)
@@ -105,23 +103,20 @@ class DepTree:
         with self._leaves_ready:
             assert self._deproot != None
 
-            #print("Node to delete: %s\n" % node)
             if node == self._deproot:
                 self._deproot = None
-                #print("Delete root")
                 self._leaves_ready.notify_all()
                 return
 
             parent = node.parent
             parent_children_list = list(parent.children)
 
-        # Remove node from the parent's list
+            # Remove node from the parent's list
             parent_children_list.remove(node)
 
-        # If parent has no nodes it becomes a leaf
+            # If parent has no nodes it becomes a leaf
             if not parent_children_list:
                 self._leaves_list += [parent]
-                self.print_leaves()
                 self._leaves_ready.notify()
 
             if node in self._leaves_list:
@@ -169,29 +164,20 @@ class DepTree:
     def is_empty(self):
         return True if self._deproot == None else False
 
-    def mark_as_completed(self, node, worker):
-        #print("Worker [%d]: node: %s\n" % (worker, str(node)))
-        #print("Worker [%d]: Build list: %s\n" % (worker, str(self._build_list)))
+    def mark_as_completed(self, node):
         with self._build_list_lock:
-            #print("Worker [%d]: lock tree" % worker)
-            #self._ready_list += [node]
             self._build_list.remove(node)
-            #print("Worker [%d]: unlock tree" % worker)
 
         with self._tree_lock:
             self._delete_node(node)
 
-    def take(self, worker):
+    def take(self):
         if self.is_empty():
             return None
 
         with self._leaves_ready:
-            #print("Worker [%d]: lock ready" % worker)
-            #print("Worker [%d]: \nList: %s" % (worker, str(self._leaves_list)))
             while (not self._leaves_list) and (not self.is_empty()):
-                #print("Worker [%d]: Waiting..." % worker)
                 self._leaves_ready.wait()
-                #print("Worker [%d]: Resumed..." % worker)
 
             if self.is_empty():
                 return None
@@ -201,13 +187,4 @@ class DepTree:
             with self._build_list_lock:
                 self._build_list.append(result)
 
-            #print("Worker [%d]: unlock ready" % worker)
             return result
-
-def main():
-    dep = DepTree("../out.yml", "all")
-    dep.print_tree()
-    dep.print_leaves()
-
-if __name__ == "__main__":
-    main()

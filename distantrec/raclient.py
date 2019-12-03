@@ -33,11 +33,6 @@ def wrap_cmd(cmd):
     return "./"+filename
 
 def main():
-    if NO_SERVER == 0:
-       test = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'), get_option('SETUP', 'INSTANCE'))
-    else:
-       test = None
-    b = BuildRunner(sys.argv[1], test)
-    b.run(sys.argv[2], 10)
-    if test != None:
-       test.uploader.close()
+    threads_amount = 10
+    b = BuildRunner(sys.argv[1])
+    b.run(sys.argv[2], threads_amount)

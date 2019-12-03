@@ -1,4 +1,5 @@
 from distantrec.helpers import get_option
+from distantrec.RAC import RAC
 import grpc, yaml, os
 from buildgrid.client.cas import Uploader, Downloader
 from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
@@ -10,9 +11,8 @@ from threading import Thread
 from queue import Queue
 
 class BuildRunner:
-    def __init__(self, yaml_path, reapi):
+    def __init__(self, yaml_path):
         self.config = yaml.safe_load(open(yaml_path))
-        self.reapi = reapi
         self.counter = 0
 
         self.yaml_path = yaml_path
@@ -20,12 +20,8 @@ class BuildRunner:
 
     def run(self, target, num_threads):
         dep_tree = DepTree(self.yaml_path, target)
-
-        dep_tree.print_tree()
-        dep_tree.print_leaves()
         threads = []
 
-        print("num_threads: " + str(num_threads))
         for i in range(num_threads):
             worker = Thread(target=self.build_target, args=(i, dep_tree))
             worker.start()
@@ -36,23 +32,21 @@ class BuildRunner:
 
     def build_target(self, worker_id, dep_tree):
         print("Worker [%d]: Starting..." % worker_id)
-        node = dep_tree.take(worker_id)
+        node = dep_tree.take()
+        reapi = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'), get_option('SETUP', 'INSTANCE'))
         while node != None:
-            self.run_target(node._target,
+            self.run_target(worker_id,
+                            reapi,
+                            node._target,
                             node._input,
                             node._deps,
                             node._exec)
-            dep_tree.mark_as_completed(node, worker_id)
-            node = dep_tree.take(worker_id)
+            dep_tree.mark_as_completed(node)
+            node = dep_tree.take()
+        reapi.uploader.close()
 
-
-    def run_target(self, vtarget, vinput, vdeps, vexec):
-        #print("[%d / %d] Executing '%s'" % (0, 0, vtarget))
-
-        print("VTARGET: " + str(vtarget))
-        print("VINPUT: " + str(vinput))
-        print("VDEPS: " + str(vdeps))
-        print("VEXEC: " + str(vexec))
+    def run_target(self, worker_id, reapi, vtarget, vinput, vdeps, vexec):
+        print("Worker [%d], building %s" % (worker_id, vtarget))
 
         if get_option('SETUP','USERBE') == 'yes' and is_problematic(vexec):
             cmd = [wrap_cmd(vexec)]
@@ -73,20 +67,20 @@ class BuildRunner:
             out = [vtarget]
             if get_option('SETUP','LOCALCACHE') == 'yes' and os.path.exists(get_option('SETUP','BUILDDIR')+"/"+vtarget): return
 
-        if self.reapi != None:
+        if reapi != None:
             if phony == True:
                 print("Phony target, no execution.")
             else:
-                print("CMD: " + str(cmd))
-                print("CWD: " + str(os.getcwd()))
-                print("OUT: " + str(out))
-                ofiles = self.reapi.action_run(cmd,
+                #print("CMD: " + str(cmd))
+                #print("CWD: " + str(os.getcwd()))
+                #print("OUT: " + str(out))
+                ofiles = reapi.action_run(cmd,
                 os.getcwd(),
                 out)
                 if ofiles is None:
                     return -1
                 for blob in ofiles:
-                    downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
+                    downloader = Downloader(reapi.channel, instance=reapi.instname)
                     print("Downloading %s" % blob.path);
                     downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
                     downloader.close()
