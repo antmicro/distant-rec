@@ -105,10 +105,10 @@ class DepTree:
         with self._leaves_ready:
             assert self._deproot != None
 
-            print("Node to delete: %s\n" % node)
+            #print("Node to delete: %s\n" % node)
             if node == self._deproot:
                 self._deproot = None
-                print("Delete root")
+                #print("Delete root")
                 self._leaves_ready.notify_all()
                 return
 
@@ -170,13 +170,13 @@ class DepTree:
         return True if self._deproot == None else False
 
     def mark_as_completed(self, node, worker):
-        print("Worker [%d]: node: %s\n" % (worker, str(node)))
-        print("Worker [%d]: Build list: %s\n" % (worker, str(self._build_list)))
+        #print("Worker [%d]: node: %s\n" % (worker, str(node)))
+        #print("Worker [%d]: Build list: %s\n" % (worker, str(self._build_list)))
         with self._build_list_lock:
-            print("Worker [%d]: lock tree" % worker)
+            #print("Worker [%d]: lock tree" % worker)
             #self._ready_list += [node]
             self._build_list.remove(node)
-            print("Worker [%d]: unlock tree" % worker)
+            #print("Worker [%d]: unlock tree" % worker)
 
         with self._tree_lock:
             self._delete_node(node)
@@ -186,12 +186,12 @@ class DepTree:
             return None
 
         with self._leaves_ready:
-            print("Worker [%d]: lock ready" % worker)
-            print("Worker [%d]: \nList: %s" % (worker, str(self._leaves_list)))
+            #print("Worker [%d]: lock ready" % worker)
+            #print("Worker [%d]: \nList: %s" % (worker, str(self._leaves_list)))
             while (not self._leaves_list) and (not self.is_empty()):
-                print("Worker [%d]: Waiting..." % worker)
+                #print("Worker [%d]: Waiting..." % worker)
                 self._leaves_ready.wait()
-                print("Worker [%d]: Resumed..." % worker)
+                #print("Worker [%d]: Resumed..." % worker)
 
             if self.is_empty():
                 return None
@@ -201,7 +201,7 @@ class DepTree:
             with self._build_list_lock:
                 self._build_list.append(result)
 
-            print("Worker [%d]: unlock ready" % worker)
+            #print("Worker [%d]: unlock ready" % worker)
             return result
 
 def main():

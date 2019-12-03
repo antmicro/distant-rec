@@ -47,13 +47,17 @@ class BuildRunner:
 
 
     def run_target(self, vtarget, vinput, vdeps, vexec):
-        print("[%d / %d] Executing '%s'" % (0, 0, vtarget))
+        #print("[%d / %d] Executing '%s'" % (0, 0, vtarget))
+
+        print("VTARGET: " + str(vtarget))
+        print("VINPUT: " + str(vinput))
+        print("VDEPS: " + str(vdeps))
+        print("VEXEC: " + str(vexec))
 
         if get_option('SETUP','USERBE') == 'yes' and is_problematic(vexec):
             cmd = [wrap_cmd(vexec)]
         else:
             cmd = vexec.split(' ')
-
 
         if vexec == 'phony':
             phony = True
@@ -67,14 +71,15 @@ class BuildRunner:
             out = []
             # TODO: hack
             out = [vtarget]
-            if get_option('SETUP','LOCALCACHE') == 'yes' and os.path.exists(get_option('SETUP','BUILDDIR')+"/"+vtarget): return count
+            if get_option('SETUP','LOCALCACHE') == 'yes' and os.path.exists(get_option('SETUP','BUILDDIR')+"/"+vtarget): return
 
         if self.reapi != None:
             if phony == True:
                 print("Phony target, no execution.")
             else:
-                print("CMD:" + str(cmd))
-                print("OUT:" + str(out))
+                print("CMD: " + str(cmd))
+                print("CWD: " + str(os.getcwd()))
+                print("OUT: " + str(out))
                 ofiles = self.reapi.action_run(cmd,
                 os.getcwd(),
                 out)
@@ -85,4 +90,4 @@ class BuildRunner:
                     print("Downloading %s" % blob.path);
                     downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
                     downloader.close()
-        return count
+        return
