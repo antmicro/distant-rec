@@ -5,7 +5,7 @@ from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_p
 from google import auth as google_auth
 from google.auth.transport import grpc as google_auth_transport_grpc
 from google.auth.transport import requests as google_auth_transport_requests
-from DepTree import DepTree, DepNode
+from distantrec.DepTree import DepTree, DepNode
 from threading import Thread
 from queue import Queue
 
