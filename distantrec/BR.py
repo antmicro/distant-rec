@@ -21,23 +21,16 @@ class BuildRunner:
     def run(self, target, num_threads):
         dep_tree = DepTree(self.yaml_path, target)
 
-        #x_dim = len(disposed)
-        #for x in range(x_dim):
-        #    y_dim = len(disposed[x])
-        #    for y in range(y_dim):
-        #        self.target_queue.put(disposed[x][y])
         dep_tree.print_tree()
         dep_tree.print_leaves()
         threads = []
+
         print("num_threads: " + str(num_threads))
         for i in range(num_threads):
             worker = Thread(target=self.build_target, args=(i, dep_tree))
             worker.start()
             threads.append(worker)
 
-
-        #for i in range(num_threads):
-        #    self.target_queue.put(None)
         for worker in threads:
             worker.join()
 
@@ -45,45 +38,51 @@ class BuildRunner:
         print("Worker [%d]: Starting..." % worker_id)
         node = dep_tree.take(worker_id)
         while node != None:
+            self.run_target(node._target,
+                            node._input,
+                            node._deps,
+                            node._exec)
             dep_tree.mark_as_completed(node, worker_id)
             node = dep_tree.take(worker_id)
 
 
-        #self.counter += 1
-        #print("[%d / %d] Executing '%s'" % (self.counter, max_count, self.config[target]['exec']))
+    def run_target(self, vtarget, vinput, vdeps, vexec):
+        print("[%d / %d] Executing '%s'" % (0, 0, vtarget))
 
-        #if get_option('SETUP','USERBE') == 'yes' and is_problematic(self.config[target]['exec']):
-        #    cmd = [wrap_cmd(self.config[target]['exec'])]
-        #else:
-        #    cmd = self.config[target]['exec'].split(' ')
-
-
-        #if self.config[target]['exec'] == 'phony':
-        #    phony = True
-        #else:
-        #    phony = False
+        if get_option('SETUP','USERBE') == 'yes' and is_problematic(vexec):
+            cmd = [wrap_cmd(vexec)]
+        else:
+            cmd = vexec.split(' ')
 
 
-        #if 'output' in self.config[target]:
-        #    out = (self.config[target]['output'],)
-        #else:
-        #    out = []
+        if vexec == 'phony':
+            phony = True
+        else:
+            phony = False
+
+        voutput = None
+        if voutput != None:
+            out = (voutput,)
+        else:
+            out = []
             # TODO: hack
-        #    out = [target]
-        #    if get_option('SETUP','LOCALCACHE') == 'yes' and os.path.exists(get_option('SETUP','BUILDDIR')+"/"+target): return count
+            out = [vtarget]
+            if get_option('SETUP','LOCALCACHE') == 'yes' and os.path.exists(get_option('SETUP','BUILDDIR')+"/"+vtarget): return count
 
-        #if self.reapi != None:
-        #    if phony == True:
-        #        print("Phony target, no execution.")
-        #    else:
-        #        ofiles = self.reapi.action_run(cmd,
-        #        os.getcwd(),
-        #        out)
-        #        if ofiles is None:
-        #            return -1
-        #        for blob in ofiles:
-        #            downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
-        #            print("Downloading %s" % blob.path);
-        #            downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
-        #            downloader.close()
-        #return count
+        if self.reapi != None:
+            if phony == True:
+                print("Phony target, no execution.")
+            else:
+                print("CMD:" + str(cmd))
+                print("OUT:" + str(out))
+                ofiles = self.reapi.action_run(cmd,
+                os.getcwd(),
+                out)
+                if ofiles is None:
+                    return -1
+                for blob in ofiles:
+                    downloader = Downloader(self.reapi.channel, instance=self.reapi.instname)
+                    print("Downloading %s" % blob.path);
+                    downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
+                    downloader.close()
+        return count

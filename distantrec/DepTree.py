@@ -167,18 +167,19 @@ class DepTree:
         return result
 
     def is_empty(self):
-        with self._tree_lock:
-            return True if self._deproot == None else False
+        return True if self._deproot == None else False
 
     def mark_as_completed(self, node, worker):
         print("Worker [%d]: node: %s\n" % (worker, str(node)))
         print("Worker [%d]: Build list: %s\n" % (worker, str(self._build_list)))
-        with self._tree_lock:
+        with self._build_list_lock:
             print("Worker [%d]: lock tree" % worker)
             #self._ready_list += [node]
             self._build_list.remove(node)
             print("Worker [%d]: unlock tree" % worker)
-        self._delete_node(node)
+
+        with self._tree_lock:
+            self._delete_node(node)
 
     def take(self, worker):
         if self.is_empty():
@@ -197,7 +198,7 @@ class DepTree:
 
             result = self._leaves_list[0]
             self._leaves_list.pop(0)
-            with self._tree_lock:
+            with self._build_list_lock:
                 self._build_list.append(result)
 
             print("Worker [%d]: unlock ready" % worker)
