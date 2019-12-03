@@ -38,7 +38,6 @@ def main():
     else:
        test = None
     b = BuildRunner(sys.argv[1], test)
-    count = b.run(sys.argv[2], mock=True)
-    b.run(sys.argv[2], max_count = count)
+    b.run(sys.argv[2], 10)
     if test != None:
        test.uploader.close()

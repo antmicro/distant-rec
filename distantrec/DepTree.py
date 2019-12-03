@@ -2,6 +2,7 @@
 
 import yaml, anytree
 from pprint import pprint
+from threading import Lock, Condition
 
 class DepNode(anytree.NodeMixin):
     def __init__(self, vtarget, vdeps, vexec, vinput, parent=None, children=None):
@@ -38,6 +39,13 @@ class DepTree:
         self._depyaml = None    # YAML file dictionary
         self._deproot = None    # Dependency tree
 
+        self._tree_lock = Lock()
+        self._build_list_lock = Lock()
+        self._leaves_ready = Condition()
+        self._leaves_list = []
+        self._build_list = []
+        #self._ready_list = []
+
         with open(yaml_path) as fd:
             self._depyaml = yaml.safe_load(fd)
 
@@ -64,6 +72,8 @@ class DepTree:
          return not any(i in seen or seen.add(i) for i in node_list)
 
     def _parse_dep_tree(self, target, node=None):
+        assert self._depyaml != None
+
         if target not in self._depyaml:
             return
 
@@ -88,13 +98,40 @@ class DepTree:
             for dep in vdeps:
                 self._parse_dep_tree(dep, new_node)
 
+        if not new_node.children:
+            self._leaves_list += [new_node]
+
     def _delete_node(self, node):
-        parent = node.parent
-        parent_children_list = list(parent.children)
-        parent_children_list.remove(node)
-        parent.children = parent_children_list
+        with self._leaves_ready:
+            assert self._deproot != None
+
+            print("Node to delete: %s\n" % node)
+            if node == self._deproot:
+                self._deproot = None
+                print("Delete root")
+                self._leaves_ready.notify_all()
+                return
+
+            parent = node.parent
+            parent_children_list = list(parent.children)
+
+        # Remove node from the parent's list
+            parent_children_list.remove(node)
+
+        # If parent has no nodes it becomes a leaf
+            if not parent_children_list:
+                self._leaves_list += [parent]
+                self.print_leaves()
+                self._leaves_ready.notify()
+
+            if node in self._leaves_list:
+                self._leaves_list.remove(node)
+
+            parent.children = parent_children_list
 
     def _resolve_tree(self):
+        assert self._deproot != None
+
         level_lists = self._get_level_lists()
         flattened_list = [y for x in level_lists for y in x]
         flattened_list.reverse()
@@ -106,17 +143,20 @@ class DepTree:
             else:
                 found += [node]
 
-        level_lists = self._get_level_lists()
-
     ### PUBLIC API ###
 
-    def print_dep_tree(self, start_node = None):
+    def print_tree(self, start_node = None):
         assert self._deproot != None
-
         if start_node == None:
             start_node = self._deproot
-
         print(anytree.RenderTree(start_node, style=anytree.ContRoundStyle()))
+
+    def print_leaves(self):
+        assert self._deproot != None
+        i = 0
+        for leaf in self._leaves_list:
+            print("[%d]: %s" % (i, leaf))
+            i = i + 1
 
     def simple_dispose(self):
         all_nodes = [node for node in anytree.PreOrderIter(self._deproot)]
@@ -126,8 +166,47 @@ class DepTree:
         result.reverse()
         return result
 
+    def is_empty(self):
+        with self._tree_lock:
+            return True if self._deproot == None else False
+
+    def mark_as_completed(self, node, worker):
+        print("Worker [%d]: node: %s\n" % (worker, str(node)))
+        print("Worker [%d]: Build list: %s\n" % (worker, str(self._build_list)))
+        with self._tree_lock:
+            print("Worker [%d]: lock tree" % worker)
+            #self._ready_list += [node]
+            self._build_list.remove(node)
+            print("Worker [%d]: unlock tree" % worker)
+        self._delete_node(node)
+
+    def take(self, worker):
+        if self.is_empty():
+            return None
+
+        with self._leaves_ready:
+            print("Worker [%d]: lock ready" % worker)
+            print("Worker [%d]: \nList: %s" % (worker, str(self._leaves_list)))
+            while (not self._leaves_list) and (not self.is_empty()):
+                print("Worker [%d]: Waiting..." % worker)
+                self._leaves_ready.wait()
+                print("Worker [%d]: Resumed..." % worker)
+
+            if self.is_empty():
+                return None
+
+            result = self._leaves_list[0]
+            self._leaves_list.pop(0)
+            with self._tree_lock:
+                self._build_list.append(result)
+
+            print("Worker [%d]: unlock ready" % worker)
+            return result
+
 def main():
     dep = DepTree("../out.yml", "all")
+    dep.print_tree()
+    dep.print_leaves()
 
 if __name__ == "__main__":
     main()
