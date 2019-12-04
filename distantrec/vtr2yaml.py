@@ -26,7 +26,8 @@ def buildyaml(scripts):
         rel = atr_text(script)
         yaml[rel] = yaml_section(rel)
 
-    yaml["all"] = yaml_section("phony", list(yaml.keys()))
+    yaml["tests"] = yaml_section("phony", list(yaml.keys()))
+    yaml["all"] = yaml_section("phony", ["tests"])
 
 #    yaml["make"] = yaml_section("make -j "+cores)
 
