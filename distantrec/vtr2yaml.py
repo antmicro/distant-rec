@@ -20,7 +20,7 @@ def atr_text(text):
     start_index = text.find("vtr_flow")
     return "./{}".format(text[start_index:])
 
-def buildyaml(scripts, cores=1):
+def buildyaml(scripts):
     yaml = dict()
     for script in scripts:
         rel = atr_text(script)
@@ -75,7 +75,7 @@ def main():
     scripts_list = scripts_list[:-1]  
     mangle_from_list(scripts_list)
 
-    yaml_dict = buildyaml(scripts_list, sys.argv[2])
+    yaml_dict = buildyaml(scripts_list)
 
 
     yaml_file = open("vtr.yml", "w")
