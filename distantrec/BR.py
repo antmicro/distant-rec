@@ -1,4 +1,4 @@
-from distantrec.helpers import get_option,is_problematic
+from distantrec.helpers import *
 from distantrec.RAC import RAC
 import grpc, yaml, os
 from buildgrid.client.cas import Uploader, Downloader

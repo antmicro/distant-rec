@@ -88,6 +88,9 @@ class RAC:
         return execute_response.result.output_files
 
     def action_run(self, cmd, input_dir, output_files):
+        print(input_dir)
+        print(cmd)
         action_digest = self.upload_action(cmd, input_dir, output_files)
+        print(action_digest)
         self.uploader.flush()
         return self.run_command(action_digest)

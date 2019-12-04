@@ -1,4 +1,4 @@
-import configparser, sys
+import configparser, sys, hashlib, os, yaml
 
 config = configparser.ConfigParser()
 
@@ -19,3 +19,14 @@ def is_problematic(cmd):
             return True
 
     return False
+
+def wrap_cmd(cmd):
+    filename = hashlib.md5(cmd.encode())
+    filename = filename.hexdigest()+".sh"
+
+    script = open(get_option('SETUP','BUILDDIR')+"/"+filename, "w+")
+    os.chmod(get_option('SETUP','BUILDDIR')+"/"+filename, 0o755)
+    script.write("#!/bin/sh" + '\n')
+    script.write(cmd)
+
+    return "./"+filename
