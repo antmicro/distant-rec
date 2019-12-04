@@ -12,14 +12,6 @@ from distantrec.RAC import RAC
 from distantrec.BR import BuildRunner
 from distantrec.helpers import get_option
 
-def is_problematic(cmd):
-    forbidden_chars = ['&&', '>', '>>']
-
-    for forbidden in forbidden_chars:
-        if forbidden in cmd:
-            return True
-
-    return False
 
 def wrap_cmd(cmd):
     filename = hashlib.md5(cmd.encode())
