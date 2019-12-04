@@ -11,7 +11,8 @@ setuptools.setup(
         python_requires='>=3.6',
         entry_points={
             "console_scripts":["raclient = distantrec.raclient:main",
-                "dep2yaml = distantrec.dep2yaml:main"]
+                "dep2yaml = distantrec.dep2yaml:main",
+                "vtr2yaml = distantrec.vtr2yaml:main", ]
             },
         install_requires=["buildgrid @ git+https://github.com/antmicro/buildgrid",
             "grpcio", "pyyaml", "google-auth", "protobuf", "requests", "parse"],
