@@ -6,6 +6,7 @@ def yaml_section(execc, deps=[]):
     section = {}
     section["exec"] = execc
     section["deps"] = deps
+    section["output"] = execc[:-11]+"vpr_stdout.log"
     return section
 
 def mangle_from_list(scripts):
