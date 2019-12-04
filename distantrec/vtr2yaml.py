@@ -26,9 +26,9 @@ def buildyaml(scripts, cores=1):
         rel = atr_text(script)
         yaml[rel] = yaml_section(rel)
 
-    yaml["all"] = yaml_section("phony", ["make"]+list(yaml.keys()))
+    yaml["all"] = yaml_section("phony", list(yaml.keys()))
 
-    yaml["make"] = yaml_section("make -j "+cores)
+#    yaml["make"] = yaml_section("make -j "+cores)
 
     return yaml
 
