@@ -20,13 +20,13 @@ def atr_text(text):
     start_index = text.find("vtr_flow")
     return "./{}".format(text[start_index:])
 
-def buildyaml(scripts):
+def buildyaml(scripts, cores=1):
     yaml = dict()
     for script in scripts:
         rel = atr_text(script)
         yaml[rel] = yaml_section(rel)
 
-    yaml["all"] = yaml_section("phony", list(yaml.keys()))
+    yaml["all"] = yaml_section("phony", ["make -j "+cores]+list(yaml.keys()))
 
     return yaml
 
@@ -73,7 +73,7 @@ def main():
     scripts_list = scripts_list[:-1]  
     mangle_from_list(scripts_list)
 
-    yaml_dict = buildyaml(scripts_list)
+    yaml_dict = buildyaml(scripts_list, sys.argv[2])
 
 
     yaml_file = open("vtr.yml", "w")
