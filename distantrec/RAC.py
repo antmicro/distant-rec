@@ -70,7 +70,6 @@ class RAC:
         if execute_response.result.stdout_digest.hash:
             downloader = Downloader(self.channel, instance=self.instname)
             blob = downloader.get_blob(execute_response.result.stdout_digest)
-            print(blob)
             downloader.close()
         if execute_response.result.stdout_raw != "":
             print(str(execute_response.result.stdout_raw, errors='ignore'))
