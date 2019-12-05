@@ -54,7 +54,7 @@ class ScriptMangler:
         self.file_list[13] = arguments_join
 
     def temporary_folder_fix(self):
-        temp_relative_path = atr_text(self.path)
+        temp_relative_path = atr_text(self.path)[:-11]
         
         arguments = self.file_list[13].split(" ")
 
