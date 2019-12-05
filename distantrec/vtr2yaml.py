@@ -58,7 +58,9 @@ class ScriptMangler:
         
         arguments = self.file_list[13].split(" ")
 
-        arguments[14] = temp_relative_path
+        temp_arg = arguments.index("-temp_dir")
+
+        arguments[temp_arg+1] = temp_relative_path
 
         arguments_join = " ".join(arguments)
 
