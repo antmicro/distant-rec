@@ -6,9 +6,10 @@ from google import auth as google_auth
 from google.auth.transport import grpc as google_auth_transport_grpc
 from google.auth.transport import requests as google_auth_transport_requests
 from distantrec.helpers import get_option
+from threading import Lock
 
 class RAC:
-    def __init__(self, uri, instance):
+    def __init__(self, uri, instance, lock):
         if(get_option('SETUP','USERBE') == 'yes'):
             credentials, _ = google_auth.default()
             request = google_auth_transport_requests.Request()
@@ -16,6 +17,7 @@ class RAC:
         else:
             self.channel = grpc.insecure_channel(uri)
         self.instname = instance
+        self.lock = lock
         self.uploader = Uploader(self.channel, instance=self.instname)
         if instance == None:
            nm = "unknown--"+uri
@@ -39,6 +41,8 @@ class RAC:
 
         command_digest = self.uploader.put_message(command_handler, queue=True)
 
+        self.lock.acquire()
+
         input_root_digest = self.uploader.upload_directory(input_root + "/" + get_option('SETUP','BUILDDIR'),queue=False)
 
         action = remote_execution_pb2.Action(command_digest=command_digest,
@@ -57,6 +61,8 @@ class RAC:
                 skip_cache_lookup=not cache)
 
         response = stub.Execute(request)
+
+        self.lock.release()
 
         stream = None
 

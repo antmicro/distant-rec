@@ -7,14 +7,14 @@ from google import auth as google_auth
 from google.auth.transport import grpc as google_auth_transport_grpc
 from google.auth.transport import requests as google_auth_transport_requests
 from distantrec.DepTree import DepTree, DepNode
-from threading import Thread
+from threading import Thread, Lock
 from queue import Queue
 
 class BuildRunner:
     def __init__(self, yaml_path):
         self.config = yaml.safe_load(open(yaml_path))
         self.counter = 0
-
+        self.lock = Lock()
         self.yaml_path = yaml_path
         self.target_queue = Queue()
 
@@ -33,7 +33,7 @@ class BuildRunner:
     def build_target(self, worker_id, dep_tree):
         print("Worker [%d]: Starting..." % worker_id)
         node = dep_tree.take()
-        reapi = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'), get_option('SETUP', 'INSTANCE'))
+        reapi = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'), get_option('SETUP', 'INSTANCE'), self.lock)
         while node != None:
             self.run_target(worker_id,
                             reapi,
@@ -80,8 +80,10 @@ class BuildRunner:
                 if ofiles is None:
                     return -1
                 for blob in ofiles:
+                    self.lock.acquire()
                     downloader = Downloader(reapi.channel, instance=reapi.instname)
                     print("Downloading %s" % blob.path);
                     downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
                     downloader.close()
+                    self.lock.release()
         return
