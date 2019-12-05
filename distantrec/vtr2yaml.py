@@ -67,7 +67,7 @@ class ScriptMangler:
 
         self.file_list[13] = arguments_join
 
-    def sleep():
+    def sleep(self):
         self.file_list[1] = "sleep 60"
 
     def flush(self):
