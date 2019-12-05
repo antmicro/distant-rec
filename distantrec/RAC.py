@@ -72,6 +72,8 @@ class RAC:
             blob = downloader.get_blob(execute_response.result.stdout_digest)
             print(blob)
             downloader.close()
+        if execute_response.result.stdout_raw != "":
+            print(str(execute_response.result.stdout_raw, errors='ignore'))
 
         if execute_response.result.stderr_raw != "":
             print(str(execute_response.result.stderr_raw, errors='ignore'))
