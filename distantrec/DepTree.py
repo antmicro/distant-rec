@@ -48,7 +48,9 @@ class DepTree:
             self._depyaml = yaml.safe_load(fd)
 
         assert target in self._depyaml
+        print("Parsing dep tree...")
         self._parse_dep_tree(target)
+        print("Parsing tree finished, resolving tree...")
         self._resolve_tree()
 
     ### HELPER METHODS ###
@@ -72,6 +74,7 @@ class DepTree:
     def _parse_dep_tree(self, target, node=None):
         assert self._depyaml != None
 
+        print("Parsing target: "+target)
         if target not in self._depyaml:
             return
 
