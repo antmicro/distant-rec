@@ -14,7 +14,6 @@ def mangle_from_list(scripts):
         mangle = ScriptMangler(script)
         mangle.abs_to_rel()
         mangle.temporary_folder_fix()
-        mangle.sleep()
         mangle.flush()
 
 def atr_text(text):
