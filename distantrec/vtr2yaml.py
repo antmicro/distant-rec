@@ -14,6 +14,7 @@ def mangle_from_list(scripts):
         mangle = ScriptMangler(script)
         mangle.abs_to_rel()
         mangle.temporary_folder_fix()
+        mangle.sleep()
         mangle.flush()
 
 def atr_text(text):
@@ -67,7 +68,7 @@ class ScriptMangler:
         self.file_list[13] = arguments_join
 
     def sleep(self):
-        self.file_list[1] = "sleep 60"
+        self.file_list[2] = "sleep 60"
 
     def flush(self):
         self.file_string = "\n".join(self.file_list)
