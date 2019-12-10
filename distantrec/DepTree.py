@@ -64,10 +64,13 @@ class DepTree:
         self._leaves_dict = {}  # {node: 'node_target'}
         self._build_list = []   # Nodes that are in building
 
+        print("Parsing YAML input file...")
         with open(yaml_path) as fd:
             self._depyaml = measure_time(yaml.safe_load, fd)
 
         assert target in self._depyaml
+
+        print("Parsing dependency tree...")
         measure_time(self._parse_dep_tree, target)
 
         print("Prepare leaves...")
