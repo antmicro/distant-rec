@@ -51,7 +51,7 @@ class DepTree:
         print("Parsing dep tree...")
         self._parse_dep_tree(target)
         print("Parsing tree finished, resolving tree...")
-        self._resolve_tree()
+        #self._resolve_tree()
 
     ### HELPER METHODS ###
 

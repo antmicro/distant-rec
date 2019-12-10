@@ -12,3 +12,4 @@ build.yaml
 build2.yaml
 out.yml
 distantrec/__pycache__
+credentials.json

@@ -5,6 +5,8 @@ SERVER=192.168.12.12
 PORT=50051
 #use Google Remote Build Execution - if "yes" server address and port are omitted
 USERBE=no
+#service account credentials file (used while building on RBE service)
+RBECREDS=file.json
 BUILDDIR=examples
 INSTANCE=antmicro
 #properties used while interacting with RBE to send docker image location URL.

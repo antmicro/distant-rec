@@ -3,6 +3,7 @@ import grpc
 from buildgrid.client.cas import Uploader, Downloader
 from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
 from google import auth as google_auth
+from google.oauth2 import service_account
 from google.auth.transport import grpc as google_auth_transport_grpc
 from google.auth.transport import requests as google_auth_transport_requests
 from distantrec.helpers import get_option
@@ -11,9 +12,10 @@ from threading import Lock
 class RAC:
     def __init__(self, uri, instance, lock):
         if(get_option('SETUP','USERBE') == 'yes'):
-            credentials, _ = google_auth.default()
+            credentials = service_account.Credentials.from_service_account_file(get_option('SETUP','RBECREDS'))
+            scoped_credentials = credentials.with_scopes(['https://www.googleapis.com/auth/cloud-platform'])
             request = google_auth_transport_requests.Request()
-            self.channel = google_auth_transport_grpc.secure_authorized_channel(credentials, request, 'remotebuildexecution.googleapis.com:443')
+            self.channel = google_auth_transport_grpc.secure_authorized_channel(scoped_credentials, request, 'remotebuildexecution.googleapis.com:443')
         else:
             self.channel = grpc.insecure_channel(uri)
         self.instname = instance
