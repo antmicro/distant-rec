@@ -2,8 +2,22 @@
 
 import yaml, anytree
 from threading import Lock, Condition
+from pprint import pprint
+
+def measure_time(fun, *args):
+    from time import time
+
+    start = time()
+    ret = fun(*args)
+    end = time()
+
+    print("    Elapsed time: " + str(round(end - start, 2)))
+    return ret
 
 class DepNode(anytree.NodeMixin):
+
+    id = 0
+
     def __init__(self, vtarget, vdeps, vexec, vinput, parent=None, children=None):
         self._target = vtarget
         self._deps = vdeps
@@ -15,16 +29,19 @@ class DepNode(anytree.NodeMixin):
         if children:
             self.children = children
 
+        self._id = DepNode.id
+        DepNode.id = DepNode.id + 1
+
         super().__init__()
 
     def __str__(self):
-        return self._target
+        return "[%d]:%s" % (self._id, self._target)
 
     def __repr__(self):
-        return self._target
+        return "[%d]:%s" % (self._id, self._target)
 
     def __hash__(self):
-        return hash(self._target)
+        return hash(self._id)
 
     def __eq__(self, other):
         if isinstance(other, DepNode):
@@ -40,36 +57,37 @@ class DepTree:
 
         self._tree_lock = Lock()
         self._build_list_lock = Lock()
+        self._ready_lock = Lock()
         self._leaves_ready = Condition()
-        self._leaves_list = []
-        self._build_list = []
+        self._nodes_dict = {}   # {target: [all_related_nodes]}
+        self._ready_list = []
+        self._leaves_dict = {}  # {node: 'node_target'}
+        self._build_list = []   # Nodes that are in building
 
         with open(yaml_path) as fd:
-            self._depyaml = yaml.safe_load(fd)
+            self._depyaml = measure_time(yaml.safe_load, fd)
 
         assert target in self._depyaml
-        print("Parsing dep tree...")
-        self._parse_dep_tree(target)
-        print("Parsing tree finished, resolving tree...")
-        #self._resolve_tree()
+        measure_time(self._parse_dep_tree, target)
+
+        print("Prepare leaves...")
+        measure_time(self._prepare_leaves)
 
     ### HELPER METHODS ###
 
-    def _get_children_list(self, start_node = None):
-        if start_node == None:
-            start_node = self._deproot
+    def _prepare_leaves(self):
+        for leaf in self._deproot.leaves:
+            if leaf._target not in self._leaves_dict.values():
+                self._leaves_dict.update({leaf: leaf._target})
 
-        return [[node for node in children] for children in anytree.LevelOrderGroupIter(start_node, maxlevel=2)][1]
+    def _add_to_nodes_dict(self, node):
+        if not node._target in self._nodes_dict.keys():
+            nodes_list = [node]
+        else:
+            nodes_list = self._nodes_dict[node._target]
+            nodes_list += [node]
 
-    def _get_level_lists(self, start_node = None):
-        if start_node == None:
-            start_node = self._deproot
-
-        return [[node for node in children] for children in anytree.LevelOrderGroupIter(start_node)]
-
-    def _check_if_unique(self, node_list):
-         seen = set()
-         return not any(i in seen or seen.add(i) for i in node_list)
+        self._nodes_dict.update({node._target: nodes_list})
 
     def _parse_dep_tree(self, target, node=None):
         assert self._depyaml != None
@@ -90,6 +108,7 @@ class DepTree:
             self._deproot = new_node
         else:
             new_node = DepNode(target, vdeps, vexec, vinputs, parent=node)
+            self._add_to_nodes_dict(new_node)
 
         if "input" in self._depyaml[target]:
             for inp in vinputs:
@@ -97,9 +116,6 @@ class DepTree:
         if "deps" in self._depyaml[target]:
             for dep in vdeps:
                 self._parse_dep_tree(dep, new_node)
-
-        if not new_node.children:
-            self._leaves_list += [new_node]
 
     def _delete_node(self, node):
         with self._leaves_ready:
@@ -110,35 +126,23 @@ class DepTree:
                 self._leaves_ready.notify_all()
                 return
 
-            parent = node.parent
-            parent_children_list = list(parent.children)
+            for dep_node in self._nodes_dict[node._target]:
+                parent = dep_node.parent
+                parent_children_list = list(parent.children)
 
-            # Remove node from the parent's list
-            parent_children_list.remove(node)
+                # Remove node from the parent's list
+                parent_children_list.remove(node)
 
-            # If parent has no nodes it becomes a leaf
-            if not parent_children_list:
-                self._leaves_list += [parent]
-                self._leaves_ready.notify()
+                # If parent has no nodes it becomes a leaf
+                if not parent_children_list:
+                    if (parent._target not in self._leaves_dict.values()):
+                        self._leaves_dict.update({parent:parent._target})
+                        self._leaves_ready.notify()
 
-            if node in self._leaves_list:
-                self._leaves_list.remove(node)
+                if node in self._leaves_dict.keys():
+                    del self._leaves_dict[node]
 
-            parent.children = parent_children_list
-
-    def _resolve_tree(self):
-        assert self._deproot != None
-
-        level_lists = self._get_level_lists()
-        flattened_list = [y for x in level_lists for y in x]
-        flattened_list.reverse()
-
-        found = []
-        for node in flattened_list:
-            if node in found:
-                self._delete_node(node)
-            else:
-                found += [node]
+                parent.children = parent_children_list
 
     ### PUBLIC API ###
 
@@ -148,20 +152,16 @@ class DepTree:
             start_node = self._deproot
         print(anytree.RenderTree(start_node, style=anytree.ContRoundStyle()))
 
+    def print_nodes_dict(self):
+        print("Nodes dict:")
+        pprint(self._nodes_dict)
+
     def print_leaves(self):
         assert self._deproot != None
         i = 0
-        for leaf in self._leaves_list:
+        for leaf in self._leaves_dict.keys():
             print("[%d]: %s" % (i, leaf))
             i = i + 1
-
-    def simple_dispose(self):
-        all_nodes = [node for node in anytree.PreOrderIter(self._deproot)]
-        assert self._check_if_unique(all_nodes) == True
-
-        result = [[node.name for node in children] for children in anytree.LevelOrderGroupIter(self._deproot)]
-        result.reverse()
-        return result
 
     def is_empty(self):
         return True if self._deproot == None else False
@@ -173,19 +173,22 @@ class DepTree:
         with self._tree_lock:
             self._delete_node(node)
 
+        with self._ready_lock:
+            self._ready_list += [node._target]
+
     def take(self):
         if self.is_empty():
             return None
 
         with self._leaves_ready:
-            while (not self._leaves_list) and (not self.is_empty()):
+            while (not self._leaves_dict.keys()) and (not self.is_empty()):
                 self._leaves_ready.wait()
 
             if self.is_empty():
                 return None
 
-            result = self._leaves_list[0]
-            self._leaves_list.pop(0)
+            result = next(iter(self._leaves_dict.keys()))
+            del self._leaves_dict[result]
             with self._build_list_lock:
                 self._build_list.append(result)
 
