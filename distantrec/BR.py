@@ -33,7 +33,7 @@ class BuildRunner:
     def build_target(self, worker_id, dep_tree):
         print("Worker [%d]: Starting..." % worker_id)
         node = dep_tree.take()
-        reapi = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'), get_option('SETUP', 'INSTANCE'), self.lock)
+        reapi = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'), get_option('SETUP', 'INSTANCE'), self.lock, worker_id)
         while node != None:
             self.run_target(worker_id,
                             reapi,

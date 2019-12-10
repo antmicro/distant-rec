@@ -16,3 +16,5 @@ PROPVALUE=
 LOCALCACHE=yes
 #No of threads
 THREADS=3
+#Verbose output - for debugging
+VERBOSE=yes

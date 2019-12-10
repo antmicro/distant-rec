@@ -1,4 +1,5 @@
 import configparser, sys, hashlib, os, yaml
+import datetime
 
 config = configparser.ConfigParser()
 
@@ -30,3 +31,11 @@ def wrap_cmd(cmd):
     script.write(cmd)
 
     return "./"+filename
+
+
+def logger(source: str, line:str):
+    if get_option('SETUP','VERBOSE') == 'yes':
+        print (logline(source,line))
+
+def logline(source: str,line:str):
+    return "[{0}] {1}: {2}".format(datetime.datetime.now(), source, line)

@@ -1,4 +1,4 @@
-from distantrec.helpers import get_option
+from distantrec.helpers import get_option,logger
 import grpc
 from buildgrid.client.cas import Uploader, Downloader
 from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
@@ -10,7 +10,7 @@ from distantrec.helpers import get_option
 from threading import Lock
 
 class RAC:
-    def __init__(self, uri, instance, lock):
+    def __init__(self, uri, instance, lock, worker_id):
         if(get_option('SETUP','USERBE') == 'yes'):
             credentials = service_account.Credentials.from_service_account_file(get_option('SETUP','RBECREDS'))
             scoped_credentials = credentials.with_scopes(['https://www.googleapis.com/auth/cloud-platform'])
@@ -20,6 +20,7 @@ class RAC:
             self.channel = grpc.insecure_channel(uri)
         self.instname = instance
         self.lock = lock
+        self.worker_id = worker_id
         self.uploader = Uploader(self.channel, instance=self.instname)
         if instance == None:
            nm = "unknown--"+uri
@@ -44,6 +45,7 @@ class RAC:
         command_digest = self.uploader.put_message(command_handler, queue=True)
 
         self.lock.acquire()
+        logger("Worker [%d]" % self.worker_id,"Uploading - lock acquired")
 
         input_root_digest = self.uploader.upload_directory(input_root + "/" + get_option('SETUP','BUILDDIR'),queue=False)
 
@@ -56,6 +58,7 @@ class RAC:
         return action_digest
 
     def run_command(self, action_digest, cache=True):
+        logger("Worker [%d]" % self.worker_id,"Execution - started.")
         stub = remote_execution_pb2_grpc.ExecutionStub(self.channel)
 
         request = remote_execution_pb2.ExecuteRequest(instance_name=get_option('SETUP','INSTANCE'),
@@ -63,6 +66,8 @@ class RAC:
                 skip_cache_lookup=not cache)
 
         response = stub.Execute(request)
+
+        logger("Worker [%d]" % self.worker_id,"Execution - finished.")
 
         stream = None
 
@@ -96,4 +101,5 @@ class RAC:
         action_digest = self.upload_action(cmd, input_dir, output_files)
         self.uploader.flush()
         self.lock.release()
+        logger("Worker [%d]" % self.worker_id,"Uploading finished - lock release")
         return self.run_command(action_digest)
