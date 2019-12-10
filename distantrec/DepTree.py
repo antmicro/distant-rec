@@ -74,7 +74,6 @@ class DepTree:
     def _parse_dep_tree(self, target, node=None):
         assert self._depyaml != None
 
-        print("Parsing target: "+target)
         if target not in self._depyaml:
             return
 

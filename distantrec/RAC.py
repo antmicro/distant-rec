@@ -49,12 +49,15 @@ class RAC:
 
         input_root_digest = self.uploader.upload_directory(input_root + "/" + get_option('SETUP','BUILDDIR'),queue=False)
 
+        logger("Worker [%d]" % self.worker_id,"Uploading - input root digest calculated")
+
         action = remote_execution_pb2.Action(command_digest=command_digest,
                 input_root_digest = input_root_digest,
                 do_not_cache=not cache)
 
         action_digest = self.uploader.put_message(action, queue=False)
 
+        logger("Worker [%d]" % self.worker_id,"Uploading - action digest calculated")
         return action_digest
 
     def run_command(self, action_digest, cache=True):
