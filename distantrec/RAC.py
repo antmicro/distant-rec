@@ -64,8 +64,6 @@ class RAC:
 
         response = stub.Execute(request)
 
-        self.lock.release()
-
         stream = None
 
 
@@ -97,4 +95,5 @@ class RAC:
     def action_run(self, cmd, input_dir, output_files):
         action_digest = self.upload_action(cmd, input_dir, output_files)
         self.uploader.flush()
+        self.lock.release()
         return self.run_command(action_digest)
