@@ -13,7 +13,8 @@ def mangle_from_list(scripts):
     for script in scripts:
         mangle = ScriptMangler(script)
         mangle.abs_to_rel()
-        mangle.temporary_folder_fix()
+        mangle.argument_fix("-temp_dir", path=True)
+        mangle.argument_fix("-cmos_tech")
         mangle.flush()
 
 def atr_text(text):
@@ -53,14 +54,21 @@ class ScriptMangler:
 
         self.file_list[13] = arguments_join
 
-    def temporary_folder_fix(self):
-        temp_relative_path = atr_text(self.path)[:-11]
+    def argument_fix(self, arg, path=False):
         
         arguments = self.file_list[13].split(" ")
+        try:
+            find_arg = arguments.index(arg)
+        except ValueError:
+            return
 
-        temp_arg = arguments.index("-temp_dir")
-
-        arguments[temp_arg+1] = temp_relative_path
+        # Sometimes there is a valid path to convert, but sometimes there is no meaningful path at all (like in temp_dir)
+        if path:
+            # In case of no meaningful path (e.g. '.') take the path
+            arguments[find_arg+1] = atr_text(self.path)[:-11]
+        else:
+            # Otherwise, format the argument
+            arguments[find_arg+1] = atr_text(arguments[find_arg+1])
 
         arguments_join = " ".join(arguments)
 
