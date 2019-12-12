@@ -64,6 +64,8 @@ class RAC:
         logger("Worker [%d]" % self.worker_id,"Execution - started.")
         stub = remote_execution_pb2_grpc.ExecutionStub(self.channel)
 
+        self.lock.release()
+
         request = remote_execution_pb2.ExecuteRequest(instance_name=get_option('SETUP','INSTANCE'),
                 action_digest=action_digest,
                 skip_cache_lookup=not cache)
@@ -84,6 +86,7 @@ class RAC:
         if execute_response.result.stdout_digest.hash:
             downloader = Downloader(self.channel, instance=self.instname)
             blob = downloader.get_blob(execute_response.result.stdout_digest)
+            print(blob)
             downloader.close()
         if execute_response.result.stdout_raw != "":
             print(str(execute_response.result.stdout_raw, errors='ignore'))
@@ -103,6 +106,5 @@ class RAC:
     def action_run(self, cmd, input_dir, output_files):
         action_digest = self.upload_action(cmd, input_dir, output_files)
         self.uploader.flush()
-        self.lock.release()
         logger("Worker [%d]" % self.worker_id,"Uploading finished - lock release")
         return self.run_command(action_digest)
