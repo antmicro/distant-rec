@@ -95,24 +95,20 @@ class Dep2YAML:
         return rule
 
     def _bellongs_to_project(self, path):
-        if os.path.exists(path):
-            abs_path = os.path.abspath(path)
-            common = os.path.commonpath([abs_path, self.root_dir])
+        abs_path = os.path.abspath(path)
+        common = os.path.commonpath([abs_path, self.root_dir])
 
-            if common == "/":
-                return False
-            else:
-                return True
+        if common == "/":
+            return False
+        else:
+            return True
 
     def _convert_to_relative_path(self, path):
-        assert os.path.exists(path) == True, "Assumption: path exists!"
+        abs_path = os.path.abspath(path)
+        common = os.path.commonpath([abs_path, self.root_dir])
 
-        if os.path.exists(path):
-            abs_path = os.path.abspath(path)
-            common = os.path.commonpath([abs_path, self.root_dir])
-
-            assert common != "/", "Assumption: path bellongs to project!"
-            result = os.path.relpath(abs_path, self.root_dir)
+        assert common != "/", "Assumption: path bellongs to project!"
+        result = os.path.relpath(abs_path, self.root_dir)
 
         return result
 
@@ -247,7 +243,16 @@ class Dep2YAML:
         # Convert paths in resolved rule to relative
         rule_parts = wb_rule.split(' ')
         for part in rule_parts:
-            if os.path.exists(part) and os.path.isabs(part):
+            if "=" in part:
+                split_list = part.split("=")
+                if len(split_list) != 2:
+                    continue
+                else:
+                    [variable, tmp_path] = split_list
+                    if os.path.exists(tmp_path) and os.path.isabs(tmp_path):
+                        new_path = self._convert_to_relative_path(tmp_path)
+                        wb_rule = wb_rule.replace(tmp_path, new_path)
+            elif os.path.isabs(part):
                 if self._bellongs_to_project(part):
                     new_path = self._convert_to_relative_path(part)
                     wb_rule = wb_rule.replace(part, new_path)
