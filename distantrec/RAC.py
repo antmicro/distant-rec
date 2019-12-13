@@ -1,4 +1,4 @@
-from distantrec.helpers import get_option,logger
+from distantrec.helpers import get_option,logger,vlogger
 import grpc
 from buildgrid.client.cas import Uploader, Downloader
 from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
@@ -26,7 +26,7 @@ class RAC:
            nm = "unknown--"+uri
         else:
            nm = instance
-        print("Running on instance {}".format(nm))
+        logger("Worker [%d]" % self.worker_id, "Running on instance {}".format(nm))
 
     def upload_action(self, commands, input_root, output_file, cache=True):
         command_handler = remote_execution_pb2.Command()
@@ -45,11 +45,11 @@ class RAC:
         command_digest = self.uploader.put_message(command_handler, queue=True)
 
         self.lock.acquire()
-        logger("Worker [%d]" % self.worker_id,"Uploading - lock acquired")
+        vlogger("Worker [%d]" % self.worker_id,"Uploading - lock acquired")
 
         input_root_digest = self.uploader.upload_directory(input_root + "/" + get_option('SETUP','BUILDDIR'),queue=False)
 
-        logger("Worker [%d]" % self.worker_id,"Uploading - input root digest calculated")
+        vlogger("Worker [%d]" % self.worker_id,"Uploading - input root digest calculated")
 
         action = remote_execution_pb2.Action(command_digest=command_digest,
                 input_root_digest = input_root_digest,
@@ -57,13 +57,13 @@ class RAC:
 
         action_digest = self.uploader.put_message(action, queue=False)
 
-        logger("Worker [%d]" % self.worker_id,"Uploading - action digest calculated")
+        vlogger("Worker [%d]" % self.worker_id,"Uploading - action digest calculated")
         return action_digest
 
     def run_command(self, action_digest, cache=True):
-        logger("Worker [%d]" % self.worker_id,"Execution - started.")
+        vlogger("Worker [%d]" % self.worker_id,"Execution - started.")
         stub = remote_execution_pb2_grpc.ExecutionStub(self.channel)
-
+        vlogger("Worker [%d]" % self.worker_id,"Preparing stub finished - lock release")
         self.lock.release()
 
         request = remote_execution_pb2.ExecuteRequest(instance_name=get_option('SETUP','INSTANCE'),
@@ -72,7 +72,7 @@ class RAC:
 
         response = stub.Execute(request)
 
-        logger("Worker [%d]" % self.worker_id,"Execution - finished.")
+        vlogger("Worker [%d]" % self.worker_id,"Execution - finished.")
 
         stream = None
 
@@ -86,7 +86,7 @@ class RAC:
         if execute_response.result.stdout_digest.hash:
             downloader = Downloader(self.channel, instance=self.instname)
             blob = downloader.get_blob(execute_response.result.stdout_digest)
-            print(blob)
+            logger("Worker [%d]" % self.worker_id, "Execution output: "+blob.decode('utf-8'))
             downloader.close()
         if execute_response.result.stdout_raw != "":
             print(str(execute_response.result.stdout_raw, errors='ignore'))
@@ -94,17 +94,16 @@ class RAC:
         if execute_response.result.stderr_raw != "":
             print(str(execute_response.result.stderr_raw, errors='ignore'))
         if execute_response.result.exit_code != 0:
-            print("Compilation failed.")
+            logger("Worker [%d]" % self.worker_id,"Compilation failed.")
             fail = 1
             return None
 
         if execute_response.cached_result:
-            print("Served from cache!")
+            logger("Worker [%d]" % self.worker_id,"Target served from cache!")
 
         return execute_response.result.output_files
 
     def action_run(self, cmd, input_dir, output_files):
         action_digest = self.upload_action(cmd, input_dir, output_files)
         self.uploader.flush()
-        logger("Worker [%d]" % self.worker_id,"Uploading finished - lock release")
         return self.run_command(action_digest)

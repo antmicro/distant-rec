@@ -46,7 +46,7 @@ class BuildRunner:
         reapi.uploader.close()
 
     def run_target(self, worker_id, reapi, vtarget, vinput, vdeps, vexec):
-        print("Worker [%d], building %s" % (worker_id, vtarget))
+        logger("Worker [%d]" % worker_id, "building %s" % vtarget)
 
         if get_option('SETUP','USERBE') == 'yes' and is_problematic(vexec):
             cmd = [wrap_cmd(vexec)]
@@ -82,7 +82,7 @@ class BuildRunner:
                 for blob in ofiles:
                     self.lock.acquire()
                     downloader = Downloader(reapi.channel, instance=reapi.instname)
-                    print("Downloading %s" % blob.path);
+                    logger("Worker [%d]" % worker_id, "Downloading %s" % blob.path);
                     downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
                     downloader.close()
                     self.lock.release()

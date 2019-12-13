@@ -33,9 +33,12 @@ def wrap_cmd(cmd):
     return "./"+filename
 
 
-def logger(source: str, line:str):
+def vlogger(source: str, line:str):
     if get_option('SETUP','VERBOSE') == 'yes':
         print (logline(source,line))
+
+def logger(source: str, line:str):
+    print (logline(source,line))
 
 def logline(source: str,line:str):
     return "[{0}] {1}: {2}".format(datetime.datetime.now(), source, line)
