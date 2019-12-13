@@ -94,21 +94,9 @@ class Dep2YAML:
         rule = re.sub(' +', ' ', rule)
         return rule
 
-    def _bellongs_to_project(self, path):
-        abs_path = os.path.abspath(path)
-        common = os.path.commonpath([abs_path, self.root_dir])
-
-        if common == "/":
-            return False
-        else:
-            return True
-
     def _convert_to_relative_path(self, path):
-        abs_path = os.path.abspath(path)
-        common = os.path.commonpath([abs_path, self.root_dir])
-
-        assert common != "/", "Assumption: path bellongs to project!"
-        result = os.path.relpath(abs_path, self.root_dir)
+        result = path.replace(self.root_dir + "/", '')
+        result = result.replace(self.root_dir, "./")
 
         return result
 
@@ -152,8 +140,7 @@ class Dep2YAML:
         rule = self._remove_wrong_cmake_calls(rule)
         rule = self._format_rule(rule)
 
-        rule = rule.replace(self.root_dir + "/", '')
-        rule = rule.replace(self.root_dir, "./")
+        rule = self._convert_to_relative_path(rule)
 
         return rule
 
@@ -220,19 +207,23 @@ class Dep2YAML:
             if (option == Dep2YAML.IMPLICIT_DEPENDENCY):
                 wb_implicit_deps_list += [self._get_dependency(line)]
 
+
+        for i in range(len(wb_output_list)):
+            output = wb_output_list[i]
+            if os.path.isabs(output):
+                wb_output_list[i] = self._convert_to_relative_path(output)
+
         # Convert paths from wb_explicit_deps_list to relative
         for i in range(len(wb_explicit_deps_list)):
             dep = wb_explicit_deps_list[i]
-            if os.path.exists(dep) and os.path.isabs(dep):
-                if self._bellongs_to_project(dep):
-                    wb_explicit_deps_list[i] = self._convert_to_relative_path(dep)
+            if os.path.isabs(dep):
+                wb_explicit_deps_list[i] = self._convert_to_relative_path(dep)
 
         # Convert paths from wb_implicit_deps to relative
         for i in range(len(wb_implicit_deps_list)):
             dep = wb_implicit_deps_list[i]
-            if os.path.exists(dep) and os.path.isabs(dep):
-                if self._bellongs_to_project(dep):
-                    wb_implicit_deps_list[i] = self._convert_to_relative_path(dep)
+            if os.path.isabs(dep):
+                wb_implicit_deps_list[i] = self._convert_to_relative_path(dep)
 
         dependencies = wb_explicit_deps_list + wb_implicit_deps_list
 
@@ -271,9 +262,8 @@ class Dep2YAML:
         definition_parts = definition.split(' ')
         for part in definition_parts:
             if os.path.exists(part) and os.path.isabs(part):
-                if self._bellongs_to_project(part):
-                    new_path = self._convert_to_relative_path(part)
-                    definition = definition.replace(part, new_path)
+                new_path = self._convert_to_relative_path(part)
+                definition = definition.replace(part, new_path)
 
         return {variable: definition}
 
