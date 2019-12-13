@@ -25,3 +25,31 @@ After ensuring that the previous steps have succeeded, generate the YAML file by
 Now that the prerequisite files are ready, the execution looks as follows: `./raclient.py <dependencies yml file> target`.
 
 The client has a possibility to dry run the build (e.g. it doesn't actually perform the build — there's no communication with the server whatsoever). To perform such a build, modify the command above by appending `--no-server`.
+
+## Practical examples
+
+Even though the client strives to be universal, it has been developed so that it fulfils the needs of certain open-source projects.
+Some of them will be listed in this section for reference.
+
+### Verilog to Routing
+
+The VTR project provides open-source CAD tools for FPGA architecture and CAD research.
+Our client is able to run the `vtr_flow` regression tests and distribute them across workers.
+
+The VTR flow scripts had to be adapted in order to run them with distant-rec.
+The following modifications have been made:
+
+1. A new argument was introduced to `run_vtr_task.pl` - `-d` as in dry run. It doesn't run the tasks, just generates the necessary scripts and dumps their paths to `generated_scripts.txt`.
+1. More strict paths for graph generation in `run_vtr_flow.pl`.
+
+The `-d` argument produces a file which is then used by `vtr2yml` to produce an input file for the client.
+More strict paths are because we cannot rely on absolute paths from the client machine, as they differ on workers.
+
+Below is the guide instructing how to run the `vtr_reg_strong` tests using distant-rec. 
+
+#. Create an empty build catalog and make it your current working directory.
+#. Therein, clone the VTR project from our [repository](https://github.com/antmicro).
+#. Create a configuration file (described in the [setup](#Setup) section).
+#. Run `./vtr-verilog-to-routing/vtr_flow/scripts/run_vtr_task.pl -d -l vtr_flow/tasks/regression_tests/vtr_reg_strong/task_list.txt`.
+#. Produce a client input file by issuing `vtr2yaml vtr-verilog-to-routing/generated_scripts.txt`.
+#. Now that everything is ready, start the build by running `raclient vtr.yml all`.
