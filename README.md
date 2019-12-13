@@ -20,7 +20,7 @@ The last step is configuring the server, port and the project build folder (expl
 
 Clone a project which uses CMake build system to your build folder.
 
-After ensuring that the previous steps have succeeded, generate the YAML file by entering the build directory described in the `config.ini` file and running `cmake <dir> -G "Ninja" | ../tools/dep2yaml/dep2yaml.py > ../out.yml` (where `<dir>` is the folder containing your project).
+After ensuring that the previous steps have succeeded, generate the YAML file by entering the build directory described in the `config.ini` file and running `cmake <dir> -G "Ninja" | dep2yaml.py > ../out.yml` (where `<dir>` is the folder containing your project).
 
 Now that the prerequisite files are ready, the execution looks as follows: `./raclient.py <dependencies yml file> target`.
 
@@ -57,3 +57,9 @@ Below is the guide instructing how to run the `vtr_reg_strong` tests using dista
 1. Run `./vtr-verilog-to-routing/vtr_flow/scripts/run_vtr_task.pl -d -l vtr_flow/tasks/regression_tests/vtr_reg_strong/task_list.txt`.
 1. Produce a client input file by issuing `vtr2yaml vtr-verilog-to-routing/generated_scripts.txt`.
 1. Now that everything is ready, start the build by running `raclient vtr.yml all`.
+
+### Abseil - C++ Common Libraries
+
+Abseil is an open source code collection extending the C++ standard library.
+
+There is no need to adapt this project to work with Distant RE Client. Simply follow the Usage section to generate the input YAML file and proceed with  remote build. 
