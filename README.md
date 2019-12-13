@@ -8,7 +8,7 @@ The Distant RE Client has been tested with [Google Remote Build Execution platfo
 
 ## Setup
 
-Install python3 libraries from the `requirements.txt` file by running `pip install -r requirements.txt`.
+The repository is structured as a Python package, therefore to install the client you just need to run `pip install .` and all of the dependencies will be resolved automatically.
 
 This project uses additional submodules. Be sure to initialize and clone them before you proceed.
 
