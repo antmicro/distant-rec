@@ -5,8 +5,8 @@ import argparse
 from copy import copy
 from parse import parse
 
-
-lineno = 0
+def err(*args):
+    print(*args, file=sys.stderr)
 
 class Dep2YAML:
 
@@ -21,7 +21,6 @@ class Dep2YAML:
     IMPLICIT_DEPENDENCY = "implicit_dependency"
 
     ### INITIALIZATION ###
-
 
     def __init__(self, dep_file):
 
@@ -80,9 +79,18 @@ class Dep2YAML:
     def _remove_wrong_cmake_calls(self, rule):
         commands = rule.split("&&")
         for command in commands:
-            result = re.findall("cmake -E rm -f", command)
-            if bool(result):
+
+            # This command causes error
+            if "cmake -E rm -f" in command:
                 rule = rule.replace(command, ' : ')
+
+            # cmake have different path for our tools and server
+            if "bin/cmake" in command:
+                parts = command.split(' ')
+                for part in parts:
+                    if "bin/cmake" in part:
+                        rule = rule.replace(part, "cmake")
+
         rule = re.sub(' +', ' ', rule)
         return rule
 
@@ -97,11 +105,13 @@ class Dep2YAML:
                 return True
 
     def _convert_to_relative_path(self, path):
+        assert os.path.exists(path) == True, "Assumption: path exists!"
+
         if os.path.exists(path):
             abs_path = os.path.abspath(path)
             common = os.path.commonpath([abs_path, self.root_dir])
 
-            assert common != "/"
+            assert common != "/", "Assumption: path bellongs to project!"
             result = os.path.relpath(abs_path, self.root_dir)
 
         return result
