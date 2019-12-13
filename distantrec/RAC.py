@@ -64,13 +64,14 @@ class RAC:
         vlogger("Worker [%d]" % self.worker_id,"Execution - started.")
         stub = remote_execution_pb2_grpc.ExecutionStub(self.channel)
         vlogger("Worker [%d]" % self.worker_id,"Preparing stub finished - lock release")
-        self.lock.release()
 
         request = remote_execution_pb2.ExecuteRequest(instance_name=get_option('SETUP','INSTANCE'),
                 action_digest=action_digest,
                 skip_cache_lookup=not cache)
 
         response = stub.Execute(request)
+
+        self.lock.release()
 
         vlogger("Worker [%d]" % self.worker_id,"Execution - finished.")
 
