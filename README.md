@@ -45,10 +45,14 @@ The following modifications have been made:
 The `-d` argument produces a file which is then used by `vtr2yml` to produce an input file for the client.
 More strict paths are because we cannot rely on absolute paths from the client machine, as they differ on workers.
 
+Also please be advised that VPR should be compiled without GTK, as the library most likely will not be present on the worker machines.
+
 Below is the guide instructing how to run the `vtr_reg_strong` tests using distant-rec. 
 
 1. Create an empty build catalog and make it your current working directory.
 1. Therein, clone the VTR project from our [repository](https://github.com/antmicro).
+1. Change your CWD to `vtr-verilog-to-routing` and compile the software by running `make`.
+1. Once the compilation has finished, go back to the root directory (`cd ..`).
 1. Create a configuration file (described in the [setup](#Setup) section).
 1. Run `./vtr-verilog-to-routing/vtr_flow/scripts/run_vtr_task.pl -d -l vtr_flow/tasks/regression_tests/vtr_reg_strong/task_list.txt`.
 1. Produce a client input file by issuing `vtr2yaml vtr-verilog-to-routing/generated_scripts.txt`.
