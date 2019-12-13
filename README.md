@@ -47,9 +47,9 @@ More strict paths are because we cannot rely on absolute paths from the client m
 
 Below is the guide instructing how to run the `vtr_reg_strong` tests using distant-rec. 
 
-#. Create an empty build catalog and make it your current working directory.
-#. Therein, clone the VTR project from our [repository](https://github.com/antmicro).
-#. Create a configuration file (described in the [setup](#Setup) section).
-#. Run `./vtr-verilog-to-routing/vtr_flow/scripts/run_vtr_task.pl -d -l vtr_flow/tasks/regression_tests/vtr_reg_strong/task_list.txt`.
-#. Produce a client input file by issuing `vtr2yaml vtr-verilog-to-routing/generated_scripts.txt`.
-#. Now that everything is ready, start the build by running `raclient vtr.yml all`.
+1. Create an empty build catalog and make it your current working directory.
+1. Therein, clone the VTR project from our [repository](https://github.com/antmicro).
+1. Create a configuration file (described in the [setup](#Setup) section).
+1. Run `./vtr-verilog-to-routing/vtr_flow/scripts/run_vtr_task.pl -d -l vtr_flow/tasks/regression_tests/vtr_reg_strong/task_list.txt`.
+1. Produce a client input file by issuing `vtr2yaml vtr-verilog-to-routing/generated_scripts.txt`.
+1. Now that everything is ready, start the build by running `raclient vtr.yml all`.
