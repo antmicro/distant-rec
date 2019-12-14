@@ -44,7 +44,7 @@ class RAC:
 
         command_digest = self.uploader.put_message(command_handler, queue=True)
 
-	if get_option('SETUP','USERBE') == 'yes':
+        if get_option('SETUP','USERBE') == 'yes':
             self.lock.acquire()
         vlogger("Worker [%d]" % self.worker_id,"Uploading - lock acquired")
 
@@ -71,7 +71,7 @@ class RAC:
                 skip_cache_lookup=not cache)
 
         response = stub.Execute(request)
-	if get_option('SETUP','USERBE') == 'yes':
+        if get_option('SETUP','USERBE') == 'yes':
             self.lock.release()
 
         vlogger("Worker [%d]" % self.worker_id,"Execution - finished.")
