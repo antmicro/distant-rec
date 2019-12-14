@@ -44,7 +44,8 @@ class RAC:
 
         command_digest = self.uploader.put_message(command_handler, queue=True)
 
-        self.lock.acquire()
+	if get_option('SETUP','USERBE') == 'yes':
+            self.lock.acquire()
         vlogger("Worker [%d]" % self.worker_id,"Uploading - lock acquired")
 
         input_root_digest = self.uploader.upload_directory(input_root + "/" + get_option('SETUP','BUILDDIR'),queue=False)
@@ -70,8 +71,8 @@ class RAC:
                 skip_cache_lookup=not cache)
 
         response = stub.Execute(request)
-
-        self.lock.release()
+	if get_option('SETUP','USERBE') == 'yes':
+            self.lock.release()
 
         vlogger("Worker [%d]" % self.worker_id,"Execution - finished.")
 
