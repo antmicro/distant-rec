@@ -95,7 +95,7 @@ class RAC:
 
         if execute_response.result.stderr_raw != "":
             print(str(execute_response.result.stderr_raw, errors='ignore'))
-        if execute_response.result.exit_code != 0:
+        if not get_option('SETUP','ALLOWFAIL') == 'yes' and execute_response.result.exit_code != 0:
             logger("Worker [%d]" % self.worker_id,"Target build failed.")
             fail = 1
             return None
