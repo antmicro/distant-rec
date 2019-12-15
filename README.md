@@ -51,11 +51,11 @@ Below is the guide instructing how to run the `vtr_reg_strong` tests using dista
 
 1. Create an empty build catalog and make it your current working directory.
 1. Therein, clone the VTR project from our [repository](https://github.com/antmicro).
-1. Change your CWD to `vtr-verilog-to-routing` and compile the software by running `make`.
+1. Change your CWD to `vtr-verilog-to-routing` and compile the software by running `make`. Get the titan benchmarks by running `make get_titan_benchmarks` and upgrade architecture files with `./dev/upgrade_vtr_archs.sh`.
 1. Once the compilation has finished, go back to the root directory (`cd ..`).
 1. Create a configuration file (described in the [setup](#Setup) section).
-1. Run `./vtr-verilog-to-routing/vtr_flow/scripts/run_vtr_task.pl -d -l vtr_flow/tasks/regression_tests/vtr_reg_strong/task_list.txt`.
-1. Produce a client input file by issuing `vtr2yaml vtr-verilog-to-routing/generated_scripts.txt`.
+1. Run `./vtr-verilog-to-routing/vtr_flow/scripts/run_vtr_task.pl -d -l vtr-verilog-to-routing/vtr_flow/tasks/regression_tests/vtr_reg_strong/task_list.txt`.
+1. Produce a client input file by issuing `vtr2yaml generated_scripts.txt`.
 1. Now that everything is ready, start the build by running `raclient vtr.yml all`.
 
 ### Abseil - C++ Common Libraries
