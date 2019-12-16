@@ -71,7 +71,7 @@ Also please be advised that VPR should be compiled without GTK, as the library m
 Below is the guide instructing how to run the regression tests using distant-rec. 
 
 1. Create an empty build catalog and make it your current working directory.
-1. Therein, clone the VTR project from our [repository](https://github.com/antmicro).
+1. Therein, clone the VTR project from our [repository](https://github.com/antmicro/vtr-flow-distant).
 1. Create a configuration file (described in the [setup](#Setup) section).
 1. Change your CWD to `vtr-verilog-to-routing` and compile the software by running `make`. 
 1. If there need be, get the titan benchmarks by changing your CWD to `build` and running `make get_titan_benchmarks`. Then go back one directory up (`cd ..`) and upgrade architecture files with `./dev/upgrade_vtr_archs.sh`.
