@@ -49,8 +49,10 @@ class BuildRunner:
         logger("Worker [%d]" % worker_id, "building %s" % vtarget)
 
         subdir = get_option('SETUP', 'SUBDIR')
+        builddir = get_option('SETUP', 'BUILDDIR')
         if subdir and vexec != 'phony':
-            vexec = "cd {} && {}".format(subdir, vexec)
+            diff_path = os.path.relpath(subdir, os.path.commonpath([subdir, builddir]))
+            vexec = "cd {} && {}".format(diff_path, vexec)
 
         if get_option('SETUP','USERBE') == 'yes' and is_problematic(vexec):
             cmd = [wrap_cmd(vexec)]
