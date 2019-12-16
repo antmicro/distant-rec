@@ -7,7 +7,11 @@ PORT=50051
 USERBE=no
 #service account credentials file (used while building on RBE service)
 RBECREDS=file.json
+#build folder - root dir for project files and executing all targets from yml file  
 BUILDDIR=examples
+#sub directory - to be used only if build commands should be invoked from different folder than BUILDDIR
+SUBDIR = examples/build
+#REAPI instance name
 INSTANCE=antmicro
 #properties used while interacting with RBE to send docker image location URL.
 PROPNAME=
