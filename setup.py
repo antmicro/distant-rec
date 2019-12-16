@@ -14,7 +14,6 @@ setuptools.setup(
                 "dep2yaml = distantrec.dep2yaml:main",
                 "vtr2yaml = distantrec.vtr2yaml:main", ]
             },
-        scripts=['distantrec/vtr-helper.sh'],
         install_requires=["buildgrid @ git+https://github.com/antmicro/buildgrid",
             "grpcio", "pyyaml", "google-auth", "protobuf", "requests", "parse", "anytree"],
         )
