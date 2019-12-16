@@ -26,6 +26,17 @@ Now that the prerequisite files are ready, the execution looks as follows: `./ra
 
 The client has a possibility to dry run the build (e.g. it doesn't actually perform the build — there's no communication with the server whatsoever). To perform such a build, modify the command above by appending `--no-server`.
 
+## Worker environment
+
+To ensure the integrity and to reduce the risk of failure of the builds, the workers should have the same environment (i.e. all the necessary tools installed).
+The operating system of the server usually doesn't matter as long as it runs Buildgrid properly.
+
+In the case of RBE, please contain all the packages you need for the build (e.g. build-essential, ninja) in the Docker container wherein the build shall take place.
+
+When setting up the workers for a self-hosted Buildgrid instance, make sure that each one is deployed with the same operating system and has the same set of utilities installed.
+
+Moreover, in certain cases (e.g. VTR) the operating system of the client should be the same as of the workers. This is because sometimes we may build some binaries on the client, and then instruct the workers to execute them. In the case of different operating systems there might appear a shared library path or version mismatch.
+
 ## Practical examples
 
 Even though the client strives to be universal, it has been developed so that it fulfils the needs of certain open-source projects.
@@ -51,15 +62,15 @@ Below is the guide instructing how to run the `vtr_reg_strong` tests using dista
 
 1. Create an empty build catalog and make it your current working directory.
 1. Therein, clone the VTR project from our [repository](https://github.com/antmicro).
-1. Change your CWD to `vtr-verilog-to-routing` and compile the software by running `make`. Get the titan benchmarks by running `make get_titan_benchmarks` and upgrade architecture files with `./dev/upgrade_vtr_archs.sh`.
-1. Once the compilation has finished, go back to the root directory (`cd ..`).
 1. Create a configuration file (described in the [setup](#Setup) section).
-1. Run `./vtr-verilog-to-routing/vtr_flow/scripts/run_vtr_task.pl -d -l vtr-verilog-to-routing/vtr_flow/tasks/regression_tests/vtr_reg_strong/task_list.txt`.
-1. Produce a client input file by issuing `vtr2yaml generated_scripts.txt`.
+1. Change your CWD to `vtr-verilog-to-routing` and compile the software by running `make`. Get the titan benchmarks by running `make get_titan_benchmarks` and upgrade architecture files with `./dev/upgrade_vtr_archs.sh`.
+1. Run `./vtr_flow/scripts/run_vtr_task.pl -d -l vtr-verilog-to-routing/vtr_flow/tasks/regression_tests/vtr_reg_strong/task_list.txt`.
+1. Go back to the root directory (`cd ..`).
+1. Produce a client input file by issuing `vtr2yaml vtr-verilog-to-routing/generated_scripts.txt`.
 1. Now that everything is ready, start the build by running `raclient vtr.yml all`.
 
 ### Abseil - C++ Common Libraries
 
 Abseil is an open source code collection extending the C++ standard library.
 
-There is no need to adapt this project to work with Distant RE Client. Simply follow the Usage section to generate the input YAML file and proceed with  remote build. 
+There is no need to adapt this project to work with Distant RE Client. Simply follow the Usage section to generate the input YAML file and proceed with remote build. 
