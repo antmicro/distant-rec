@@ -2,11 +2,15 @@
 
 import sys, yaml
 
+def exec_to_log(execc):
+    # Take a path ending with '.sh' and replace it with log path
+    return execc[:-11]+"vpr_stdout.log"
+
 def yaml_section(execc, deps=[]):
     section = {}
     section["exec"] = execc
     section["deps"] = deps
-    section["output"] = execc[:-11]+"vpr_stdout.log"
+    section["output"] = exec_to_log(execc)
     return section
 
 def mangle_from_list(scripts):
@@ -26,7 +30,7 @@ def buildyaml(scripts):
     yaml = dict()
     for script in scripts:
         rel = atr_text(script)
-        yaml[rel] = yaml_section(rel)
+        yaml[exec_to_log(rel)] = yaml_section(rel)
 
     yaml["tests"] = yaml_section("phony", list(yaml.keys()))
     yaml["all"] = yaml_section("phony", ["tests"])
