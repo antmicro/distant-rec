@@ -1,15 +1,7 @@
 #!/bin/bash
 
 cd vtr-verilog-to-routing
-make
 ./vtr_flow/scripts/run_vtr_task.pl -d -l vtr_flow/tasks/regression_tests/$1/task_list.txt
-
-if [ $1 = "vtr_reg_nightly" ] || [ $1 = "vtr_reg_nightly" ]; then
-	cd build
-	make
-	cd ..
-	./dev/upgrade_vtr_archs.sh
-fi
 
 find . -name "*.o" -type f -delete
 find . -name "*.h" -type f -delete
@@ -31,4 +23,4 @@ find . -type l -exec rm -f {} \;
 mv build/abc/abc abc/abc && \
 mv build/vpr/vpr vpr/vpr && \
 mv build/ace2/ace ace2/ace && \
-mv  build/ODIN_II/odin_II ODIN_II/odin_II
+mv build/ODIN_II/odin_II ODIN_II/odin_II
