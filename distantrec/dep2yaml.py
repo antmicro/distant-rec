@@ -5,6 +5,7 @@ import argparse
 from copy import copy
 from parse import parse
 
+
 def err(*args):
     print(*args, file=sys.stderr)
 
@@ -22,9 +23,15 @@ class Dep2YAML:
 
     ### INITIALIZATION ###
 
-    def __init__(self, dep_file):
+    def __init__(self, dep_file, prjdir=None, subdir=None):
 
-        self.root_dir = os.getcwd()
+        if prjdir == None or subdir == None:
+            self._subdir = os.getcwd()
+            self._prjdir = os.path.normpath(self._subdir + "/..")
+        else:
+            self._subdir = subdir
+            self._prjdir = prjdir
+
         self.defined_rules = {}
 
         self._dep_file = dep_file
@@ -94,9 +101,19 @@ class Dep2YAML:
         rule = re.sub(' +', ' ', rule)
         return rule
 
+    def _belongs_to_project(self, path):
+        abs_path = os.path.abspath(path)
+        return True if abs_path.startswith(self._prjdir) else False
+
     def _convert_to_relative_path(self, path):
-        result = path.replace(self.root_dir + "/", '')
-        result = result.replace(self.root_dir, "./")
+        assert self._belongs_to_project(path) == True
+
+        abs_path = os.path.abspath(path)
+        common = os.path.commonpath([abs_path, self._subdir])
+
+        assert common != "/"
+        relpath = os.path.relpath(abs_path, self._subdir)
+        result = "${DISTANT_REC_SUBDIR}/" + os.path.normpath(relpath)
 
         return result
 
@@ -139,10 +156,140 @@ class Dep2YAML:
         rule = self._format_rule(rule)
         rule = self._remove_wrong_cmake_calls(rule)
         rule = self._format_rule(rule)
-
-        rule = self._convert_to_relative_path(rule)
+        rule = self._convert_paths_in_rule(rule)
 
         return rule
+
+    def _string_can_be_converted_to_path(self, string):
+        if os.path.isabs(string) and self._belongs_to_project(string):
+            return True
+        else:
+            return False
+
+    def _convert_path_standalone(self, rule, path):
+        assert self._string_can_be_converted_to_path(path)
+
+        new_path = self._convert_to_relative_path(path)
+        return rule.replace(path, new_path)
+
+    def _convert_path_colon_separated(self, rule, string):
+        path_parts = string.split(":")
+        for part in path_parts:
+            if self._string_can_be_converted_to_path(part):
+                rule = self._convert_path_standalone(rule, part)
+        return rule
+
+    def _convert_path_in_variable(self, rule, split_list):
+        [variable, tmp_path] = split_list
+        if tmp_path != '':
+            if tmp_path[0] == '"' and tmp_path[-1] == '"':
+                tmp_path = tmp_path[1:-1]
+            elif tmp_path[0] == "'" and tmp_path[-1] == "'":
+                tmp_path = tmp_path[1:-1]
+
+            # VARIABLE="path"·or·VARIABLE=path
+            if self._string_can_be_converted_to_path(tmp_path):
+                rule = self._convert_path_standalone(rule, tmp_path)
+
+            # VARIABLE="path:path" or VARIABLE='path:path'
+            if ":" in tmp_path:
+                #err("PRZED: " + str(tmp_path))
+                rule = self._convert_path_colon_separated(rule, tmp_path)
+                #err("PO: " + str(rule))
+            return rule
+
+    def _convert_path_in_option(self, rule, string):
+        tmp = string[2:]
+        if self._string_can_be_converted_to_path(tmp):
+            rule = self._convert_path_standalone(rule, tmp)
+
+        if ":" in tmp:
+            rule = self._convert_path_colon_separated(rule, tmp)
+
+        return rule
+
+    def _convert_paths_in_rule(self, rule):
+        commands = rule.split('&&')
+        for command in commands:
+            if "bash -c" in command:
+                tmp_command = command.replace("bash -c", '')
+                tmp_command = tmp_command.strip()
+                tmp_command = tmp_command[1:-1]
+                #err(tmp_command)
+            else:
+                tmp_command = command
+
+            command_parts = tmp_command.split(' ')
+            #err(command_parts)
+            for command_part in command_parts:
+                pass
+                # Just a path
+                if self._string_can_be_converted_to_path(command_part):
+                    rule = self._convert_path_standalone(rule, command_part)
+
+                # path in variable
+                if "=" in command_part:
+                    split_list = command_part.split("=")
+                    if len(split_list) != 2:
+                        continue # Different then VARIABLE=path
+                    else:
+                        rule = self._convert_path_in_variable(rule, split_list)
+
+                # path in option
+                if command_part != '' and command_part[0] == "-":
+                    rule = self._convert_path_in_option(rule, command_part)
+
+        return rule
+
+
+
+
+        ## Convert paths to relative
+        #rule_parts = rule.split(' ')
+        #for rule_part in rule_parts:
+
+        #    # Just a path
+        #    if os.path.isabs(rule_part) and self._belongs_to_project(rule_part):
+        #        new_path = self._convert_to_relative_path(part)
+        #        rule
+
+        #    # VARIABLE="path{:path}"
+        #    if "=" in rule_part:
+        #        #err("RULE: " + str(rule_part))
+        #        split_list = rule_part.split("=")
+        #        #err("SPLIT_LIST: " + str(split_list))
+        #        if len(split_list) != 2:
+        #            continue # Different then VARIABLE=path
+        #        else:
+        #            [variable, tmp_path] = split_list
+        #            #err("TMP_PATH: " + str(tmp_path))
+        #            if tmp_path != '':
+        #                if tmp_path[0] == '"' and tmp_path[-1] == '"':
+        #                    tmp_path = tmp_path[1:-1]
+        #                elif tmp_path[0] == "'" and tmp_path[-1] == "'":
+        #                    tmp_path = tmp_path[1:-1]
+
+        #            #err("CHANGED_TMP_PATH: " + str(tmp_path))
+
+        #            # VARIABLE="path"·or·VARIABLE=path
+        #            if os.path.isabs(tmp_path) and self._belongs_to_project(tmp_path):
+        #                new_path = self._convert_to_relative_path(tmp_path)
+        #                rule = rule.replace(tmp_path, new_path)
+
+        #            # VARIABLE="path:path" or VARIABLE='path:path'
+        #            if ":" in tmp_path:
+        #                tmp_path_parts = tmp_path.split(":")
+        #                for tmp_path_part in tmp_path_parts:
+        #                    if os.path.isabs(tmp_path_part) and self._belongs_to_project(tmp_path_part):
+        #                        new_path = self._convert_to_relative_path(tmp_path_part)
+        #                        rule = rule.replace(tmp_path_part, new_path)
+
+
+
+
+        ##rule = self._convert_to_relative_path(rule)
+
+        #return rule
 
     ### MAIN PROCESSING CALLS ###
 
@@ -210,19 +357,19 @@ class Dep2YAML:
 
         for i in range(len(wb_output_list)):
             output = wb_output_list[i]
-            if os.path.isabs(output):
+            if os.path.isabs(output) and self._belongs_to_project(output):
                 wb_output_list[i] = self._convert_to_relative_path(output)
 
         # Convert paths from wb_explicit_deps_list to relative
         for i in range(len(wb_explicit_deps_list)):
             dep = wb_explicit_deps_list[i]
-            if os.path.isabs(dep):
+            if os.path.isabs(dep) and self._belongs_to_project(dep):
                 wb_explicit_deps_list[i] = self._convert_to_relative_path(dep)
 
         # Convert paths from wb_implicit_deps to relative
         for i in range(len(wb_implicit_deps_list)):
             dep = wb_implicit_deps_list[i]
-            if os.path.isabs(dep):
+            if os.path.isabs(dep) and self._belongs_to_project(dep):
                 wb_implicit_deps_list[i] = self._convert_to_relative_path(dep)
 
         dependencies = wb_explicit_deps_list + wb_implicit_deps_list
@@ -261,9 +408,10 @@ class Dep2YAML:
 
         definition_parts = definition.split(' ')
         for part in definition_parts:
-            if os.path.exists(part) and os.path.isabs(part):
-                new_path = self._convert_to_relative_path(part)
-                definition = definition.replace(part, new_path)
+            if os.path.isabs(part):
+                if self._belongs_to_project(part):
+                    new_path = self._convert_to_relative_path(part)
+                    definition = definition.replace(part, new_path)
 
         return {variable: definition}
 

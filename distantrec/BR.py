@@ -19,6 +19,11 @@ class BuildRunner:
         self.target_queue = Queue()
 
     def run(self, target, num_threads):
+        subdir = get_option('SETUP', 'SUBDIR')
+        builddir = get_option('SETUP', 'BUILDDIR')
+        print("SUBDIR: " + str(subdir))
+        print("BUILDDIR: " + str(builddir))
+
         dep_tree = DepTree(self.yaml_path, target)
         threads = []
 
@@ -52,7 +57,7 @@ class BuildRunner:
         builddir = get_option('SETUP', 'BUILDDIR')
         if subdir and vexec != 'phony':
             diff_path = os.path.relpath(subdir, os.path.commonpath([subdir, builddir]))
-            vexec = "cd {} && {}".format(diff_path, vexec)
+            vexec = "cd {} && DISTANT_REC_SUBDIR=`pwd` && {}".format(diff_path, vexec)
 
         if get_option('SETUP','USERBE') == 'yes' and is_problematic(vexec):
             cmd = [wrap_cmd(vexec)]
