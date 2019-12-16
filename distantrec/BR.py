@@ -48,6 +48,10 @@ class BuildRunner:
     def run_target(self, worker_id, reapi, vtarget, vinput, vdeps, vexec):
         logger("Worker [%d]" % worker_id, "building %s" % vtarget)
 
+        subdir = get_option('SETUP', 'SUBDIR')
+        if subdir and vexec != 'phony':
+            vexec = "cd {} && {}".format(subdir, vexec)
+
         if get_option('SETUP','USERBE') == 'yes' and is_problematic(vexec):
             cmd = [wrap_cmd(vexec)]
         else:
@@ -64,6 +68,8 @@ class BuildRunner:
         else:
             out = []
             # TODO: hack
+            if subdir:
+                vtarget = "{}/{}".format(subdir, vtarget)
             out = [vtarget]
             if get_option('SETUP','LOCALCACHE') == 'yes' and os.path.exists(get_option('SETUP','BUILDDIR')+"/"+vtarget): return
 
