@@ -73,8 +73,11 @@ Below is the guide instructing how to run the `vtr_reg_strong` tests using dista
 1. Create an empty build catalog and make it your current working directory.
 1. Therein, clone the VTR project from our [repository](https://github.com/antmicro).
 1. Create a configuration file (described in the [setup](#Setup) section).
+1. Change your CWD to `vtr-verilog-to-routing` and compile the software by running `make`. 
+1. If there need be, get the titan benchmarks by changing your CWD to `build` and running `make get_titan_benchmarks` and upgrade architecture files with `./dev/upgrade_vtr_archs.sh`. Remember to go back one directory up.
+1. Go back to the project root (`cd ..`).
 1. There's a helper script in the tools directory in this repository. Copy `vtr-helper.sh` from there to a location for binaries (e.g. `/usr/bin/`).
-1. Run `vtr-helper.sh vtr_reg_strong`. This will compile vtr, generate necessary files and remove symlinks.
+1. Run `vtr-helper.sh vtr_reg_strong`. This will generate necessary files and remove symlinks.
 1. Produce a client input file by issuing `vtr2yaml vtr-verilog-to-routing/generated_scripts.txt`.
 1. Now that everything is ready, start the build by running `raclient vtr.yml all`.
 
