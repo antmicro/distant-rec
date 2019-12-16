@@ -10,7 +10,7 @@ def yaml_section(execc, deps=[]):
     section = {}
     section["exec"] = execc
     section["deps"] = deps
-    section["output"] = exec_to_log(execc)
+    #section["output"] = exec_to_log(execc)
     return section
 
 def mangle_from_list(scripts):
