@@ -221,10 +221,11 @@ class DepTree:
         cache_file_name = self._get_cache_name(yaml_file, target)
 
         if os.path.exists(cache_file_name):
-            dep = self._read_obj(cache_file_name)
-            file_hash = self._get_dep_hash(yaml_file, target)
-            if (dep._cache_hash == file_hash):
-                return True
+            return True
+        #    dep = self._read_obj(cache_file_name)
+        #    file_hash = self._get_dep_hash(yaml_file, target)
+        #    if (dep._cache_hash == file_hash):
+        #        return True
         else:
             return False
 
