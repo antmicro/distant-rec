@@ -37,6 +37,16 @@ When setting up the workers for a self-hosted Buildgrid instance, make sure that
 
 Moreover, in certain cases (e.g. VTR) the operating system of the client should be the same as of the workers. This is because sometimes we may build some binaries on the client, and then instruct the workers to execute them. In the case of different operating systems there might appear a shared library path or version mismatch.
 
+## Symlinks
+
+Symlinks are not properly supported in current Remote Execution API implementations.
+If your projects relies on them, you need to readapt it, otherwise it will not run at all.
+
+The presence of one symlink is enough to cause the whole build to silently fail - there will be no output.
+Moreover, an error will appear on the worker.
+
+Feel free to inspect `tools/vtr-helper.sh` to see how we solved this problem in the case of VTR.
+
 ## Practical examples
 
 Even though the client strives to be universal, it has been developed so that it fulfils the needs of certain open-source projects.
@@ -63,9 +73,8 @@ Below is the guide instructing how to run the `vtr_reg_strong` tests using dista
 1. Create an empty build catalog and make it your current working directory.
 1. Therein, clone the VTR project from our [repository](https://github.com/antmicro).
 1. Create a configuration file (described in the [setup](#Setup) section).
-1. Change your CWD to `vtr-verilog-to-routing` and compile the software by running `make`. Get the titan benchmarks by running `make get_titan_benchmarks` and upgrade architecture files with `./dev/upgrade_vtr_archs.sh`.
-1. Run `./vtr_flow/scripts/run_vtr_task.pl -d -l vtr_flow/tasks/regression_tests/vtr_reg_strong/task_list.txt`.
-1. Go back to the root directory (`cd ..`).
+1. There's a helper script in the tools directory in this repository. Copy `vtr-helper.sh` from there to a location for binaries (e.g. `/usr/bin/`).
+1. Run `vtr-helper.sh vtr_reg_strong`. This will compile vtr, generate necessary files and remove symlinks.
 1. Produce a client input file by issuing `vtr2yaml vtr-verilog-to-routing/generated_scripts.txt`.
 1. Now that everything is ready, start the build by running `raclient vtr.yml all`.
 
