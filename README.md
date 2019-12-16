@@ -4,7 +4,9 @@ This is a client for the Remote Execution API. It interacts with CAS and ActionC
 
 The Distant RE Client uses project dependencies described in a YAML file to distribute builds to build systems that implement https://github.com/bazelbuild/remote-apis. Please inspect the `example.yml` file to get familiar with its schema.
 
-The Distant RE Client has been tested with [Google Remote Build Execution platform](https://cloud.google.com/sdk/gcloud/reference/alpha/remote-build-execution). This platform is currently in alpha stage, not available to general public, but there are many open source REAPI implementations like [Buildgrid](https://gitlab.com/BuildGrid/buildgrid). This REAPI implementation can be easily installed on the local environment or virtual machines provided by many cloud service vendors. An installation guide can be found [on the Buildgrid website](https://buildgrid.gitlab.io/buildgrid/installation.html), however please be advised that you should use the modified version of Buildgrid which is a submodule in the `tools/buildgrid` directory.
+The Distant RE Client has been tested with [Google Remote Build Execution platform](https://cloud.google.com/sdk/gcloud/reference/alpha/remote-build-execution). 
+This platform is currently in alpha stage, not available to general public, but there are many open source REAPI implementations like [Buildgrid](https://gitlab.com/BuildGrid/buildgrid). 
+This REAPI implementation can be easily installed on the local environment or virtual machines provided by many cloud service vendors. An installation guide can be found [on the Buildgrid website](https://buildgrid.gitlab.io/buildgrid/installation.html), however please be advised that you should use the modified version of Buildgrid which is a submodule in the `tools/buildgrid` directory.
 
 ## Setup
 
