@@ -176,7 +176,7 @@ class DepTree:
     def _load_tree_from_cache(self, yaml_path, target):
         cache_file_path = self._get_cache_name(yaml_path, target)
         dep = self._read_obj(cache_file_path)
-        self._depyaml      = dep._depyaml
+        #self._depyaml      = dep._depyaml
         self._deproot      = dep._deproot
         self._nodes_dict   = dep._nodes_dict
         self._ready_list   = dep._ready_list
@@ -187,7 +187,7 @@ class DepTree:
     def _save_tree_to_cache(self, yaml_path, target):
         dep = DepTree("", "", init=False)
 
-        dep._depyaml      = self._depyaml
+        #dep._depyaml      = self._depyaml
         dep._deproot      = self._deproot
         dep._nodes_dict   = self._nodes_dict
         dep._ready_list   = self._ready_list
