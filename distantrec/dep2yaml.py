@@ -113,8 +113,8 @@ class Dep2YAML:
 
         return result
 
-    def _write_to_yaml(self, inputs, outputs, rule, deps):
-        assert len(outputs) == 1
+    def _write_to_yaml(self, inputs, output, rule, deps):
+        #assert len(outputs) == 1
 
         deps_inner = {}
         if bool(inputs):
@@ -124,7 +124,7 @@ class Dep2YAML:
         deps_inner["deps"] = deps
 
         deps = {}
-        deps[outputs[0]] = deps_inner
+        deps[output] = deps_inner
 
         print(yaml.dump(deps))
 
@@ -237,56 +237,6 @@ class Dep2YAML:
 
         return rule
 
-
-
-
-        ## Convert paths to relative
-        #rule_parts = rule.split(' ')
-        #for rule_part in rule_parts:
-
-        #    # Just a path
-        #    if os.path.isabs(rule_part) and self._belongs_to_project(rule_part):
-        #        new_path = self._convert_to_relative_path(part)
-        #        rule
-
-        #    # VARIABLE="path{:path}"
-        #    if "=" in rule_part:
-        #        #err("RULE: " + str(rule_part))
-        #        split_list = rule_part.split("=")
-        #        #err("SPLIT_LIST: " + str(split_list))
-        #        if len(split_list) != 2:
-        #            continue # Different then VARIABLE=path
-        #        else:
-        #            [variable, tmp_path] = split_list
-        #            #err("TMP_PATH: " + str(tmp_path))
-        #            if tmp_path != '':
-        #                if tmp_path[0] == '"' and tmp_path[-1] == '"':
-        #                    tmp_path = tmp_path[1:-1]
-        #                elif tmp_path[0] == "'" and tmp_path[-1] == "'":
-        #                    tmp_path = tmp_path[1:-1]
-
-        #            #err("CHANGED_TMP_PATH: " + str(tmp_path))
-
-        #            # VARIABLE="path"·or·VARIABLE=path
-        #            if os.path.isabs(tmp_path) and self._belongs_to_project(tmp_path):
-        #                new_path = self._convert_to_relative_path(tmp_path)
-        #                rule = rule.replace(tmp_path, new_path)
-
-        #            # VARIABLE="path:path" or VARIABLE='path:path'
-        #            if ":" in tmp_path:
-        #                tmp_path_parts = tmp_path.split(":")
-        #                for tmp_path_part in tmp_path_parts:
-        #                    if os.path.isabs(tmp_path_part) and self._belongs_to_project(tmp_path_part):
-        #                        new_path = self._convert_to_relative_path(tmp_path_part)
-        #                        rule = rule.replace(tmp_path_part, new_path)
-
-
-
-
-        ##rule = self._convert_to_relative_path(rule)
-
-        #return rule
-
     ### MAIN PROCESSING CALLS ###
 
     def _process_global_rule_defines(self):
@@ -376,8 +326,8 @@ class Dep2YAML:
                                         wb_definitions,
                                         dependencies)
 
-        if len(wb_output_list) == 1:
-            self._write_to_yaml(wb_explicit_deps_list, wb_output_list, wb_rule, wb_implicit_deps_list)
+        for output in wb_output_list:
+            self._write_to_yaml(wb_explicit_deps_list, output, wb_rule, wb_implicit_deps_list)
 
     def _get_output(self,line):
         result = parse("{option} = {output}", line)
