@@ -94,6 +94,11 @@ class Dep2YAML:
                     if "bin/cmake" in part:
                         rule = rule.replace(part, "cmake")
 
+            # This has to be last
+            if "cmake -E create_symlink" in  command:
+                rule = rule.replace("cmake -E create_symlink", 'cp -f')
+
+
         rule = re.sub(' +', ' ', rule)
         return rule
 
