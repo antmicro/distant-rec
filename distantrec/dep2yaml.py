@@ -89,15 +89,20 @@ class Dep2YAML:
 
             # cmake have different path for our tools and server
             if "bin/cmake" in command:
+                tmp_command = None
                 parts = command.split(' ')
                 for part in parts:
                     if "bin/cmake" in part:
                         rule = rule.replace(part, "cmake")
 
-            # This has to be last
-            if "cmake -E create_symlink" in  command:
-                rule = rule.replace("cmake -E create_symlink", 'cp -f')
+        rule = re.sub(' +', ' ', rule)
 
+        commands = rule.split("&&")
+        for command in commands:
+            if "cmake -E create_symlink" in command:
+                tmp_command = command.replace("cmake -E create_symlink", 'cp -fRu')
+                tmp_command = " ( %s || true ) " % tmp_command
+                rule = rule.replace(command, tmp_command)
 
         rule = re.sub(' +', ' ', rule)
         return rule
