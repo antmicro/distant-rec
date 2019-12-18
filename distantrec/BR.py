@@ -40,14 +40,21 @@ class BuildRunner:
         node = dep_tree.take()
         reapi = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'), get_option('SETUP', 'INSTANCE'), self.lock, worker_id)
         while node != None:
-            self.run_target(worker_id,
+            while True:
+                try:
+                    self.run_target(worker_id,
                             reapi,
                             node._target,
                             node._input,
                             node._deps,
                             node._exec)
-            dep_tree.mark_as_completed(node)
-            node = dep_tree.take()
+                    dep_tree.mark_as_completed(node)
+                    node = dep_tree.take()
+                except:
+                    print('Worker %d error, restarting.' % worker_id )
+                    continue
+                else:
+                    break
         reapi.uploader.close()
 
     def run_target(self, worker_id, reapi, vtarget, vinput, vdeps, vexec):

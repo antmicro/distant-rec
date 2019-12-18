@@ -1,5 +1,5 @@
 from distantrec.helpers import get_option,logger,vlogger
-import grpc
+import grpc, sys
 from buildgrid.client.cas import Uploader, Downloader
 from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
 from google import auth as google_auth
@@ -50,8 +50,8 @@ class RAC:
         vlogger("Worker [%d]" % self.worker_id,"Start potential upload.")
         input_root_digest = self.uploader.upload_directory(input_root + "/" + get_option('SETUP','BUILDDIR'),queue=False)
 
-        vlogger("Worker [%d]" % self.worker_id,"Input root digest")
-        print(input_root_digest)
+        #vlogger("Worker [%d]" % self.worker_id,"Input root digest")
+        #print(input_root_digest)
 
         #vlogger("Worker [%d]" % self.worker_id,"Uploading - input root digest calculated")
 
@@ -59,19 +59,21 @@ class RAC:
                 input_root_digest = input_root_digest,
                 do_not_cache=not cache)
 
-        vlogger("Worker [%d]" % self.worker_id,"Action")
-        print(action)
+        #vlogger("Worker [%d]" % self.worker_id,"Action")
+        #print(action)
 
         action_digest = self.uploader.put_message(action, queue=False)
 
-        vlogger("Worker [%d]" % self.worker_id,"Action digest")
-        print(action_digest)
+        #vlogger("Worker [%d]" % self.worker_id,"Action digest")
+        #print(action_digest)
 
         vlogger("Worker [%d]" % self.worker_id,"Uploading - action digest calculated")
         return action_digest
 
     def run_command(self, action_digest, cache=True):
         vlogger("Worker [%d]" % self.worker_id,"Execution - started.")
+
+
         stub = remote_execution_pb2_grpc.ExecutionStub(self.channel)
         #vlogger("Worker [%d]" % self.worker_id,"Preparing stub finished - lock release")
 
@@ -81,8 +83,8 @@ class RAC:
                 action_digest=action_digest,
                 skip_cache_lookup=not cache)
 
-        vlogger("Worker [%d]" % self.worker_id,"Request")
-        print(request)
+        #vlogger("Worker [%d]" % self.worker_id,"Request")
+        #print(request)
 
 
         response = stub.Execute(request)
@@ -92,7 +94,6 @@ class RAC:
         vlogger("Worker [%d]" % self.worker_id,"Execution - finished.")
 
         stream = None
-
 
         for stream in response:
             continue
