@@ -91,12 +91,14 @@ class RAC:
         #if get_option('SETUP','USERBE') == 'yes':
         #self.lock.release()
 
-        vlogger("Worker [%d]" % self.worker_id,"Execution - finished.")
 
         stream = None
 
         for stream in response:
             continue
+
+
+        vlogger("Worker [%d]" % self.worker_id,"Execution - finished.")
 
 
         execute_response = remote_execution_pb2.ExecuteResponse()
