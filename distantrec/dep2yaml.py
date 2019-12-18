@@ -87,10 +87,6 @@ class Dep2YAML:
         commands = rule.split("&&")
         for command in commands:
 
-            # This command causes error
-            if "cmake -E rm -f" in command:
-                rule = rule.replace(command, ' : ')
-
             # cmake have different path for our tools and server
             if "bin/cmake" in command:
                 parts = command.split(' ')
