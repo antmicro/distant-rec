@@ -47,8 +47,12 @@ class RAC:
         #if get_option('SETUP','USERBE') == 'yes':
         #self.lock.acquire()
         #vlogger("Worker [%d]" % self.worker_id,"Uploading - lock acquired")
+
+
+        self.lock.acquire()
         vlogger("Worker [%d]" % self.worker_id,"Start potential upload.")
         input_root_digest = self.uploader.upload_directory(input_root + "/" + get_option('SETUP','BUILDDIR'),queue=False)
+        self.lock.release()
 
         #vlogger("Worker [%d]" % self.worker_id,"Input root digest")
         #print(input_root_digest)

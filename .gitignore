@@ -14,3 +14,5 @@ out.yml
 distantrec/__pycache__
 credentials.json
 *.cache
+distant_rec.egg-info
+
