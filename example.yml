@@ -26,3 +26,6 @@ another.o:
 
 command.out:
   exec: ls && echo "gnikroW" | rev > command.out
+
+output.txt:
+  exec: ./build.sh

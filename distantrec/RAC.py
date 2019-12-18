@@ -45,18 +45,27 @@ class RAC:
         command_digest = self.uploader.put_message(command_handler, queue=True)
 
         #if get_option('SETUP','USERBE') == 'yes':
-        self.lock.acquire()
-        vlogger("Worker [%d]" % self.worker_id,"Uploading - lock acquired")
-
+        #self.lock.acquire()
+        #vlogger("Worker [%d]" % self.worker_id,"Uploading - lock acquired")
+        vlogger("Worker [%d]" % self.worker_id,"Start potential upload.")
         input_root_digest = self.uploader.upload_directory(input_root + "/" + get_option('SETUP','BUILDDIR'),queue=False)
 
-        vlogger("Worker [%d]" % self.worker_id,"Uploading - input root digest calculated")
+        vlogger("Worker [%d]" % self.worker_id,"Input root digest")
+        print(input_root_digest)
+
+        #vlogger("Worker [%d]" % self.worker_id,"Uploading - input root digest calculated")
 
         action = remote_execution_pb2.Action(command_digest=command_digest,
                 input_root_digest = input_root_digest,
                 do_not_cache=not cache)
 
+        vlogger("Worker [%d]" % self.worker_id,"Action")
+        print(action)
+
         action_digest = self.uploader.put_message(action, queue=False)
+
+        vlogger("Worker [%d]" % self.worker_id,"Action digest")
+        print(action_digest)
 
         vlogger("Worker [%d]" % self.worker_id,"Uploading - action digest calculated")
         return action_digest
@@ -64,15 +73,21 @@ class RAC:
     def run_command(self, action_digest, cache=True):
         vlogger("Worker [%d]" % self.worker_id,"Execution - started.")
         stub = remote_execution_pb2_grpc.ExecutionStub(self.channel)
-        vlogger("Worker [%d]" % self.worker_id,"Preparing stub finished - lock release")
+        #vlogger("Worker [%d]" % self.worker_id,"Preparing stub finished - lock release")
+
+
 
         request = remote_execution_pb2.ExecuteRequest(instance_name=get_option('SETUP','INSTANCE'),
                 action_digest=action_digest,
                 skip_cache_lookup=not cache)
 
+        vlogger("Worker [%d]" % self.worker_id,"Request")
+        print(request)
+
+
         response = stub.Execute(request)
         #if get_option('SETUP','USERBE') == 'yes':
-        self.lock.release()
+        #self.lock.release()
 
         vlogger("Worker [%d]" % self.worker_id,"Execution - finished.")
 

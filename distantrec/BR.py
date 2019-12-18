@@ -93,10 +93,8 @@ class BuildRunner:
                 if ofiles is None:
                     return -1
                 for blob in ofiles:
-                    self.lock.acquire()
                     downloader = Downloader(reapi.channel, instance=reapi.instname)
                     logger("Worker [%d]" % worker_id, "Downloading %s" % blob.path);
                     downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
                     downloader.close()
-                    self.lock.release()
         return
