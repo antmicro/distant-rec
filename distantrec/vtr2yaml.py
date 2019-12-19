@@ -4,7 +4,7 @@ import sys, yaml
 
 def exec_to_log(execc):
     # Take a path ending with '.sh' and replace it with log path
-    return execc[:-11]+"vpr_stdout.log"
+    return execc[2:-11]+"vpr_stdout.log"
 
 def yaml_section(execc, deps=[]):
     section = {}
@@ -34,8 +34,6 @@ def buildyaml(scripts):
 
     yaml["tests"] = yaml_section("phony", list(yaml.keys()))
     yaml["all"] = yaml_section("phony", ["tests"])
-
-#    yaml["make"] = yaml_section("make -j "+cores)
 
     return yaml
 
