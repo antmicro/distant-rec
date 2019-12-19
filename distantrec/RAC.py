@@ -1,5 +1,5 @@
 from distantrec.helpers import get_option,logger,vlogger
-import grpc, sys
+import grpc, sys, os
 from buildgrid.client.cas import Uploader, Downloader
 from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
 from google import auth as google_auth
@@ -120,6 +120,7 @@ class RAC:
         if execute_response.result.exit_code != 0:
             logger("Worker [%d]" % self.worker_id,"Target build failed.")
             fail = 1
+            os._exit(1)
             return None
 
         if execute_response.cached_result:
