@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-import yaml
-import matplotlib.pyplot as plt
-from networkx import Graph, draw
+import yaml, time, os, pickle
+import networkx as nx
+from threading import Lock, Condition
 from pprint import pprint
 
 def measure_time(fun, *args):
@@ -16,7 +16,6 @@ def measure_time(fun, *args):
     return ret
 
 class DepNode():
-
     id = 0
 
     def __init__(self, vtarget, vdeps, vexec, vinput):
@@ -29,13 +28,18 @@ class DepNode():
         DepNode.id = DepNode.id + 1
 
     def __str__(self):
-        return "[%d]:%s" % (self._id, self._target)
+        return "[%d]:%s" % (self._id, self.target)
 
     def __repr__(self):
-        return "[%d]:%s" % (self._id, self._target)
+        return "[%d]:%s" % (self._id, self.target)
 
     def __hash__(self):
         return hash(self._id)
+
+class DepGraphPickle:
+    def __init__(self, nodes, graph):
+        self._nodes_dict = nodes
+        self._dep_graph = graph
 
 class DepGraph:
     def __init__(self, yaml_path, target):
@@ -43,32 +47,59 @@ class DepGraph:
         self._dep_graph = None
         self._nodes_dict = {}
 
+        self._nodes_order = None
+        self._ready_nodes = []
+        self._build_nodes = []
+        self._node_ready = Condition()
+
         self._depyaml_path = yaml_path
         self._target = target
 
-        self._read_yaml_file()
-        self._load_nodes_to_dict()
-        self._create_dep_graph()
+        cache_name = self._get_cache_name()
+        if self._is_graph_cached():
+            print("Load dependency graph from %s ..." % cache_name)
+            measure_time(self._load_cached_graph)
+        else:
+            print("Parse YAML input file...")
+            measure_time(self._read_yaml_file)
+
+            print("Initialize dependency graph...")
+            measure_time(self._initialize_graph)
+
+        print("Prepare graph...")
+        measure_time(self._prepare_graph)
+
+        if not self._is_graph_cached():
+            print("Save graph to %s ..." % cache_name)
+            measure_time(self._save_graph_to_cache)
 
     ### HELPER METHODS ###
 
     def _read_yaml_file(self):
         assert self._depyaml_path != None
 
-        print("Parsing YAML input file...")
         with open(self._depyaml_path) as fd:
-            self._depyaml = measure_time(yaml.safe_load, fd)
+            self._depyaml = yaml.safe_load(fd)
+
+    def _initialize_graph(self):
+        self._load_nodes_to_dict()
+        self._create_dep_graph()
+
+    def _prepare_graph(self):
+        self._simplify_graph()
+        self._prepare_compilation()
 
     def _load_nodes_to_dict(self):
         assert self._depyaml != None
 
-        print("Loading nodes to dictionary")
         for key in self._depyaml.keys():
             vtarget = key
 
             vexec   = self._depyaml[key]["exec"]
             vdeps   = self._depyaml[key]["deps"] if "deps" in self._depyaml[key] else None
             vinputs = self._depyaml[key]["input"] if "input" in self._depyaml[key] else None
+
+            assert (vtarget in self._nodes_dict.keys()) == False, "Duplicated target found"
 
             node = DepNode(vtarget, vdeps, vexec, vinputs)
             self._nodes_dict.update({vtarget:node})
@@ -77,28 +108,163 @@ class DepGraph:
         self._depyaml = None
 
     def _create_dep_graph(self):
-        self._dep_graph = Graph()
+        assert self._nodes_dict != None
+
+        self._dep_graph = nx.DiGraph()
 
         # Add all nodes to graph
         for node in self._nodes_dict.values():
             self._dep_graph.add_node(node)
 
+        # Add proper edges
         for node in self._nodes_dict.values():
-            if node.input != None:# and not node.input:
+            if node.input != None and bool(node.input) == True:
                 for dep_target in node.input:
-                    print("Add input")
-                    self._dep_graph.add_edge(node, self._nodes_dict[dep_target])
-            if node.deps != None:# and not node.deps:
+                    if dep_target in self._nodes_dict.keys():
+                        self._dep_graph.add_edge(node, self._nodes_dict[dep_target])
+            if node.deps != None and bool(node.deps) == True:
                 for dep_target in node.deps:
-                    print("Add deps")
-                    self._dep_graph.add_edge(node, self._nodes_dict[dep_target])
+                    if dep_target in self._nodes_dict.keys():
+                        self._dep_graph.add_edge(node, self._nodes_dict[dep_target])
 
-        pprint(self._dep_graph.edges)
-        #draw(self._dep_graph)
-        #plt.show()
+        # Check if dependencies have no cycles
+        assert nx.is_directed_acyclic_graph(self._dep_graph) == True
+
+    def _simplify_graph(self):
+        assert self._target != None
+
+        reachable_nodes = list(nx.descendants(self._dep_graph, self._nodes_dict[self._target]))
+        reachable_nodes += [self._nodes_dict[self._target]]
+
+        unreachable_nodes = []
+        for node in self._nodes_dict.values():
+            if not node in reachable_nodes:
+                unreachable_nodes.append(node)
+
+        for node in unreachable_nodes:
+            del self._nodes_dict[node.target]
+            self._dep_graph.remove_node(node)
+
+        # Check if dependencies have no cycles
+        assert nx.is_directed_acyclic_graph(self._dep_graph) == True
+
+    def _update_ready_nodes(self):
+       assert self._nodes_dict != None
+
+       for node in self._nodes_order:
+            if (node in self._build_nodes) or (node in self._ready_nodes):
+                continue
+
+            desc = nx.descendants(self._dep_graph, node)
+            if bool(desc) == False:
+                self._ready_nodes += [node]
+            elif node == self._nodes_dict[self._target]:
+                self._ready_nodes += [node]
+            else:
+                break
+
+    def _prepare_compilation(self):
+        assert self._dep_graph != None
+
+        self._nodes_order = list(reversed(list(nx.topological_sort(self._dep_graph))))
+        self._update_ready_nodes()
+
+    ### CACHE ###
+
+    def _save_obj(self, obj, path):
+        with open(path, 'wb') as fh:
+            pickle.dump(obj, fh)
+
+    def _read_obj(self, path):
+        with open(path, 'rb') as fh:
+            ret = pickle.load(fh)
+        return ret
+
+    def _get_cache_name(self):
+        assert self._depyaml_path != None
+
+        mod_time = os.path.getmtime(self._depyaml_path)
+        gm_time = time.gmtime(mod_time)
+
+        time_str = time.strftime("%Y-%m-%d_%H:%M:%S", gm_time)
+        yaml_name = os.path.basename(self._depyaml_path)
+        return ".%s.%s.cache" % (yaml_name, time_str)
+
+    def _is_graph_cached(self):
+        cache_path = self._get_cache_name()
+        return os.path.exists(cache_path)
+
+    def _load_cached_graph(self):
+        cache_name = self._get_cache_name()
+
+        graph_pickle = self._read_obj(cache_name)
+        graph = graph_pickle._dep_graph
+        nodes = graph_pickle._nodes_dict
+
+        # Is a correct graph
+        assert nx.is_directed_acyclic_graph(graph) == True
+        self._dep_graph = graph
+        self._nodes_dict = nodes
+
+    def _save_graph_to_cache(self):
+        assert bool(self._nodes_dict) == True
+        assert self._dep_graph != None
+
+        cache_name = self._get_cache_name()
+
+        graph_pickle = DepGraphPickle(self._nodes_dict, self._dep_graph)
+        self._save_obj(graph_pickle, cache_name)
+
+    ### PUBLIC API ###
+
+    def is_empty(self):
+        return True if len(self._nodes_order) == 0 else False
+
+    def mark_as_completed(self, node):
+        with self._node_ready:
+            self._dep_graph.remove_node(node)
+            self._nodes_order.remove(node)
+
+            self._update_ready_nodes()
+
+            if bool(self._ready_nodes) == True:
+                self._node_ready.notify()
+            else:
+                self._node_ready.notify_all()
+
+            self._build_nodes.remove(node)
+
+    def take(self):
+        with self._node_ready:
+            while (not self._ready_nodes) and (not self.is_empty()):
+                self._node_ready.wait()
+
+            if self.is_empty():
+                return None
+
+            result = self._ready_nodes.pop(0)
+            self._build_nodes += [result]
+            return result
+
+    def print_graph(self):
+        import matplotlib.pyplot as plt
+
+        pos=nx.drawing.nx_agraph.graphviz_layout(self._dep_graph)
+        labels = {}
+        for node in self._dep_graph.nodes:
+            labels.update({node: node.target})
+
+        nx.draw(self._dep_graph, pos)
+        nx.draw_networkx_labels(self._dep_graph, pos, labels)
+        plt.show()
+
+    def print_nodes(self):
+        for node in self._dep_graph.nodes:
+            print(node)
 
 def main():
     dep = DepGraph("../dev.yml", "all")
+    #dep = DepGraph("../arch.yml", "file_xc7_archs_artix7_devices_rr_graph_xc7a50t-basys3_test.place_delay.bin")
 
 if __name__ == "__main__":
     main()
