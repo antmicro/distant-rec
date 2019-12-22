@@ -6,7 +6,7 @@ from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_p
 from google import auth as google_auth
 from google.auth.transport import grpc as google_auth_transport_grpc
 from google.auth.transport import requests as google_auth_transport_requests
-from distantrec.DepTree import DepTree, DepNode
+from distantrec.DepGraph import DepGraph, DepNode
 from threading import Thread, Lock
 from queue import Queue
 
@@ -24,32 +24,32 @@ class BuildRunner:
         print("SUBDIR: " + str(subdir))
         print("BUILDDIR: " + str(builddir))
 
-        dep_tree = DepTree(self.yaml_path, target)
+        dep_graph = DepGraph(self.yaml_path, target)
         threads = []
 
         for i in range(num_threads):
-            worker = Thread(target=self.build_target, args=(i, dep_tree))
+            worker = Thread(target=self.build_target, args=(i, dep_graph))
             worker.start()
             threads.append(worker)
 
         for worker in threads:
             worker.join()
 
-    def build_target(self, worker_id, dep_tree):
+    def build_target(self, worker_id, dep_graph):
         print("Worker [%d]: Starting..." % worker_id)
-        node = dep_tree.take()
+        node = dep_graph.take()
         reapi = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'), get_option('SETUP', 'INSTANCE'), self.lock, worker_id)
         while node != None:
             while True:
                 try:
                     self.run_target(worker_id,
                             reapi,
-                            node._target,
-                            node._input,
-                            node._deps,
-                            node._exec)
-                    dep_tree.mark_as_completed(node)
-                    node = dep_tree.take()
+                            node.target,
+                            node.input,
+                            node.deps,
+                            node.exec)
+                    dep_graph.mark_as_completed(node)
+                    node = dep_graph.take()
                 except:
                     print('Worker %d error, restarting.' % worker_id )
                     continue
