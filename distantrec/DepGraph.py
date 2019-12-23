@@ -68,12 +68,12 @@ class DepGraph:
             print("Initialize dependency graph...")
             measure_time(self._initialize_graph)
 
-        print("Prepare graph...")
-        measure_time(self._prepare_graph)
-
         if not self._is_graph_cached():
             print("Save graph to %s ..." % cache_name)
             measure_time(self._save_graph_to_cache)
+
+        print("Prepare graph...")
+        measure_time(self._prepare_graph)
 
     ### HELPER METHODS ###
 
@@ -94,9 +94,6 @@ class DepGraph:
         self._amount_all = self._dep_graph.number_of_nodes()
         self._amount_completed = 0
 
-        #pprint(self._nodes_order)
-        #self.print_graph()
-
     def _load_nodes_to_dict(self):
         assert self._depyaml != None
 
@@ -108,7 +105,6 @@ class DepGraph:
             vinputs = self._depyaml[key]["input"] if "input" in self._depyaml[key] else None
 
             assert (vtarget in self._nodes_dict.keys()) == False, "Duplicated target found"
-
             node = DepNode(vtarget, vdeps, vexec, vinputs)
             self._nodes_dict.update({vtarget:node})
 
@@ -230,7 +226,6 @@ class DepGraph:
 
     def mark_as_completed(self, node):
         with self._node_ready:
-            print("READY: " + str(node))
             self._dep_graph.remove_node(node)
             self._nodes_order.remove(node)
 
@@ -256,29 +251,61 @@ class DepGraph:
                 return None
 
             result = self._ready_nodes.pop(0)
-            print("## TAKE: " + str(result))
             self._build_nodes += [result]
             return result
 
-    def print_graph(self):
+    def print_graph(self, graph=None):
         import matplotlib.pyplot as plt
 
-        pos=nx.drawing.nx_agraph.graphviz_layout(self._dep_graph)
+        if graph == None:
+            graph = self._dep_graph
+
+        pos=nx.drawing.nx_agraph.graphviz_layout(graph)
         labels = {}
-        for node in self._dep_graph.nodes:
+        for node in graph.nodes:
             labels.update({node: node.target})
 
-        nx.draw(self._dep_graph, pos)
-        nx.draw_networkx_labels(self._dep_graph, pos, labels)
+        nx.draw(graph, pos)
+        nx.draw_networkx_labels(graph, pos, labels)
         plt.show()
 
     def print_nodes(self):
         for node in self._dep_graph.nodes:
             print(node)
 
+class DepGraphWithRemove(DepGraph):
+    def __init__(self, yaml_path, target, remove_list=[]):
+        self._targets_to_remove = remove_list
+
+        super().__init__(yaml_path, target)
+
+    def _remove_targets(self):
+        assert self._dep_graph != None
+        assert self._nodes_dict != None
+        assert isinstance(self._targets_to_remove, list) == True
+
+        for target in self._targets_to_remove:
+            assert target in self._nodes_dict.keys()
+
+            target_node = self._nodes_dict[target]
+            desc = list(nx.descendants(self._dep_graph, target_node))
+
+            for node in desc:
+                if node in self._dep_graph:
+                    del self._nodes_dict[node.target]
+                    self._dep_graph.remove_node(node)
+
+    def _prepare_graph(self):
+        self._remove_targets()
+        self._simplify_graph()
+        self._prepare_compilation()
+
+        self._amount_all = self._dep_graph.number_of_nodes()
+        self._amount_completed = 0
+
 def main():
-    dep = DepGraph("../dev.yml", "all")
-    #dep = DepGraph("../arch.yml", "file_xc7_archs_artix7_devices_rr_graph_xc7a50t-basys3_test.place_delay.bin")
+    #dep = DepGraph("../dev.yml", "all")
+    dep = DepGraphWithRemove("../arch.yml", "file_xc7_archs_artix7_devices_rr_graph_xc7a50t-basys3_test.place_delay.bin", ["all_conda"])
 
 if __name__ == "__main__":
     main()
