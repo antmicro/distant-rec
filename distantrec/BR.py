@@ -79,7 +79,7 @@ class BuildRunner:
             out = []
             # TODO: hack
             if subdir:
-                vtarget = "{}/{}".format(subdir, vtarget)
+                vtarget = "{}/{}".format(diff_path, vtarget)
             out = [vtarget]
             if get_option('SETUP','LOCALCACHE') == 'yes' and os.path.exists(get_option('SETUP','BUILDDIR')+"/"+vtarget): return
 
