@@ -21,8 +21,6 @@ class BuildRunner:
     def run(self, target, num_threads):
         subdir = get_option('SETUP', 'SUBDIR')
         builddir = get_option('SETUP', 'BUILDDIR')
-        print("SUBDIR: " + str(subdir))
-        print("BUILDDIR: " + str(builddir))
 
         dep_graph = DepGraphWithRemove(self.yaml_path, target, ["all_conda"])
         threads = []
@@ -49,7 +47,7 @@ class BuildRunner:
                             node.deps,
                             node.exec)
                     [nall, ncomp] = dep_graph.mark_as_completed(node)
-                    print("Worker [%d] | Completed [%d/%d]" % (worker_id, ncomp, nall))
+                    print("Worker [%d] | Completed [%d/%d] %s" % (worker_id, ncomp, nall, node.target))
                     node = dep_graph.take()
                 except:
                     print('Worker %d error, restarting.' % worker_id )
@@ -65,7 +63,7 @@ class BuildRunner:
         builddir = get_option('SETUP', 'BUILDDIR')
         if subdir and vexec != 'phony':
             diff_path = os.path.relpath(subdir, os.path.commonpath([subdir, builddir]))
-            vexec = "cd %s && DISTANT_REC_SUBDIR=${PWD} && echo ${DISTANT_REC_SUBDIR} && %s" % (diff_path, vexec)
+            vexec = "cd %s && DISTANT_REC_SUBDIR=${PWD} && %s" % (diff_path, vexec)
 
         '''if get_option('SETUP','USERBE') == 'yes':
             cmd = ["bash", "-c", vexec]
@@ -73,7 +71,6 @@ class BuildRunner:
             cmd = vexec.split(' ')'''
 
         cmd = ["bash", "-c", vexec]
-
         if vexec == 'phony':
             phony = True
         else:
@@ -94,9 +91,6 @@ class BuildRunner:
             if phony == True:
                 print("Phony target, no execution.")
             else:
-                #print("CMD: " + str(cmd))
-                #print("CWD: " + str(os.getcwd()))
-                #print("OUT: " + str(out))
                 ofiles = reapi.action_run(cmd,
                 os.getcwd(),
                 out)
