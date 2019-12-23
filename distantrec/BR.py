@@ -58,43 +58,6 @@ class BuildRunner:
                     break
         reapi.uploader.close()
 
-    def run_local(self, worker_id, reapi, vtarget, vinput, vdeps, vexec):
-        logger("Worker [%d]" % worker_id, "building %s" % vtarget)
-        LOCAL_BUILD_DIR = "/media/rwinkler/hdd/Projects/remote_workspace/remote-exec_workspace/distant-rec/build/symbiflow-arch-defs"
-
-        subdir = get_option('SETUP', 'SUBDIR')
-        builddir = get_option('SETUP', 'BUILDDIR')
-        if subdir and vexec != 'phony':
-            diff_path = os.path.relpath(subdir, os.path.commonpath([subdir, builddir]))
-            vexec = "cd %s && DISTANT_REC_SUBDIR=${PWD} && echo ${DISTANT_REC_SUBDIR} && %s" % (diff_path, vexec)
-
-        if get_option('SETUP','USERBE') == 'yes' and is_problematic(vexec):
-            cmd = [wrap_cmd(vexec)]
-        else:
-            cmd = vexec.split(' ')
-
-        if vexec == 'phony':
-            phony = True
-        else:
-            phony = False
-
-        voutput = None
-        if voutput != None:
-            out = (voutput,)
-        else:
-            out = []
-            # TODO: hack
-            if subdir:
-                vtarget = "{}/{}".format(subdir, vtarget)
-            out = [vtarget]
-
-        import subprocess
-        print("-----------------------------------------------")
-        print("Executing target %s" % out)
-        print("Executing command %s" % cmd)
-        local_cmd = "cd %s && pwd && %s" % (LOCAL_BUILD_DIR, str(cmd[0]))
-        subprocess.check_call(local_cmd, stdout=sys.stdout, stderr=sys.stderr, shell=True)
-
     def run_target(self, worker_id, reapi, vtarget, vinput, vdeps, vexec):
         logger("Worker [%d]" % worker_id, "building %s" % vtarget)
 
