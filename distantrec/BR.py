@@ -47,7 +47,7 @@ class BuildRunner:
                             node.deps,
                             node.exec)
                     [nall, ncomp] = dep_graph.mark_as_completed(node)
-                    print("Worker [%d] | Completed [%d/%d] %s" % (worker_id, ncomp, nall, node.target))
+                    logger("Worker [%d]" % worker_id, "Completed [%d/%d] %s" % (ncomp, nall, node.target))
                     node = dep_graph.take()
                 except Exception as e:
                     print('Worker %d error, restarting.' % worker_id )
