@@ -5,4 +5,4 @@ protobuf
 requests
 parse
 -e git+https://github.com/antmicro/buildgrid.git#egg=buildgrid
-anytree
+networkx

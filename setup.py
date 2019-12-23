@@ -15,5 +15,5 @@ setuptools.setup(
                 "vtr2yaml = distantrec.vtr2yaml:main", ]
             },
         install_requires=["buildgrid @ git+https://github.com/antmicro/buildgrid",
-            "grpcio", "pyyaml", "google-auth", "protobuf", "requests", "parse", "anytree"],
+            "grpcio", "pyyaml", "google-auth", "protobuf", "requests", "parse", "networkx"],
         )

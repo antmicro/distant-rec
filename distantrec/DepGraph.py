@@ -3,7 +3,6 @@
 import yaml, time, os, pickle
 import networkx as nx
 from threading import Lock, Condition
-from pprint import pprint
 
 def measure_time(fun, *args):
     from time import time
