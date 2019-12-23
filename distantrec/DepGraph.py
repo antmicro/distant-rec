@@ -284,7 +284,8 @@ class DepGraphWithRemove(DepGraph):
         assert isinstance(self._targets_to_remove, list) == True
 
         for target in self._targets_to_remove:
-            assert target in self._nodes_dict.keys()
+            if not target in self._nodes_dict.keys():
+                continue
 
             target_node = self._nodes_dict[target]
             desc = list(nx.descendants(self._dep_graph, target_node))
