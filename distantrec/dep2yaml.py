@@ -236,8 +236,11 @@ class Dep2YAML:
                 # path in variable
                 if "=" in command_part:
                     split_list = command_part.split("=")
+
                     if len(split_list) != 2:
                         continue # Different then VARIABLE=path
+                    elif (split_list[1] == ''):
+                        continue
                     else:
                         rule = self._convert_path_in_variable(rule, split_list)
 
