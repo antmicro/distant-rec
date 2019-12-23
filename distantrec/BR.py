@@ -65,11 +65,6 @@ class BuildRunner:
             diff_path = os.path.relpath(subdir, os.path.commonpath([subdir, builddir]))
             vexec = "cd %s && DISTANT_REC_SUBDIR=${PWD} && %s" % (diff_path, vexec)
 
-        '''if get_option('SETUP','USERBE') == 'yes':
-            cmd = ["bash", "-c", vexec]
-        else:
-            cmd = vexec.split(' ')'''
-
         cmd = ["bash", "-c", vexec]
         if vexec == 'phony':
             phony = True
