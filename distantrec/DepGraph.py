@@ -94,8 +94,8 @@ class DepGraph:
         self._amount_all = self._dep_graph.number_of_nodes()
         self._amount_completed = 0
 
-        pprint(self._nodes_order)
-        self.print_graph()
+        #pprint(self._nodes_order)
+        #self.print_graph()
 
     def _load_nodes_to_dict(self):
         assert self._depyaml != None
