@@ -15,7 +15,7 @@ It gets automatically installed as a dependency.
 
 The repository is structured as a Python package, therefore to install the client you just need to run `pip install .` and all of the dependencies will be resolved automatically.
 
-Users of Ubuntu Bionic or other distributions which ship older versions of Python PIP may need to update it by running `python3 -m pip install --upgrade pip`.
+Prior to installation, users of Ubuntu Bionic or other distributions which ship older versions of Python PIP may need to update it by running `python3 -m pip install --upgrade pip`.
 
 This project uses additional submodules. Be sure to initialize and clone them before you proceed.
 
