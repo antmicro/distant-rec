@@ -46,6 +46,8 @@ class DepGraph:
         self._depyaml = None
         self._dep_graph = None
         self._nodes_dict = {}
+        self._amount_all = -1
+        self._amount_completed = -1
 
         self._nodes_order = None
         self._ready_nodes = []
@@ -88,6 +90,12 @@ class DepGraph:
     def _prepare_graph(self):
         self._simplify_graph()
         self._prepare_compilation()
+
+        self._amount_all = self._dep_graph.number_of_nodes()
+        self._amount_completed = 0
+
+        pprint(self._nodes_order)
+        self.print_graph()
 
     def _load_nodes_to_dict(self):
         assert self._depyaml != None
@@ -222,6 +230,7 @@ class DepGraph:
 
     def mark_as_completed(self, node):
         with self._node_ready:
+            print("READY: " + str(node))
             self._dep_graph.remove_node(node)
             self._nodes_order.remove(node)
 
@@ -234,6 +243,10 @@ class DepGraph:
 
             self._build_nodes.remove(node)
 
+            self._amount_completed += 1
+            result = [self._amount_all, self._amount_completed]
+            return result
+
     def take(self):
         with self._node_ready:
             while (not self._ready_nodes) and (not self.is_empty()):
@@ -243,6 +256,7 @@ class DepGraph:
                 return None
 
             result = self._ready_nodes.pop(0)
+            print("## TAKE: " + str(result))
             self._build_nodes += [result]
             return result
 

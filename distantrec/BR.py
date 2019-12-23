@@ -48,7 +48,8 @@ class BuildRunner:
                             node.input,
                             node.deps,
                             node.exec)
-                    dep_graph.mark_as_completed(node)
+                    [nall, ncomp] = dep_graph.mark_as_completed(node)
+                    print("Worker [%d] | Completed [%d/%d]" % (worker_id, ncomp, nall))
                     node = dep_graph.take()
                 except:
                     print('Worker %d error, restarting.' % worker_id )
@@ -137,6 +138,7 @@ class BuildRunner:
                 os.getcwd(),
                 out)
                 if ofiles is None:
+                    print("NO OUTPUT FILES")
                     return -1
                 for blob in ofiles:
                     downloader = Downloader(reapi.channel, instance=reapi.instname)
