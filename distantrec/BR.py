@@ -6,7 +6,7 @@ from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_p
 from google import auth as google_auth
 from google.auth.transport import grpc as google_auth_transport_grpc
 from google.auth.transport import requests as google_auth_transport_requests
-from distantrec.DepGraph import DepGraph, DepNode
+from distantrec.DepGraph import DepGraphWithRemove, DepNode
 from threading import Thread, Lock
 from queue import Queue
 
@@ -24,7 +24,7 @@ class BuildRunner:
         print("SUBDIR: " + str(subdir))
         print("BUILDDIR: " + str(builddir))
 
-        dep_graph = DepGraph(self.yaml_path, target)
+        dep_graph = DepGraphWithRemove(self.yaml_path, target, ["all_conda"])
         threads = []
 
         for i in range(num_threads):
