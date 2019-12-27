@@ -1,30 +1,62 @@
+import yaml, os, subprocess
 from distantrec.helpers import *
 from distantrec.RAC import RAC
-import grpc, yaml, os
 from buildgrid.client.cas import Uploader, Downloader
-from buildgrid._protos.build.bazel.remote.execution.v2 import remote_execution_pb2, remote_execution_pb2_grpc
 from google import auth as google_auth
-from google.auth.transport import grpc as google_auth_transport_grpc
-from google.auth.transport import requests as google_auth_transport_requests
 from distantrec.DepGraph import DepGraphWithRemove, DepNode
 from threading import Thread, Lock
-from queue import Queue
 
 class BuildRunner:
     def __init__(self, yaml_path):
-        self.config = yaml.safe_load(open(yaml_path))
-        self.counter = 0
+
+        #self.LOCAL_TARGETS = ["all_conda", "sdf_timing"]
+        #self.REMOVE_TARGETS = []
+
+        self.LOCAL_TARGETS = ['sdf_timing']
+        self.REMOVE_TARGETS = ['all_conda']
+        self.RETRY_TIMES = 3
+
         self.lock = Lock()
         self.yaml_path = yaml_path
-        self.target_queue = Queue()
+
+        self.load_config()
+        self.local_run()
+
+    def load_config(self):
+        self.SUBDIR       = get_option('SETUP', 'SUBDIR')
+        self.BUILDDIR     = get_option('SETUP', 'BUILDDIR')
+        self.SERVER       = get_option('SETUP', 'SERVER')
+        self.PORT         = get_option('SETUP', 'PORT')
+        self.INSTANCE     = get_option('SETUP', 'INSTANCE')
+        self.LOCALCACHE   = get_option('SETUP', 'LOCALCACHE')
+
+    def local_run(self):
+        assert self.SUBDIR != ''
+        cmd_prefix = "cd %s && DISTANT_REC_SUBDIR=${PWD}" % (self.SUBDIR)
+
+        resolve_symlinks_cmd = "find -type l -exec sh -c 'PREV=$(realpath -- \"$1\") && rm -- \"$1\" && cp -ar -- \"$PREV\" \"$1\"' resolver {} \;"
+        cmd = "%s && %s " % (cmd_prefix, resolve_symlinks_cmd)
+        subprocess.check_call(cmd, stdout=sys.stdout, stderr=sys.stderr, shell=True)
+        print("Symlinks resolved")
+
+        for target in self.LOCAL_TARGETS:
+            print("Building local target: %s", target)
+            dep_graph = DepGraphWithRemove(self.yaml_path, target, self.REMOVE_TARGETS)
+
+            node = dep_graph.take()
+            while node != None:
+                if node.exec != 'phony':
+                    cmd = "%s && %s" % (cmd_prefix, node.exec)
+                    subprocess.check_call(cmd, stdout=sys.stdout, stderr=sys.stderr, shell=True)
+                [all_targets, comp_targets] = dep_graph.mark_as_completed(node)
+                print("Local Worker: Completed [%d/%d] %s" % (comp_targets, all_targets, node.target))
+                node = dep_graph.take()
 
     def run(self, target, num_threads):
-        subdir = get_option('SETUP', 'SUBDIR')
-        builddir = get_option('SETUP', 'BUILDDIR')
+        remove_list = self.LOCAL_TARGETS + self.REMOVE_TARGETS
+        dep_graph = DepGraphWithRemove(self.yaml_path, target, remove_list)
 
-        dep_graph = DepGraphWithRemove(self.yaml_path, target, ["all_conda"])
         threads = []
-
         for i in range(num_threads):
             worker = Thread(target=self.build_target, args=(i, dep_graph))
             worker.start()
@@ -34,68 +66,64 @@ class BuildRunner:
             worker.join()
 
     def build_target(self, worker_id, dep_graph):
-        print("Worker [%d]: Starting..." % worker_id)
+        logger('Worker [%d]:' % worker_id, 'Starting...')
+
         node = dep_graph.take()
-        reapi = RAC(get_option('SETUP','SERVER')+':'+get_option('SETUP','PORT'), get_option('SETUP', 'INSTANCE'), self.lock, worker_id)
+        server_port = self.SERVER + ':' + self.PORT
+        reapi = RAC(server_port, self.INSTANCE, self.lock, worker_id)
+
         while node != None:
-            while True:
+            retry = 0
+            while retry < self.RETRY_TIMES:
                 try:
-                    self.run_target(worker_id,
-                            reapi,
-                            node.target,
-                            node.input,
-                            node.deps,
-                            node.exec)
-                    [nall, ncomp] = dep_graph.mark_as_completed(node)
-                    logger("Worker [%d]" % worker_id, "Completed [%d/%d] %s" % (ncomp, nall, node.target))
+                    self.run_target(worker_id, reapi, node.target, node.input, node.deps, node.exec)
+
+                    [all_targets, comp_targets] = dep_graph.mark_as_completed(node)
+                    logger("Worker [%d]" % worker_id,
+                           "Completed [%d/%d] %s" % (comp_targets, all_targets, node.target))
                     node = dep_graph.take()
                 except Exception as e:
-                    print('Worker %d error, restarting.' % worker_id )
-                    print(e)
+                    logger('Worker %d' % worker_id, 'error, restarting.')
+                    logger('Worker %d' % worker_id, e)
+                    retry += 1
                     continue
                 else:
                     break
+
         reapi.uploader.close()
 
     def run_target(self, worker_id, reapi, vtarget, vinput, vdeps, vexec):
         logger("Worker [%d]" % worker_id, "building %s" % vtarget)
 
-        subdir = get_option('SETUP', 'SUBDIR')
-        builddir = get_option('SETUP', 'BUILDDIR')
-        if subdir and vexec != 'phony':
-            diff_path = os.path.relpath(subdir, os.path.commonpath([subdir, builddir]))
+        if self.SUBDIR and vexec != 'phony':
+            common = os.path.commonpath([self.SUBDIR, self.BUILDDIR])
+            diff_path = os.path.relpath(self.SUBDIR, common)
             vexec = "cd %s && DISTANT_REC_SUBDIR=${PWD} && %s" % (diff_path, vexec)
 
-        cmd = ["bash", "-c", vexec]
-        if vexec == 'phony':
-            phony = True
-        else:
-            phony = False
+        phony = True if vexec == 'phony' else False
 
-        voutput = None
-        if voutput != None:
-            out = (voutput,)
-        else:
-            out = []
-            # TODO: hack
-            if subdir and vexec != 'phony':
-                vtarget = "{}/{}".format(diff_path, vtarget)
-            out = [vtarget]
-            if get_option('SETUP','LOCALCACHE') == 'yes' and os.path.exists(get_option('SETUP','BUILDDIR')+"/"+vtarget): return
+        # TODO: hack
+        if self.SUBDIR != '' and vexec != 'phony':
+            vtarget = "{}/{}".format(diff_path, vtarget)
+        out = [vtarget]
+
+        target_path = self.BUILDDIR + "/" + vtarget
+        if self.LOCALCACHE == 'yes' and os.path.exists(target_path): return
 
         if reapi != None:
             if phony == True:
                 print("Phony target, no execution.")
             else:
-                ofiles = reapi.action_run(cmd,
-                os.getcwd(),
-                out)
+                cmd = ["bash", "-c", vexec]
+                ofiles = reapi.action_run(cmd, os.getcwd(), out)
+
                 if ofiles is None:
                     print("NO OUTPUT FILES")
                     return -1
+
                 for blob in ofiles:
                     downloader = Downloader(reapi.channel, instance=reapi.instname)
                     logger("Worker [%d]" % worker_id, "Downloading %s" % blob.path);
-                    downloader.download_file(blob.digest, get_option('SETUP','BUILDDIR') + "/" + blob.path, is_executable=blob.is_executable)
+                    downloader.download_file(blob.digest, self.BUILDDIR + "/" + blob.path, is_executable=blob.is_executable)
                     downloader.close()
         return
