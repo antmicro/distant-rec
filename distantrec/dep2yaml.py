@@ -124,7 +124,6 @@ class Dep2YAML:
         return result
 
     def _write_to_yaml(self, inputs, output, rule, deps):
-        #assert len(outputs) == 1
 
         deps_inner = {}
         if bool(inputs):
@@ -199,9 +198,7 @@ class Dep2YAML:
 
             # VARIABLE="path:path" or VARIABLE='path:path'
             if ":" in tmp_path:
-                #err("PRZED: " + str(tmp_path))
                 rule = self._convert_path_colon_separated(rule, tmp_path)
-                #err("PO: " + str(rule))
             return rule
 
     def _convert_path_in_option(self, rule, string):
@@ -221,12 +218,10 @@ class Dep2YAML:
                 tmp_command = command.replace("bash -c", '')
                 tmp_command = tmp_command.strip()
                 tmp_command = tmp_command[1:-1]
-                #err(tmp_command)
             else:
                 tmp_command = command
 
             command_parts = tmp_command.split(' ')
-            #err(command_parts)
             for command_part in command_parts:
                 pass
                 # Just a path
@@ -245,7 +240,7 @@ class Dep2YAML:
                         rule = self._convert_path_in_variable(rule, split_list)
 
                 # path in option
-                if command_part != '' and command_part[0] == "-":
+                if command_part != '' and command_part[0] == "-" and command_part[1] != "-":
                     rule = self._convert_path_in_option(rule, command_part)
 
         return rule
@@ -364,13 +359,7 @@ class Dep2YAML:
             definition = ''
         else:
             definition = result.named["definition"][1:-1]
-
-        definition_parts = definition.split(' ')
-        for part in definition_parts:
-            if os.path.isabs(part):
-                if self._belongs_to_project(part):
-                    new_path = self._convert_to_relative_path(part)
-                    definition = definition.replace(part, new_path)
+        definition = self._convert_paths_in_rule(definition)
 
         return {variable: definition}
 
