@@ -23,8 +23,16 @@ class BuildRunner:
         self.PORT           = get_option('SETUP', 'PORT')
         self.INSTANCE       = get_option('SETUP', 'INSTANCE')
         self.LOCALCACHE     = get_option('SETUP', 'LOCALCACHE')
-        self.LOCAL_TARGETS  = ast.literal_eval(get_option('SETUP', 'LOCALTARGETS'))
-        self.REMOVE_TARGETS = ast.literal_eval(get_option('SETUP', 'REMOVETARGETS'))
+
+        if get_option('SETUP', 'LOCALTARGETS'): 
+            self.LOCAL_TARGETS = ast.literal_eval(get_option('SETUP', 'LOCALTARGETS'))
+        else:
+            self.LOCAL_TARGETS = []
+
+        if get_option('SETUP', 'REMOVETARGETS'):
+            self.REMOVE_TARGETS = ast.literal_eval(get_option('SETUP', 'REMOVETARGETS'))
+        else:
+            self.REMOVE_TARGETS = []
 
     def local_run(self):
         assert self.SUBDIR != ''
