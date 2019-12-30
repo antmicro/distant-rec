@@ -35,8 +35,11 @@ class BuildRunner:
             self.REMOVE_TARGETS = []
 
     def local_run(self):
-        assert self.SUBDIR != ''
-        cmd_prefix = "cd %s && DISTANT_REC_SUBDIR=${PWD}" % (self.SUBDIR)
+
+        if self.SUBDIR:
+            cmd_prefix = "cd %s && DISTANT_REC_SUBDIR=${PWD}" % (self.SUBDIR)
+        else:
+            cmd_prefix = "DISTANT_REC_SUBDIR=${PWD}"
 
         resolve_symlinks_cmd = "find -type l -exec sh -c 'PREV=$(realpath -- \"$1\") && rm -- \"$1\" && cp -ar -- \"$PREV\" \"$1\"' resolver {} \;"
         cmd = "%s && %s " % (cmd_prefix, resolve_symlinks_cmd)
