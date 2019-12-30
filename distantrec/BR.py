@@ -110,7 +110,7 @@ class BuildRunner:
         phony = True if vexec == 'phony' else False
 
         # TODO: hack
-        if self.SUBDIR != '' and vexec != 'phony':
+        if self.SUBDIR and vexec != 'phony':
             vtarget = "{}/{}".format(diff_path, vtarget)
         out = [vtarget]
 
