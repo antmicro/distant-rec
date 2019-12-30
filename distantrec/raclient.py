@@ -2,12 +2,6 @@
 
 import sys
 from distantrec.helpers import get_option
-
-NO_SERVER = 0
-if len(sys.argv) > 3:
-    if sys.argv[3] == "--no-server":
-        NO_SERVER = 1
-
 import yaml, os, configparser
 from distantrec.RAC import RAC
 from distantrec.BR import BuildRunner

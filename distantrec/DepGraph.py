@@ -302,10 +302,3 @@ class DepGraphWithRemove(DepGraph):
 
         self._amount_all = self._dep_graph.number_of_nodes()
         self._amount_completed = 0
-
-def main():
-    #dep = DepGraph("../dev.yml", "all")
-    dep = DepGraphWithRemove("../arch.yml", "file_xc7_archs_artix7_devices_rr_graph_xc7a50t-basys3_test.place_delay.bin", ["all_conda"])
-
-if __name__ == "__main__":
-    main()

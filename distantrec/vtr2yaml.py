@@ -75,9 +75,6 @@ class ScriptMangler:
 
         self.file_list[13] = arguments_join
 
-    def sleep(self):
-        self.file_list[2] = "sleep 180"
-
     def flush(self):
         self.file_string = "\n".join(self.file_list)
         self.file_handle.seek(0)
