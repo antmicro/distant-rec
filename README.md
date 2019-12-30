@@ -31,9 +31,6 @@ After ensuring that the previous steps have succeeded, generate the YAML file by
 
 Now that the prerequisite files are ready, the execution looks as follows: `./raclient.py <dependencies yml file> target`.
 
-The client has a possibility to dry run the build (e.g. it doesn't actually perform the build — there's no communication with the server whatsoever). 
-To perform such a build, modify the command above by appending `--no-server`.
-
 ## Worker environment
 
 To ensure the integrity and to reduce the risk of failure of the builds, the workers should have the same environment (i.e. all the necessary tools installed).
