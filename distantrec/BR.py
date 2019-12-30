@@ -1,4 +1,4 @@
-import yaml, os, subprocess
+import yaml, os, subprocess, ast
 from distantrec.helpers import *
 from distantrec.RAC import RAC
 from buildgrid.client.cas import Uploader, Downloader
@@ -8,12 +8,6 @@ from threading import Thread, Lock
 
 class BuildRunner:
     def __init__(self, yaml_path):
-
-        #self.LOCAL_TARGETS = ["all_conda", "sdf_timing"]
-        #self.REMOVE_TARGETS = []
-
-        self.LOCAL_TARGETS = ['sdf_timing']
-        self.REMOVE_TARGETS = ['all_conda']
         self.RETRY_TIMES = 3
 
         self.lock = Lock()
@@ -23,12 +17,14 @@ class BuildRunner:
         self.local_run()
 
     def load_config(self):
-        self.SUBDIR       = get_option('SETUP', 'SUBDIR')
-        self.BUILDDIR     = get_option('SETUP', 'BUILDDIR')
-        self.SERVER       = get_option('SETUP', 'SERVER')
-        self.PORT         = get_option('SETUP', 'PORT')
-        self.INSTANCE     = get_option('SETUP', 'INSTANCE')
-        self.LOCALCACHE   = get_option('SETUP', 'LOCALCACHE')
+        self.SUBDIR         = get_option('SETUP', 'SUBDIR')
+        self.BUILDDIR       = get_option('SETUP', 'BUILDDIR')
+        self.SERVER         = get_option('SETUP', 'SERVER')
+        self.PORT           = get_option('SETUP', 'PORT')
+        self.INSTANCE       = get_option('SETUP', 'INSTANCE')
+        self.LOCALCACHE     = get_option('SETUP', 'LOCALCACHE')
+        self.LOCAL_TARGETS  = ast.literal_eval(get_option('SETUP', 'LOCALTARGETS'))
+        self.REMOVE_TARGETS = ast.literal_eval(get_option('SETUP', 'REMOVETARGETS'))
 
     def local_run(self):
         assert self.SUBDIR != ''
