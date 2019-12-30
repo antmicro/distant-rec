@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RBE="/b/w/f"
+RBE="/b/f/w"
 P1="${PWD//\//\\/}"
 P2="${RBE//\//\\/}"
 
