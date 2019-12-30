@@ -22,3 +22,7 @@ LOCALCACHE=yes
 THREADS=3
 #Verbose output - for debugging
 VERBOSE=yes
+#Some targets may need to be performed locally before sending it to a remote instance
+LOCALTARGETS=['sdf_timing', 'other_target']
+#Perhaps some targets shouldn't be executed at all - they may tamper with the build
+REMOTETARGETS=['all_conda']
