@@ -44,10 +44,10 @@ class BuildRunner:
         resolve_symlinks_cmd = "find -type l -exec sh -c 'PREV=$(realpath -- \"$1\") && rm -- \"$1\" && cp -ar -- \"$PREV\" \"$1\"' resolver {} \;"
         cmd = "%s && %s " % (cmd_prefix, resolve_symlinks_cmd)
         subprocess.check_call(cmd, stdout=sys.stdout, stderr=sys.stderr, shell=True)
-        print("Symlinks resolved")
+        logger("Local Worker", "Symlinks resolved")
 
         for target in self.LOCAL_TARGETS:
-            print("Building local target: %s", target)
+            logger("Local Worker", "Building local target: %s" % target)
             dep_graph = DepGraphWithRemove(self.yaml_path, target, self.REMOVE_TARGETS)
 
             node = dep_graph.take()
@@ -56,7 +56,7 @@ class BuildRunner:
                     cmd = "%s && %s" % (cmd_prefix, node.exec)
                     subprocess.check_call(cmd, stdout=sys.stdout, stderr=sys.stderr, shell=True)
                 [all_targets, comp_targets] = dep_graph.mark_as_completed(node)
-                print("Local Worker: Completed [%d/%d] %s" % (comp_targets, all_targets, node.target))
+                logger("Local Worker", "Completed [%d/%d] %s" % (comp_targets, all_targets, node.target))
                 node = dep_graph.take()
 
     def run(self, target, num_threads):
@@ -118,13 +118,13 @@ class BuildRunner:
 
         if reapi != None:
             if phony == True:
-                print("Phony target, no execution.")
+                logger("Worker [%d]" % worker_id, "Phony target, no execution.")
             else:
                 cmd = ["bash", "-c", vexec]
                 ofiles = reapi.action_run(cmd, os.getcwd(), out)
 
                 if ofiles is None:
-                    print("NO OUTPUT FILES")
+                    logger("Worker [%d]" % worker_id, "NO OUTPUT FILES")
                     return -1
 
                 for blob in ofiles:
