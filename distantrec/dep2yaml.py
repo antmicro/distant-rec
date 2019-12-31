@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os, sys, re, yaml
+import os, sys, re, yaml, string, random
 import argparse
 from copy import copy
 from parse import parse
@@ -123,7 +123,7 @@ class Dep2YAML:
 
         return result
 
-    def _write_to_yaml(self, inputs, output, rule, deps):
+    def _write_to_yaml(self, inputs, output, rule, deps, multiple):
 
         deps_inner = {}
         if bool(inputs):
@@ -131,6 +131,9 @@ class Dep2YAML:
 
         deps_inner["exec"] = rule
         deps_inner["deps"] = deps
+
+        if bool(multiple):
+            deps_inner["multiple"] = multiple
 
         deps = {}
         deps[output] = deps_inner
@@ -334,8 +337,13 @@ class Dep2YAML:
                                         wb_definitions,
                                         dependencies)
 
+        if len(wb_output_list) > 1:
+            multiple = ''.join(random.choice(string.ascii_lowercase) for i in range(20))
+        else:
+            multiple = None
+
         for output in wb_output_list:
-            self._write_to_yaml(wb_explicit_deps_list, output, wb_rule, wb_implicit_deps_list)
+            self._write_to_yaml(wb_explicit_deps_list, output, wb_rule, wb_implicit_deps_list,multiple)
 
     def _get_output(self,line):
         result = parse("{option} = {output}", line)

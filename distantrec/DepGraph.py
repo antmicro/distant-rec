@@ -17,11 +17,12 @@ def measure_time(fun, *args):
 class DepNode():
     id = 0
 
-    def __init__(self, vtarget, vdeps, vexec, vinput):
+    def __init__(self, vtarget, vdeps, vexec, vinput, vmultiple):
         self.target = vtarget
         self.deps = vdeps
         self.exec = vexec
         self.input = vinput
+        self.multiple = vmultiple
 
         self._id = DepNode.id
         DepNode.id = DepNode.id + 1
@@ -44,6 +45,7 @@ class DepGraph:
     def __init__(self, yaml_path, target):
         self._depyaml = None
         self._dep_graph = None
+        self._multiple_dict = {}
         self._nodes_dict = {}
         self._amount_all = -1
         self._amount_completed = -1
@@ -75,6 +77,17 @@ class DepGraph:
         measure_time(self._prepare_graph)
 
     ### HELPER METHODS ###
+    def _add_multiple(self, multiple, node):
+        if multiple in self._multiple_dict.keys():
+            self._multiple_dict[multiple].append(node)
+        else:
+            self._multiple_dict[multiple] = [node]
+
+    def _get_multiple(self, node):
+        if node.multiple in self._multiple_dict.keys():
+            return self._multiple_dict[node.multiple]
+        else:
+            return None
 
     def _read_yaml_file(self):
         assert self._depyaml_path != None
@@ -102,10 +115,14 @@ class DepGraph:
             vexec   = self._depyaml[key]["exec"]
             vdeps   = self._depyaml[key]["deps"] if "deps" in self._depyaml[key] else None
             vinputs = self._depyaml[key]["input"] if "input" in self._depyaml[key] else None
+            vmultiple = self._depyaml[key]["multiple"] if "multiple" in self._depyaml[key] else None
 
             assert (vtarget in self._nodes_dict.keys()) == False, "Duplicated target found"
-            node = DepNode(vtarget, vdeps, vexec, vinputs)
+            node = DepNode(vtarget, vdeps, vexec, vinputs, vmultiple)
             self._nodes_dict.update({vtarget:node})
+
+            if vmultiple != None:
+                self._add_multiple(vmultiple, node)
 
         del self._depyaml
         self._depyaml = None
@@ -124,7 +141,11 @@ class DepGraph:
             if node.input != None and bool(node.input) == True:
                 for dep_target in node.input:
                     if dep_target in self._nodes_dict.keys():
-                        self._dep_graph.add_edge(node, self._nodes_dict[dep_target])
+                        if self._get_multiple(self._nodes_dict[dep_target]):
+                            for multiplenode in self._get_multiple(self._nodes_dict[dep_target]):
+                                self._dep_graph.add_edge(node, multiplenode)
+                        else:
+                            self._dep_graph.add_edge(node, self._nodes_dict[dep_target])
             if node.deps != None and bool(node.deps) == True:
                 for dep_target in node.deps:
                     if dep_target in self._nodes_dict.keys():
