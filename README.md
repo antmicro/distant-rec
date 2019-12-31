@@ -117,17 +117,20 @@ It will take a while to generate the YAML.
 This is because there are a lot of targets to process.
 
 Now we need to prepare the configuration file for the client.
-The keys you need to watch out for are `LOCALTARGETS` and `REMOVETARGETS`.
+The keys you need to watch out for are `LOCALTARGETS`, `REMOVETARGETS` and `SUBDIR`.
 
 The first one will instruct the client to perform certain steps of the build locally before starting the remote execution.
-The latter tells the client which targets should be skipped.
+The next one tells the client which targets should be skipped.
+The last one sets the directory wherein the build takes place.
 In the case of Symbiflow, we need to install the `sdf_timing` Conda package and skip the `all_conda` target (as it has already been executed locally in the previous step).
+In addition to that, the build starts from the `build` directory.
 
 The aforementioned keys should look as follows:
 
 ```ini
 LOCALTARGETS=['sdf_timing']
 REMOVETARGETS=['all_conda']
+SUBDIR=build
 ```
 
 Now everything is ready for the build.
