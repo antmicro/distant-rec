@@ -86,7 +86,7 @@ Below is the guide instructing how to run the regression tests using distant-rec
 1. Go back to the project root (`cd ..`).
 1. There's a helper script in the tools directory in this repository. Copy `vtr-helper.sh` from there to a location for binaries (e.g. `/usr/bin/`).
 1. Run `vtr-helper.sh <regression test suite>`. This will generate necessary files and remove symlinks.
-1. Produce a client input file by issuing `vtr2yaml vtr-verilog-to-routing/generated_scripts.txt`.
+1. Produce a client input file by issuing `vtr2yaml vtr-verilog-to-routing/generated_scripts.txt > vtr.yml`.
 1. Now that everything is ready, start the build by running `raclient vtr.yml all`.
 
 ### Abseil - C++ Common Libraries
