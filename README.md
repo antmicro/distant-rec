@@ -130,7 +130,8 @@ The aforementioned keys should look as follows:
 ```ini
 LOCALTARGETS=['sdf_timing']
 REMOVETARGETS=['all_conda']
-SUBDIR=build
+SUBDIR=symbiflow-arch-defs/build
+BUILDDIR=symbiflow-arch-defs
 ```
 
 Now everything is ready for the build.
