@@ -97,5 +97,3 @@ def main():
     yaml.dump(yaml_dict, sys.stdout)
 
     scripts.close()
-
-main()
