@@ -94,4 +94,47 @@ Below is the guide instructing how to run the regression tests using distant-rec
 Abseil is an open source code collection extending the C++ standard library.
 
 There is no need to adapt this project to work with Distant RE Client. 
-Simply follow the [Usage](#Usage) section to generate the input YAML file and proceed with the remote build. 
+Simply follow the [Usage](#Usage) section to generate the input YAML file and proceed with the remote build.
+
+### SymbiFlow Architecture Definitions
+
+We're currently able to compile some targets from the project using our client.
+
+Just as a reminder - make sure that you're using our version of CMake.
+
+In order to try it yourself, clone the [repository](https://github.com/SymbiFlow/symbiflow-arch-defs) and proceed with the following steps:
+
+```
+$ cd symbiflow-arch-defs
+$ git submodule update --init --recursive
+$ mkdir build
+$ cd build && cmake -G "Ninja" ../ | dep2yaml > ../../out.yml
+$ ninja all_conda
+$ cd ../..
+```
+
+It will take a while to generate the YAML.
+This is because there are a lot of targets to process.
+
+Now we need to prepare the configuration file for the client.
+The keys you need to watch out for are `LOCALTARGETS` and `REMOVETARGETS`.
+
+The first one will instruct the client to perform certain steps of the build locally before starting the remote execution.
+The latter tells the client which targets should be skipped.
+In the case of Symbiflow, we need to install the `sdf_timing` Conda package and skip the `all_conda` target (as it has already been executed locally in the previous step).
+
+The aforementioned keys should look as follows:
+
+```ini
+LOCALTARGETS=['sdf_timing']
+REMOVETARGETS=['all_conda']
+```
+
+Now everything is ready for the build.
+We've been able to build the following targets:
+
+1. `dram_test_64x1d_eblif` - this is a small target so you might want to try it first
+1. `file_xc7_archs_artix7_devices_rr_graph_xc7a50t-basys3_test.place_delay.bin`
+1. `xc7/archs/artix7/devices/xc7a50t-basys3-roi-virt/arch.timing.xml`
+
+
