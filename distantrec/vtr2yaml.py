@@ -82,6 +82,10 @@ class ScriptMangler:
         self.file_handle.close()
 
 def main():
+    if len(sys.argv) != 2:
+        print("\033[91m"+"Invalid arguments!")
+        return 1
+
     scripts = open(sys.argv[1], "r")
     scripts_read = scripts.read()
     scripts_list = scripts_read.split("\n")
@@ -90,11 +94,8 @@ def main():
 
     yaml_dict = buildyaml(scripts_list)
 
-
-    yaml_file = open("vtr.yml", "w")
-    yaml.dump(yaml_dict, yaml_file)
+    yaml.dump(yaml_dict, sys.stdout)
 
     scripts.close()
-    yaml_file.close()
 
 main()
