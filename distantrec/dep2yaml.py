@@ -100,9 +100,12 @@ class Dep2YAML:
         commands = rule.split("&&")
         for command in commands:
             if "cmake -E create_symlink" in command:
-                tmp_command = command.replace("cmake -E create_symlink", 'cp -fRu')
-                tmp_command = " ( %s || true ) " % tmp_command
+                tmp_command = command.replace("cmake -E create_symlink", 'cmake -E copy')
                 rule = rule.replace(command, tmp_command)
+
+            # TODO: Only for SymbiFlow #
+            if "cmake -E copy vpr_stdout.log" in command:
+                rule = rule.replace(command, " : ")
 
         rule = re.sub(' +', ' ', rule)
         return rule
