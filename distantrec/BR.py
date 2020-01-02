@@ -55,8 +55,8 @@ class BuildRunner:
                 if node.exec != 'phony':
                     cmd = "%s && %s" % (cmd_prefix, node.exec)
                     subprocess.check_call(cmd, stdout=sys.stdout, stderr=sys.stderr, shell=True)
-                [all_targets, comp_targets] = dep_graph.mark_as_completed(node)
-                logger("Local Worker", "Completed [%d/%d] %s" % (comp_targets, all_targets, node.target))
+                [all_targets, comp_targets, ready] = dep_graph.mark_as_completed(node)
+                logger("Local Worker", "Completed [%d/%d | %d] %s" % (comp_targets, all_targets, ready, node.target))
                 node = dep_graph.take()
 
     def run(self, target, num_threads):
@@ -85,9 +85,9 @@ class BuildRunner:
                 try:
                     self.run_target(worker_id, reapi, node.target, node.input, node.deps, node.exec)
 
-                    [all_targets, comp_targets] = dep_graph.mark_as_completed(node)
+                    [all_targets, comp_targets, ready] = dep_graph.mark_as_completed(node)
                     logger("Worker [%d]" % worker_id,
-                           "Completed [%d/%d] %s" % (comp_targets, all_targets, node.target))
+                           "Completed [%d/%d | %d] %s" % (comp_targets, all_targets, ready, node.target))
                     node = dep_graph.take()
                 except Exception as e:
                     logger('Worker %d' % worker_id, 'error, restarting.')

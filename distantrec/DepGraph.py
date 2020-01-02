@@ -184,8 +184,8 @@ class DepGraph:
                 self._ready_nodes += [node]
             elif node == self._nodes_dict[self._target]:
                 self._ready_nodes += [node]
-            else:
-                break
+            #else:
+            #    break
 
     def _prepare_compilation(self):
         assert self._dep_graph != None
@@ -259,7 +259,7 @@ class DepGraph:
             self._build_nodes.remove(node)
 
             self._amount_completed += 1
-            result = [self._amount_all, self._amount_completed]
+            result = [self._amount_all, self._amount_completed, len(self._ready_nodes)]
             return result
 
     def take(self):
@@ -292,6 +292,13 @@ class DepGraph:
     def print_nodes(self):
         for node in self._dep_graph.nodes:
             print(node)
+
+    def print_nodes_deps(self):
+        for node in self._nodes_order:
+            inputs = 0 if node.input == None else len(node.input)
+            deps = 0 if node.deps == [] else len(node.deps)
+            edges = len(self._dep_graph.edges(node))
+            print("[D|%d]: %s" % (edges, str(node)))
 
 class DepGraphWithRemove(DepGraph):
     def __init__(self, yaml_path, target, remove_list=[]):
