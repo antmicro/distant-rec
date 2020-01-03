@@ -173,19 +173,15 @@ class DepGraph:
         assert nx.is_directed_acyclic_graph(self._dep_graph) == True
 
     def _update_ready_nodes(self):
-       assert self._nodes_dict != None
+        assert self._nodes_dict != None
 
-       for node in self._nodes_order:
+        for node in self._nodes_order:
             if (node in self._build_nodes) or (node in self._ready_nodes):
                 continue
 
             desc = nx.descendants(self._dep_graph, node)
             if bool(desc) == False:
                 self._ready_nodes += [node]
-            elif node == self._nodes_dict[self._target]:
-                self._ready_nodes += [node]
-            #else:
-            #    break
 
     def _prepare_compilation(self):
         assert self._dep_graph != None
