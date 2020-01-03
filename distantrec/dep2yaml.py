@@ -20,6 +20,7 @@ class Dep2YAML:
     VARIABLE_DEFINITION = "variable_definition"
     EXPLICIT_DEPENDENCY = "explicit_dependency"
     IMPLICIT_DEPENDENCY = "implicit_dependency"
+    ORDER_ONLY_DEPENDENCY = "order_only_depenendency"
 
     ### INITIALIZATION ###
 
@@ -263,7 +264,6 @@ class Dep2YAML:
     def _process_write_build_sections(self):
         stream = self._create_string_stream()
         for line in stream:
-
             fline = self._adj_line(line)
             if Dep2YAML.WRITE_BUILD_SECTION_BEGIN in line:
                 self._process_write_build(stream)
@@ -288,6 +288,7 @@ class Dep2YAML:
         wb_definitions = {}
         wb_explicit_deps_list = []
         wb_implicit_deps_list = []
+        wb_order_only_deps_list = []
 
         for line in stream:
 
@@ -314,6 +315,8 @@ class Dep2YAML:
             if (option == Dep2YAML.IMPLICIT_DEPENDENCY):
                 wb_implicit_deps_list += [self._get_dependency(line)]
 
+            if (option == Dep2YAML.ORDER_ONLY_DEPENDENCY):
+                wb_order_only_deps_list += [self._get_dependency(line)]
 
         for i in range(len(wb_output_list)):
             output = wb_output_list[i]
@@ -332,7 +335,13 @@ class Dep2YAML:
             if os.path.isabs(dep) and self._belongs_to_project(dep):
                 wb_implicit_deps_list[i] = self._convert_to_relative_path(dep)
 
-        dependencies = wb_explicit_deps_list + wb_implicit_deps_list
+        # Convert paths from wb_order_only_deps to relative
+        for i in range(len(wb_order_only_deps_list)):
+            dep = wb_order_only_deps_list[i]
+            if os.path.isabs(dep) and self._belongs_to_project(dep):
+                wb_order_only_deps_list[i] = self._convert_to_relative_path(dep)
+
+        dependencies = wb_explicit_deps_list + wb_implicit_deps_list + wb_order_only_deps_list
 
         # Resolve variables in the rule
         wb_rule = self._resolve_wb_rule(wb_output_list,
@@ -346,7 +355,11 @@ class Dep2YAML:
             multiple = None
 
         for output in wb_output_list:
-            self._write_to_yaml(wb_explicit_deps_list, output, wb_rule, wb_implicit_deps_list,multiple)
+            self._write_to_yaml(wb_explicit_deps_list,
+                                output,
+                                wb_rule,
+                                wb_implicit_deps_list + wb_order_only_deps_list,
+                                multiple)
 
     def _get_output(self,line):
         result = parse("{option} = {output}", line)
