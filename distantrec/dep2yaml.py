@@ -341,7 +341,7 @@ class Dep2YAML:
             if os.path.isabs(dep) and self._belongs_to_project(dep):
                 wb_order_only_deps_list[i] = self._convert_to_relative_path(dep)
 
-        dependencies = wb_explicit_deps_list + wb_implicit_deps_list + wb_order_only_deps_list
+        dependencies = wb_explicit_deps_list + wb_implicit_deps_list
 
         # Resolve variables in the rule
         wb_rule = self._resolve_wb_rule(wb_output_list,
