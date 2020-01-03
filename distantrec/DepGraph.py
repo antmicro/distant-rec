@@ -149,7 +149,11 @@ class DepGraph:
             if node.deps != None and bool(node.deps) == True:
                 for dep_target in node.deps:
                     if dep_target in self._nodes_dict.keys():
-                        self._dep_graph.add_edge(node, self._nodes_dict[dep_target])
+                       	if self._get_multiple(self._nodes_dict[dep_target]):
+                            for multiplenode in self._get_multiple(self._nodes_dict[dep_target]):
+                                self._dep_graph.add_edge(node, multiplenode)
+                        else:
+                            self._dep_graph.add_edge(node, self._nodes_dict[dep_target])
 
         # Check if dependencies have no cycles
         assert nx.is_directed_acyclic_graph(self._dep_graph) == True
