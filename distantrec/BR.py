@@ -15,6 +15,7 @@ class BuildRunner:
 
         self.load_config()
         self.local_run()
+        self.targetscache = []
 
     def load_config(self):
         self.SUBDIR         = get_option('SETUP', 'SUBDIR')
@@ -63,6 +64,10 @@ class BuildRunner:
         remove_list = self.LOCAL_TARGETS + self.REMOVE_TARGETS
         dep_graph = DepGraphWithRemove(self.yaml_path, target, remove_list)
 
+        try:
+            self.targetscache = [line.rstrip('\n') for line in open('.targetscache')]
+        except IOError:
+            print("Targets cache not present.")
         threads = []
         for i in range(num_threads):
             worker = Thread(target=self.build_target, args=(i, dep_graph))
@@ -83,12 +88,17 @@ class BuildRunner:
             retry = 0
             while retry < self.RETRY_TIMES:
                 try:
-                    self.run_target(worker_id, reapi, node.target, node.input, node.deps, node.exec)
-
+                    if node.target not in self.targetscache:
+                        self.run_target(worker_id, reapi, node.target, node.input, node.deps, node.exec)
+                        with open(".targetscache", "a")as f:
+                            f.write(node.target+"\n")
+                            f.close()
+                    else:
+                        logger("Worker [%d]" % worker_id, "Target %s from local cache" % node.target)
                     [all_targets, comp_targets, ready] = dep_graph.mark_as_completed(node)
+                    node = dep_graph.take()
                     logger("Worker [%d]" % worker_id,
                            "Completed [%d/%d | %d] %s" % (comp_targets, all_targets, ready, node.target))
-                    node = dep_graph.take()
                 except Exception as e:
                     logger('Worker %d' % worker_id, 'error, restarting.')
                     logger('Worker %d' % worker_id, e)
