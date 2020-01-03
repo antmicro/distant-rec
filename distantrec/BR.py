@@ -88,7 +88,7 @@ class BuildRunner:
             retry = 0
             while retry < self.RETRY_TIMES:
                 try:
-                    if node.target not in self.targetscache:
+                    if node.target != None and node.target not in self.targetscache:
                         self.run_target(worker_id, reapi, node.target, node.input, node.deps, node.exec)
                         with open(".targetscache", "a")as f:
                             f.write(node.target+"\n")
@@ -96,9 +96,9 @@ class BuildRunner:
                     else:
                         logger("Worker [%d]" % worker_id, "Target %s from local cache" % node.target)
                     [all_targets, comp_targets, ready] = dep_graph.mark_as_completed(node)
-                    node = dep_graph.take()
                     logger("Worker [%d]" % worker_id,
                            "Completed [%d/%d | %d] %s" % (comp_targets, all_targets, ready, node.target))
+                    node = dep_graph.take()
                 except Exception as e:
                     logger('Worker %d' % worker_id, 'error, restarting.')
                     logger('Worker %d' % worker_id, e)
