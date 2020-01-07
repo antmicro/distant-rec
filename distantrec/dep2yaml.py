@@ -341,13 +341,11 @@ class Dep2YAML:
             if os.path.isabs(dep) and self._belongs_to_project(dep):
                 wb_order_only_deps_list[i] = self._convert_to_relative_path(dep)
 
-        dependencies = wb_explicit_deps_list + wb_implicit_deps_list
-
         # Resolve variables in the rule
         wb_rule = self._resolve_wb_rule(wb_output_list,
                                         wb_rule,
                                         wb_definitions,
-                                        dependencies)
+                                        wb_explicit_deps_list)
 
         if len(wb_output_list) > 1:
             multiple = ''.join(random.choice(string.ascii_lowercase) for i in range(20))
