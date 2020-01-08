@@ -25,7 +25,7 @@ class BuildRunner:
         self.INSTANCE       = get_option('SETUP', 'INSTANCE')
         self.LOCALCACHE     = get_option('SETUP', 'LOCALCACHE')
 
-        if get_option('SETUP', 'LOCALTARGETS'): 
+        if get_option('SETUP', 'LOCALTARGETS'):
             self.LOCAL_TARGETS = ast.literal_eval(get_option('SETUP', 'LOCALTARGETS'))
         else:
             self.LOCAL_TARGETS = []
@@ -64,10 +64,11 @@ class BuildRunner:
         remove_list = self.LOCAL_TARGETS + self.REMOVE_TARGETS
         dep_graph = DepGraphWithRemove(self.yaml_path, target, remove_list)
 
-        try:
-            self.targetscache = [line.rstrip('\n') for line in open('.targetscache')]
-        except IOError:
-            print("Targets cache not present.")
+        if get_option('SETUP','TARGETSCACHE') == 'yes':
+            try:
+                self.targetscache = [line.rstrip('\n') for line in open('.targetscache')]
+            except IOError:
+                print("Targets cache not present.")
         threads = []
         for i in range(num_threads):
             worker = Thread(target=self.build_target, args=(i, dep_graph))
@@ -84,28 +85,47 @@ class BuildRunner:
         server_port = self.SERVER + ':' + self.PORT
         reapi = RAC(server_port, self.INSTANCE, self.lock, worker_id)
 
-        while node != None:
-            retry = 0
-            while retry < self.RETRY_TIMES:
-                try:
-                    if node.target != None and node.target not in self.targetscache:
-                        self.run_target(worker_id, reapi, node.target, node.input, node.deps, node.exec)
-                        with open(".targetscache", "a")as f:
-                            f.write(node.target+"\n")
-                            f.close()
+        if get_option('SETUP','TARGETSCACHE') == 'yes':
+            while node != None:
+                retry = 0
+                while retry < self.RETRY_TIMES:
+                    try:
+                        if node.target != None and node.target not in self.targetscache:
+                            self.run_target(worker_id, reapi, node.target, node.input, node.deps, node.exec)
+                            with open(".targetscache", "a")as f:
+                                f.write(node.target+"\n")
+                                f.close()
+                        else:
+                            logger("Worker [%d]" % worker_id, "Target %s from local cache" % node.target)
+                        [all_targets, comp_targets, ready] = dep_graph.mark_as_completed(node)
+                        logger("Worker [%d]" % worker_id,
+                            "Completed [%d/%d | %d] %s" % (comp_targets, all_targets, ready, node.target))
+                        node = dep_graph.take()
+                    except Exception as e:
+                        logger('Worker %d' % worker_id, 'error, restarting.')
+                        logger('Worker %d' % worker_id, e)
+                        retry += 1
+                        continue
                     else:
-                        logger("Worker [%d]" % worker_id, "Target %s from local cache" % node.target)
-                    [all_targets, comp_targets, ready] = dep_graph.mark_as_completed(node)
-                    logger("Worker [%d]" % worker_id,
-                           "Completed [%d/%d | %d] %s" % (comp_targets, all_targets, ready, node.target))
-                    node = dep_graph.take()
-                except Exception as e:
-                    logger('Worker %d' % worker_id, 'error, restarting.')
-                    logger('Worker %d' % worker_id, e)
-                    retry += 1
-                    continue
-                else:
-                    break
+                        break
+        else:
+            while node != None:
+                retry = 0
+                while retry < self.RETRY_TIMES:
+                    try:
+                        self.run_target(worker_id, reapi, node.target, node.input, node.deps, node.exec)
+                        [all_targets, comp_targets, ready] = dep_graph.mark_as_completed(node)
+                        logger("Worker [%d]" % worker_id,
+                            "Completed [%d/%d | %d] %s" % (comp_targets, all_targets, ready, node.target))
+                        node = dep_graph.take()
+                    except Exception as e:
+                        logger('Worker %d' % worker_id, 'error, restarting.')
+                        logger('Worker %d' % worker_id, e)
+                        retry += 1
+                        continue
+                    else:
+                        break
+
 
         reapi.uploader.close()
 

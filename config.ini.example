@@ -26,3 +26,5 @@ VERBOSE=yes
 LOCALTARGETS=['sdf_timing', 'other_target']
 #Perhaps some targets shouldn't be executed at all - they may tamper with the build
 REMOTETARGETS=['all_conda']
+#Experimental! Create completed targets list and do not execute those during next runs. Cache stored in .targetscache.
+TARGETSCACHE=no
