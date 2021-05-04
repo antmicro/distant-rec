@@ -1,5 +1,7 @@
 # Distant Remote Execution Client
 
+Copyright (c) 2019-2021 [Antmicro](https://www.antmicro.com)
+
 This is a client for the Remote Execution API. It interacts with CAS and ActionCache to seamlessly build targets.
 
 The Distant RE Client uses project dependencies described in a YAML file to distribute builds to build systems that implement https://github.com/bazelbuild/remote-apis. Please inspect the `example.yml` file to get familiar with its schema.
